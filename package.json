@@ -1,0 +1,21 @@
+{
+  "name": "cotizador-audiovisual-editorial",
+  "version": "1.0.0",
+  "description": "Aplicación web profesional para diseñar y editar presupuestos de producción audiovisual en español rioplatense neutro.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/calc.test.mjs",
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "presupuestos",
+    "audiovisual",
+    "fotografia",
+    "video",
+    "cotizador",
+    "argentina",
+    "freelance"
+  ],
+  "author": "León Feldman",
+  "license": "MIT"
+}

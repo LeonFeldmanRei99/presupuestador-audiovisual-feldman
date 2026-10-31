@@ -1,0 +1,4228 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Propuesta Audiovisual & Presupuestos — León Feldman Reinoso</title>
+
+  <!-- Tipografías de alta gama editorial: Cormorant Garamond e Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Motor vectorial de Código QR autónomo offline -->
+  <script src="qrcode.min.js"></script>
+  <script>if (typeof QRCode === 'undefined') { document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\\/script>'); }</script>
+
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+       1. VARIABLES Y SISTEMA DE DISEÑO EDITORIAL
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      /* Paleta Original León Feldman (Papel cálido hueso / lino) */
+      --page-bg: #F2EEE6;
+      --text-main: #1C1A17;
+      --text-muted: #7A746A;
+      --accent-bordeaux: #6E2B26;
+      --line-strong: #1C1A17;
+      --line-subtle: #C9C2B5;
+      --dot-color: #B9B1A3;
+
+      /* Tipografías */
+      --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+
+      /* UI de herramientas flotantes */
+      --ui-bg: #1A1A1A;
+      --ui-border: #333333;
+      --ui-text: #E5E5E5;
+      --ui-accent: #C8A96E;
+    }
+
+    /* Tema Blanco Puro Corporativo */
+    body.theme-white {
+      --page-bg: #FFFFFF;
+      --text-main: #111111;
+      --text-muted: #666666;
+      --accent-bordeaux: #222222;
+      --line-strong: #111111;
+      --line-subtle: #DDDDDD;
+      --dot-color: #CCCCCC;
+    }
+
+    /* Tema Burdeos sobre Blanco */
+    body.theme-white-bordeaux {
+      --page-bg: #FFFFFF;
+      --text-main: #1A1816;
+      --text-muted: #706B65;
+      --accent-bordeaux: #6E2B26;
+      --line-strong: #1A1816;
+      --line-subtle: #E0DDD8;
+      --dot-color: #CBC6BE;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       2. RESET Y ESTRUCTURA BASE
+       ═══════════════════════════════════════════════════════════════ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #242424;
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 20px 80px;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       3. PANEL DE CONTROL FLOTANTE (NO SE IMPRIME)
+       ═══════════════════════════════════════════════════════════════ */
+    .control-panel {
+      position: fixed;
+      top: 14px;
+      z-index: 1000;
+      background: rgba(18, 18, 18, 0.95);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 40px;
+      padding: 8px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55);
+      color: var(--ui-text);
+      font-size: 13px;
+      max-width: 96vw;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .panel-brand {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--ui-accent);
+      padding-right: 12px;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      white-space: nowrap;
+    }
+
+    .panel-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .panel-label {
+      font-size: 11px;
+      color: #999;
+      margin-right: 2px;
+      white-space: nowrap;
+    }
+
+    .ui-select,
+    .ui-btn {
+      background: rgba(255, 255, 255, 0.08);
+      color: #F0F0F0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .ui-select:hover,
+    .ui-btn:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+
+    .ui-btn-primary {
+      background: #6E2B26;
+      border-color: #8A3731;
+      color: #FFFFFF;
+      font-weight: 600;
+      padding: 7px 18px;
+    }
+
+    .ui-btn-primary:hover {
+      background: #83342E;
+      box-shadow: 0 4px 18px rgba(110, 43, 38, 0.45);
+    }
+
+    /* Indicador visual de ayuda */
+    .editor-hint {
+      margin-top: 54px;
+      margin-bottom: 16px;
+      color: #A0A0A0;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .editor-hint-badge {
+      background: rgba(200, 169, 110, 0.18);
+      color: #D4B87A;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       4. HOJA EDITORIAL A4 WYSIWYG
+       ═══════════════════════════════════════════════════════════════ */
+    .a4-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .a4-page {
+      width: 210mm;
+      height: 297mm;
+      max-height: 297mm;
+      background-color: var(--page-bg);
+      color: var(--text-main);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      position: relative;
+      padding: 9.5mm;
+      /* Margen exterior fino de 9.5mm al filete */
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Marco perimetral fino exacto de León Feldman (0.5pt / 0.65px) */
+    .editorial-frame {
+      width: 100%;
+      height: 100%;
+      border: 0.65px solid var(--line-strong);
+      padding: 8.5mm 10.5mm 7.5mm;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       5. COMPOSICIÓN TIPOGRÁFICA INTERIOR
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* Encabezado superior */
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4.5mm;
+    }
+
+    .brand-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5px;
+    }
+
+    .brand-name {
+      font-family: var(--font-sans);
+      font-size: 7.8pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.25;
+    }
+
+    .brand-subtitle {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1.25;
+    }
+
+    .brand-link {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+      text-decoration: none;
+      line-height: 1.25;
+      display: inline-block;
+      margin-top: 1px;
+      transition: opacity 0.2s;
+    }
+
+    .brand-link:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    .header-meta-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 2.5px;
+    }
+
+    .header-date {
+      font-family: var(--font-sans);
+      font-size: 7.8pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      text-align: right;
+      line-height: 1.25;
+    }
+
+    .header-page-tag {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Bloque del Título Principal */
+    .title-block {
+      margin-bottom: 3.5mm;
+    }
+
+    .doc-title {
+      font-family: var(--font-serif);
+      font-size: 32pt;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.05;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+      margin-bottom: 1.5mm;
+    }
+
+    .project-name {
+      font-family: var(--font-serif);
+      font-size: 12.5pt;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--text-main);
+      margin-bottom: 1.8mm;
+    }
+
+    .project-meta {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* Filete horizontal editorial (0.65px) */
+    .rule-line {
+      width: 100%;
+      height: 0.65px;
+      background-color: var(--line-strong);
+      border: none;
+      margin: 0;
+    }
+
+    .rule-subtle {
+      width: 100%;
+      height: 0.5px;
+      background-color: var(--line-subtle);
+      border: none;
+      margin: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       6. SECCIONES ESPECÍFICAS DE PROPUESTA AUDIOVISUAL (ANALIPSIS)
+       ═══════════════════════════════════════════════════════════════ */
+
+    /* 1. DATOS GENERALES */
+    .meta-box-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3.5mm;
+      margin: 2.2mm 0;
+      padding: 2mm 0;
+      border-bottom: 0.5px solid var(--line-subtle);
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1mm;
+    }
+
+    .meta-label {
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .meta-value {
+      font-family: var(--font-serif);
+      font-size: 10pt;
+      font-weight: 400;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .project-summary-block {
+      margin: 2.2mm 0 2.8mm;
+    }
+
+    .summary-heading {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.2mm;
+    }
+
+    .summary-text {
+      font-family: var(--font-serif);
+      font-size: 9.3pt;
+      font-style: italic;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    /* 2. ENCABEZADO DE SECCIÓN REORDENABLE */
+    .proposal-section-block {
+      position: relative;
+      margin-bottom: 2mm;
+      transition: all 0.25s ease;
+    }
+
+    .section-title-wrap {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 2.5mm 0 1.8mm;
+    }
+
+    .section-numeral-title {
+      display: flex;
+      align-items: baseline;
+      gap: 2.5mm;
+    }
+
+    .sec-num {
+      font-family: var(--font-serif);
+      font-size: 15pt;
+      font-style: italic;
+      color: var(--accent-bordeaux);
+      line-height: 1;
+    }
+
+    .sec-title {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .section-meta-controls {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-reorder-tools {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(0, 0, 0, 0.04);
+      border: 0.5px solid var(--line-subtle);
+      border-radius: 10px;
+      padding: 1px 4px;
+      opacity: 0.55;
+      transition: opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .proposal-section-block:hover .section-reorder-tools {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-sec-tool {
+      background: none;
+      border: none;
+      color: var(--text-main);
+      font-size: 8px;
+      width: 17px;
+      height: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 8.5px;
+      transition: all 0.15s ease;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .btn-sec-tool:hover {
+      background: rgba(28, 26, 23, 0.15);
+      color: var(--accent-bordeaux);
+    }
+
+    .btn-sec-tool.btn-sec-del:hover {
+      background: rgba(192, 57, 43, 0.18);
+      color: #C0392B;
+    }
+
+    .jornadas-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+      margin-bottom: 5mm;
+    }
+
+    .jornada-card {
+      border: 0.5px solid var(--line-subtle);
+      padding: 4mm 4.5mm;
+      display: flex;
+      flex-direction: column;
+      gap: 2mm;
+      background: rgba(255, 255, 255, 0.25);
+      position: relative;
+    }
+
+    .jornada-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 0.5px dotted var(--line-subtle);
+      padding-bottom: 2mm;
+    }
+
+    .jornada-title {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .jornada-badge {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+    }
+
+    .jornada-detail {
+      font-family: var(--font-serif);
+      font-size: 9.8pt;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .jornada-deliverable-sub {
+      font-family: var(--font-serif);
+      font-size: 8.5pt;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.3;
+      margin-top: 1mm;
+      border-top: 0.5px dashed var(--line-subtle);
+      padding-top: 1.5mm;
+    }
+
+    /* 3. ENTREGABLES CONCRETOS */
+    .deliverables-box {
+      border: 0.5px solid var(--line-subtle);
+      padding: 4mm 5mm;
+      margin: 3.5mm 0 4mm;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .deliverables-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2mm;
+    }
+
+    .deliverable-line {
+      display: flex;
+      align-items: baseline;
+      gap: 2.5mm;
+      position: relative;
+    }
+
+    .deliv-dot {
+      color: var(--accent-bordeaux);
+      font-size: 9pt;
+      line-height: 1;
+    }
+
+    .deliv-text {
+      font-family: var(--font-serif);
+      font-size: 10.2pt;
+      color: var(--text-main);
+      line-height: 1.3;
+    }
+
+    .deliv-text strong {
+      font-family: var(--font-sans);
+      font-size: 7.8pt;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      margin-right: 2px;
+    }
+
+    .scope-clause-warning {
+      font-family: var(--font-serif);
+      font-size: 8.2pt;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.3;
+      margin-top: 2.5mm;
+      padding-top: 2mm;
+      border-top: 0.5px dotted var(--line-subtle);
+    }
+
+    /* Pie de página editorial con número de página */
+    .page-footer-editorial {
+      margin-top: auto;
+      padding-top: 4mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 0.65px solid var(--line-strong);
+    }
+
+    .page-footer-tag {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .page-footer-pager {
+      font-family: var(--font-sans);
+      font-size: 7pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       7. HOJA 2: HONORARIOS, GASTOS, CONDICIONES Y CIERRE
+       ═══════════════════════════════════════════════════════════════ */
+
+    .financial-table {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5mm;
+      margin: 4mm 0 5mm;
+    }
+
+    .item-entry {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .item-main-row {
+      display: flex;
+      align-items: baseline;
+      width: 100%;
+      gap: 6px;
+    }
+
+    .item-desc {
+      font-family: var(--font-serif);
+      font-size: 10.5pt;
+      font-weight: 400;
+      color: var(--text-main);
+      white-space: nowrap;
+      line-height: 1.25;
+    }
+
+    .item-dots {
+      flex: 1;
+      border-bottom: 1px dotted var(--dot-color);
+      margin-bottom: 3px;
+      min-width: 12px;
+    }
+
+    .item-amount {
+      font-family: var(--font-serif);
+      font-size: 10.8pt;
+      font-weight: 400;
+      color: var(--text-main);
+      white-space: nowrap;
+      text-align: right;
+      line-height: 1.25;
+    }
+
+    .item-subtext {
+      font-family: var(--font-serif);
+      font-size: 8.5pt;
+      font-style: italic;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.25;
+      margin-top: 0.8mm;
+      padding-right: 8mm;
+      min-height: 1.1em;
+      transition: all 0.2s ease;
+    }
+
+    .item-subtext:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted);
+      opacity: 0.35;
+      font-size: 7.5pt;
+      font-style: italic;
+      cursor: text;
+    }
+
+    .item-subtext:hover:empty::before {
+      opacity: 0.8;
+      color: var(--accent-bordeaux);
+    }
+
+    .item-entry {
+      position: relative;
+      padding-right: 18px;
+    }
+
+    .item-delete-btn {
+      position: absolute;
+      right: 0;
+      top: 1px;
+      background: none;
+      border: none;
+      color: #C0392B;
+      font-size: 11px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      padding: 1px 3px;
+    }
+
+    .item-entry:hover .item-delete-btn {
+      opacity: 0.7;
+    }
+
+    .item-delete-btn:hover {
+      opacity: 1 !important;
+    }
+
+    .add-item-trigger {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: none;
+      border: 1px dashed var(--line-subtle);
+      border-radius: 4px;
+      padding: 3.5px 8px;
+      cursor: pointer;
+      margin-top: 2.5mm;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .add-item-trigger:hover {
+      color: var(--accent-bordeaux);
+      border-color: var(--accent-bordeaux);
+      background: rgba(110, 43, 38, 0.04);
+    }
+
+    .add-section-item-trigger {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: none;
+      border: 1px dashed var(--line-subtle);
+      border-radius: 4px;
+      padding: 3px 10px;
+      cursor: pointer;
+      margin-top: 2.5mm;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .add-section-item-trigger:hover {
+      color: var(--accent-bordeaux);
+      border-color: var(--accent-bordeaux);
+      background: rgba(110, 43, 38, 0.05);
+    }
+
+    .del-btn-card {
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      background: none;
+      border: none;
+      color: #C0392B;
+      font-size: 11px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      padding: 2px 6px;
+      border-radius: 3px;
+      line-height: 1;
+    }
+
+    .jornada-card:hover .del-btn-card,
+    .condition-block:hover .del-btn-card,
+    .deliverable-line:hover .del-btn-card {
+      opacity: 0.7;
+    }
+
+    .del-btn-card:hover {
+      opacity: 1 !important;
+      background: rgba(192, 57, 43, 0.12);
+    }
+
+    .subtotal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 2mm 0;
+      border-top: 0.5px solid var(--line-strong);
+      margin-top: 2.5mm;
+    }
+
+    .subtotal-label {
+      font-family: var(--font-sans);
+      font-size: 7pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .subtotal-value {
+      font-family: var(--font-serif);
+      font-size: 15pt;
+      color: var(--accent-bordeaux);
+      line-height: 1;
+    }
+
+    /* 6. CONDICIONES COMERCIALES (GRILLA 2x2) */
+    .conditions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5.5mm 8mm;
+      margin: 4mm 0 4mm;
+    }
+
+    .condition-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5mm;
+      position: relative;
+    }
+
+    /* Modal Calculadora de Tarifas y Horas Reales */
+    .rate-calc-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+
+    .rate-calc-backdrop.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .rate-calc-modal {
+      background: #181818;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 14px;
+      width: 92%;
+      max-width: 620px;
+      padding: 22px 26px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+      color: #ECECEC;
+      font-family: var(--font-sans);
+      transform: translateY(12px);
+      transition: transform 0.2s ease;
+    }
+
+    .rate-calc-backdrop.active .rate-calc-modal {
+      transform: translateY(0);
+    }
+
+    .calc-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .calc-modal-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #D4B87A;
+      margin-bottom: 4px;
+    }
+
+    .calc-modal-subtitle {
+      font-size: 11.5px;
+      color: #8E8E8E;
+      line-height: 1.35;
+    }
+
+    .calc-close-btn {
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+
+    .calc-close-btn:hover {
+      color: #FFF;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 16px;
+      margin-bottom: 16px;
+    }
+
+    .calc-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .calc-label {
+      font-size: 10.5px;
+      color: #AAA;
+      letter-spacing: 0.04em;
+    }
+
+    .calc-input {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 6px;
+      padding: 6px 10px;
+      color: #FFF;
+      font-size: 13px;
+      font-family: var(--font-sans);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .calc-input:focus {
+      border-color: #D4B87A;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .calc-results-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .calc-res-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 11.5px;
+    }
+
+    .calc-res-label {
+      color: #9E9E9E;
+    }
+
+    .calc-res-val {
+      color: #FFF;
+      font-weight: 500;
+    }
+
+    .calc-highlight {
+      color: #D4B87A;
+      font-weight: 600;
+    }
+
+    .calc-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .condition-heading {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      border-bottom: 0.5px dotted var(--line-subtle);
+      padding-bottom: 1mm;
+    }
+
+    .condition-body {
+      font-family: var(--font-serif);
+      font-size: 9pt;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    /* 7. CIERRE, TOTAL CONSOLIDADO Y FIRMAS */
+    /* 7. CIERRE, TOTAL CONSOLIDADO Y FIRMAS */
+    .grand-total-section {
+      width: 100%;
+      margin: 2mm 0 2mm;
+      padding: 1.8mm 0;
+      border-top: 0.65px solid var(--line-strong);
+      border-bottom: 0.65px solid var(--line-strong);
+    }
+
+    .grand-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .grand-total-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8mm;
+    }
+
+    .grand-total-label {
+      font-family: var(--font-sans);
+      font-size: 8pt;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .grand-total-sub {
+      font-family: var(--font-serif);
+      font-size: 8pt;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.2;
+    }
+
+    .grand-total-figure {
+      font-family: var(--font-serif);
+      font-size: 21pt;
+      font-weight: 400;
+      color: var(--accent-bordeaux);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-align: right;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+      margin: 2.2mm 0 1.2mm;
+    }
+
+    .sig-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2mm;
+    }
+
+    .sig-line {
+      width: 100%;
+      height: 0.5px;
+      background-color: var(--line-subtle);
+      margin-bottom: 1.5mm;
+    }
+
+    .sig-name {
+      font-family: var(--font-sans);
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .sig-role {
+      font-family: var(--font-serif);
+      font-size: 8pt;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    /* Footer con QR */
+    .footer-portfolio-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.8mm;
+      padding-top: 1.8mm;
+      border-top: 0.5px dotted var(--line-subtle);
+    }
+
+    .portfolio-text-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1mm;
+    }
+
+    .portfolio-label {
+      font-family: var(--font-sans);
+      font-size: 6.8pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .portfolio-link {
+      font-family: var(--font-serif);
+      font-size: 10.5pt;
+      font-style: italic;
+      color: var(--accent-bordeaux);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: opacity 0.2s;
+      display: inline-block;
+    }
+
+    .portfolio-link:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+
+    .portfolio-note {
+      font-family: var(--font-serif);
+      font-size: 7.8pt;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.2;
+      max-width: 125mm;
+    }
+
+    .qr-stamp-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1mm;
+      cursor: pointer;
+    }
+
+    .qr-box {
+      width: 15mm;
+      height: 15mm;
+      padding: 1mm;
+      background: #FFFFFF;
+      border: 0.6px solid var(--line-strong);
+      border-radius: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    }
+
+    #qrcodeCanvas img,
+    #qrcodeCanvas canvas,
+    #qrcodeCanvasAnalipsis img,
+    #qrcodeCanvasAnalipsis canvas {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    .qr-label {
+      font-family: var(--font-sans);
+      font-size: 5.8pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      line-height: 1;
+    }
+
+    .page-footer-editorial {
+      margin-top: auto;
+      padding-top: 1.5mm;
+      border-top: 0.5px solid var(--line-subtle);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .page-footer-tag,
+    .page-footer-pager {
+      font-family: var(--font-sans);
+      font-size: 6.2pt;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       8. PLANTILLA CLÁSICA RÁPIDA (MODO 1 PÁGINA / SHOWS / EVENTOS)
+       ═══════════════════════════════════════════════════════════════ */
+    .quick-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3.5mm;
+      margin: 1.8mm 0;
+      padding: 1.5mm 0;
+      border-bottom: 0.5px solid var(--line-subtle);
+    }
+
+    .quick-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8mm;
+    }
+
+    .quick-meta-label {
+      font-family: var(--font-sans);
+      font-size: 6.2pt;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .quick-meta-value {
+      font-family: var(--font-serif);
+      font-size: 9.5pt;
+      font-weight: 400;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .quick-summary-block {
+      margin: 1.5mm 0 2mm;
+      font-family: var(--font-serif);
+      font-size: 8.8pt;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.35;
+    }
+
+    .body-content {
+      flex: 1;
+      display: flex;
+      margin-top: 2.5mm;
+      margin-bottom: 2mm;
+      position: relative;
+    }
+
+    .body-content.layout-2cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9mm;
+    }
+
+    .body-content.layout-2cols::after {
+      content: '';
+      position: absolute;
+      top: -1mm;
+      bottom: -1mm;
+      left: 50%;
+      width: 0.5px;
+      background-color: var(--line-subtle);
+      transform: translateX(-50%);
+    }
+
+    .body-content.layout-3cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+    }
+
+    .body-content.layout-3cols .option-column {
+      padding: 0 3.5mm;
+    }
+
+    .body-content.layout-3cols .option-column:not(:last-child) {
+      border-right: 0.5px solid var(--line-subtle);
+    }
+
+    .body-content.layout-3cols .option-column:first-child {
+      padding-left: 0;
+    }
+
+    .body-content.layout-3cols .option-column:last-child {
+      padding-right: 0;
+    }
+
+    .body-content.layout-3cols .option-roman {
+      font-size: 21pt;
+    }
+
+    .body-content.layout-3cols .option-name {
+      font-size: 6.8pt;
+      letter-spacing: 0.14em;
+    }
+
+    .body-content.layout-3cols .item-desc {
+      font-size: 9.2pt;
+    }
+
+    .body-content.layout-3cols .item-amount {
+      font-size: 9.2pt;
+    }
+
+    .body-content.layout-3cols .item-subtext {
+      font-size: 7.5pt;
+      padding-right: 2mm;
+    }
+
+    .body-content.layout-3cols .total-figure {
+      font-size: 18pt;
+    }
+
+    .body-content.layout-3cols .total-title {
+      font-size: 6.5pt;
+      letter-spacing: 0.14em;
+    }
+
+    .body-content.layout-1col {
+      display: flex;
+      flex-direction: column;
+      max-width: 140mm;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    .option-column {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      height: 100%;
+    }
+
+    .option-header {
+      margin-bottom: 2.8mm;
+      display: flex;
+      flex-direction: column;
+      gap: 1mm;
+    }
+
+    .option-header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5mm;
+      position: relative;
+    }
+
+    .column-header-right {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .column-reorder-tools {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(0, 0, 0, 0.04);
+      border: 0.5px solid var(--line-subtle);
+      border-radius: 10px;
+      padding: 1px 4px;
+      opacity: 0.45;
+      transition: opacity 0.2s ease, background 0.2s ease;
+    }
+
+    .option-column:hover .column-reorder-tools {
+      opacity: 1;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .option-roman {
+      font-family: var(--font-serif);
+      font-size: 25pt;
+      font-weight: 400;
+      font-style: italic;
+      color: var(--accent-bordeaux);
+      line-height: 1;
+      display: inline-block;
+    }
+
+    .option-badge {
+      font-family: var(--font-sans);
+      font-size: 5.8pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+      border: 0.5px solid var(--accent-bordeaux);
+      padding: 1.5px 5px;
+      border-radius: 2px;
+      background: rgba(110, 43, 38, 0.04);
+      display: inline-block;
+      line-height: 1.2;
+    }
+
+    .option-name {
+      font-family: var(--font-sans);
+      font-size: 7.5pt;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      line-height: 1.25;
+    }
+
+    .option-sub {
+      font-family: var(--font-serif);
+      font-size: 8.2pt;
+      font-style: italic;
+      color: var(--text-muted);
+      line-height: 1.2;
+      min-height: 1em;
+    }
+
+    .items-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2.4mm;
+      flex-grow: 1;
+    }
+
+    .total-divider {
+      width: 100%;
+      height: 0.65px;
+      background-color: var(--line-strong);
+      margin-top: 2.5mm;
+      margin-bottom: 1.8mm;
+    }
+
+    .option-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 0.5mm;
+    }
+
+    .total-title {
+      font-family: var(--font-sans);
+      font-size: 7.2pt;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .total-figure {
+      font-family: var(--font-serif);
+      font-size: 20pt;
+      font-weight: 400;
+      color: var(--accent-bordeaux);
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-align: right;
+    }
+
+    /* Condiciones comerciales en plantilla rápida */
+    .quick-conditions-section {
+      margin-top: 2mm;
+      padding-top: 1.8mm;
+      border-top: 0.65px solid var(--line-strong);
+    }
+
+    .quick-conditions-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5mm;
+    }
+
+    .quick-conditions-title {
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .quick-conditions-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm 6mm;
+    }
+
+    .quick-condition-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8mm;
+      position: relative;
+    }
+
+    .quick-condition-card:hover .del-btn-card {
+      opacity: 0.7;
+    }
+
+    .quick-condition-card .condition-heading {
+      font-family: var(--font-sans);
+      font-size: 6.2pt;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      border-bottom: 0.5px dotted var(--line-subtle);
+      padding-bottom: 0.6mm;
+    }
+
+    .quick-condition-card .condition-body {
+      font-family: var(--font-serif);
+      font-size: 8.2pt;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    /* Firmas en modo rápido */
+    .quick-signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8mm;
+      margin: 2mm 0 1mm;
+      padding-top: 1.8mm;
+      border-top: 0.5px solid var(--line-subtle);
+    }
+
+    /* Ocultar elementos */
+    .is-hidden,
+    .is-doc-hidden {
+      display: none !important;
+    }
+
+    /* WYSIWYG Editable */
+    [contenteditable="true"] {
+      outline: none;
+      cursor: text;
+      transition: background-color 0.15s ease, box-shadow 0.15s ease;
+      border-radius: 2px;
+    }
+
+    [contenteditable="true"]:hover {
+      background-color: rgba(110, 43, 38, 0.05);
+    }
+
+    [contenteditable="true"]:focus {
+      background-color: rgba(110, 43, 38, 0.08);
+      box-shadow: 0 0 0 1px rgba(110, 43, 38, 0.25);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       9. REGLAS ESTRICTAS DE IMPRESIÓN Y EXPORTACIÓN A PDF
+       ═══════════════════════════════════════════════════════════════ */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+
+      html,
+      body {
+        background: none !important;
+        background-color: #FFFFFF !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 210mm !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .control-panel,
+      .editor-hint,
+      .add-item-trigger,
+      .item-delete-btn,
+      .no-print,
+      .is-doc-hidden {
+        display: none !important;
+      }
+
+      .a4-wrapper {
+        margin: 0 !important;
+        padding: 0 !important;
+        gap: 0 !important;
+      }
+
+      .a4-page {
+        box-shadow: none !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        max-height: 297mm !important;
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .a4-page:last-child {
+        page-break-after: auto !important;
+      }
+
+      [contenteditable="true"] {
+        background: transparent !important;
+        box-shadow: none !important;
+      }
+
+      .item-subtext:empty {
+        display: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════ PANEL FLOTANTE DE CONTROL Y EXPORTACIÓN ══════════ -->
+  <header class="control-panel no-print">
+    <div class="panel-brand">LEÓN FELDMAN · STUDIO</div>
+
+    <div class="panel-group">
+      <span class="panel-label">Plantilla:</span>
+      <select class="ui-select" id="docTypeSelector" onchange="changeDocType(this.value)">
+        <option value="analipsis">📅 Mensual con visitas periódicas (2 Págs)</option>
+        <option value="jornada">🎬 Jornada de rodaje / sesión (2 Págs)</option>
+        <option value="pieza">📦 Entregable por pieza cerrada (2 Págs)</option>
+        <option value="quick">⚡ Presupuesto Rápido (1 Pág · Opciones)</option>
+      </select>
+    </div>
+
+    <div class="panel-group">
+      <span class="panel-label">Moneda:</span>
+      <select class="ui-select" id="currencySelector" onchange="changeCurrency(this.value)">
+        <option value="ARS">$ ARS (Pesos)</option>
+        <option value="USD">US$ USD (Dólares)</option>
+      </select>
+    </div>
+
+    <div class="panel-group" id="quickPresetGroup" style="display: none;">
+      <span class="panel-label">Plantilla Base:</span>
+      <select class="ui-select" id="quickPresetSelector" onchange="applyQuickPreset(this.value)">
+        <option value="quick-foto">📸 Fotografía (Estudio &amp; Campaña)</option>
+        <option value="quick-video">🎬 Video (Rodaje &amp; Posproducción)</option>
+        <option value="quick-hibrido">⚡ Híbrido (Foto &amp; Video Combinados)</option>
+        <option value="quick-custom">📄 Personalizada / Lienzo en Blanco</option>
+      </select>
+    </div>
+
+    <div class="panel-group" id="quickLayoutGroup" style="display: none;">
+      <span class="panel-label">Columnas:</span>
+      <select class="ui-select" id="layoutSelector" onchange="changeQuickLayout(this.value)">
+        <option value="layout-2cols">2 Columnas (I y II)</option>
+        <option value="layout-3cols">3 Columnas (I, II y III)</option>
+        <option value="layout-1col">1 Columna (Propuesta Única)</option>
+      </select>
+    </div>
+
+    <div class="panel-group" id="quickCustomizeGroup" style="display: none;">
+      <select class="ui-select" id="quickCustomizeSelect"
+        onchange="handleQuickCustomAction(this.value); this.value='';">
+        <option value="" disabled selected>⚙ Personalizar Simple...</option>
+        <option value="add-column">➕ Agregar Nueva Columna / Opción</option>
+        <option value="remove-last-col">➖ Quitar Última Columna</option>
+        <option value="toggle-meta">📋 Alternar Datos Cliente</option>
+        <option value="toggle-summary">📝 Alternar Resumen / Alcance</option>
+        <option value="toggle-conditions">⚖ Alternar Condiciones Comerciales</option>
+        <option value="toggle-signatures">✍ Alternar Bloque de Firmas</option>
+        <option value="add-item-col1">➕ Agregar Ítem a Columna I</option>
+        <option value="add-item-col2">➕ Agregar Ítem a Columna II</option>
+        <option value="add-item-col3">➕ Agregar Ítem a Columna III</option>
+        <option value="add-condition">➕ Agregar Término / Condición</option>
+      </select>
+    </div>
+
+    <div class="panel-group">
+      <span class="panel-label">Estilo:</span>
+      <select class="ui-select" id="themeSelector" onchange="changeTheme(this.value)">
+        <option value="original">Papel Editorial Hueso + Burdeos</option>
+        <option value="theme-white-bordeaux">Blanco Puro + Burdeos</option>
+        <option value="theme-white">Blanco Puro + Monocromo</option>
+      </select>
+    </div>
+
+    <div class="panel-group" id="quickTotalGroup" style="display: none;">
+      <span class="panel-label">Total General:</span>
+      <select class="ui-select" id="grandTotalSelector" onchange="toggleQuickGrandTotal(this.value)">
+        <option value="show">Visible (Suma I + II)</option>
+        <option value="hide">Oculto (Opciones alternativas)</option>
+      </select>
+    </div>
+
+    <div class="panel-group">
+      <span class="panel-label">QR:</span>
+      <select class="ui-select" id="qrSelector" onchange="toggleQR(this.value)">
+        <option value="show">Visible</option>
+        <option value="hide">Oculto</option>
+      </select>
+    </div>
+
+    <div class="panel-group" id="analipsisSectionsGroup">
+      <select class="ui-select" id="sectionManageSelect" onchange="handleSectionAction(this.value); this.value='';">
+        <option value="" disabled selected>📑 Secciones...</option>
+        <option value="restore">↻ Restaurar Secciones</option>
+        <option value="add-custom">+ Nueva Sección</option>
+      </select>
+    </div>
+
+    <div class="panel-group">
+      <button class="ui-btn" onclick="openRateCalculator()"
+        title="Calcular valor por jornada desglosando horas reales, equipo y viaje">🧮 Calcular Jornada</button>
+      <button class="ui-btn" onclick="saveHTMLBackup()"
+        title="Descarga un archivo HTML de esta cotización para conservarla para siempre">💾 Guardar Copia</button>
+      <button class="ui-btn" onclick="restoreOriginalExample()" title="Carga el contenido original de referencia">↻
+        Restaurar</button>
+      <button class="ui-btn ui-btn-primary" onclick="exportPDF()" title="Abre el cuadro de impresión/guardado a PDF">⎙
+        Exportar PDF</button>
+    </div>
+  </header>
+
+  <!-- ══════════ MODAL DE CÁLCULO DE JORNADA & HORAS REALES ══════════ -->
+  <div class="rate-calc-backdrop no-print" id="rateCalcModal" onclick="handleBackdropClick(event)">
+    <div class="rate-calc-modal">
+      <div class="calc-modal-header">
+        <div>
+          <h2 class="calc-modal-title">Calculadora de Tarifas &amp; Jornadas</h2>
+          <p class="calc-modal-subtitle">Estimá el costo por jornada desglosando horas reales de trabajo, equipo y
+            movilidad.</p>
+        </div>
+        <button class="calc-close-btn" onclick="closeRateCalculator()">✕</button>
+      </div>
+
+      <div class="calc-grid">
+        <div class="calc-input-group">
+          <label class="calc-label">Horas Rodaje en Locación (por visita)</label>
+          <input type="number" id="calcHorasRodaje" class="calc-input" value="4" min="1" max="14" oninput="calcRates()">
+        </div>
+        <div class="calc-input-group">
+          <label class="calc-label">Horas Pre-producción (guion, plan, coordinación)</label>
+          <input type="number" id="calcHorasPre" class="calc-input" value="2" min="0" max="20" oninput="calcRates()">
+        </div>
+        <div class="calc-input-group">
+          <label class="calc-label">Horas Posproducción / Edición (por jornada)</label>
+          <input type="number" id="calcHorasPost" class="calc-input" value="5" min="0" max="40" oninput="calcRates()">
+        </div>
+        <div class="calc-input-group">
+          <label class="calc-label">Horas Traslado / Viaje (ida y vuelta)</label>
+          <input type="number" id="calcHorasViaje" class="calc-input" value="2" min="0" max="10" oninput="calcRates()">
+        </div>
+        <div class="calc-input-group">
+          <label class="calc-label">Tarifa Profesional por Hora ($ ARS)</label>
+          <input type="number" id="calcTarifaHora" class="calc-input" value="20000" step="1000" oninput="calcRates()">
+        </div>
+        <div class="calc-input-group">
+          <label class="calc-label">Equipo Propio / Amortización Técnica ($ ARS / jor)</label>
+          <input type="number" id="calcCostoEquipo" class="calc-input" value="40000" step="5000" oninput="calcRates()">
+        </div>
+        <div class="calc-input-group">
+          <label class="calc-label">Gastos de Traslado / Viáticos ($ ARS / visita)</label>
+          <input type="number" id="calcGastoTraslado" class="calc-input" value="22500" step="2500"
+            oninput="calcRates()">
+        </div>
+        <div class="calc-input-group">
+          <label class="calc-label">Cantidad de Jornadas de Cobertura</label>
+          <input type="number" id="calcCantJornadas" class="calc-input" value="2" min="1" max="10"
+            oninput="calcRates()">
+        </div>
+      </div>
+
+      <!-- Resumen de Rentabilidad en Tiempo Real -->
+      <div class="calc-results-box">
+        <div class="calc-res-row">
+          <span class="calc-res-label">Horas Reales Invertidas por Jornada:</span>
+          <span class="calc-res-val" id="resHorasTotalesJor">11 hs trabajo (+ 2 hs viaje = 13 hs)</span>
+        </div>
+        <div class="calc-res-row">
+          <span class="calc-res-label">Honorario Sugerido por Jornada (Horas + Equipo):</span>
+          <span class="calc-res-val calc-highlight" id="resHonorarioJornada">$260.000</span>
+        </div>
+        <div class="calc-res-row">
+          <span class="calc-res-label">Subtotal Honorarios Totales (2 Jornadas):</span>
+          <span class="calc-res-val" id="resTotalHonorarios">$520.000</span>
+        </div>
+        <div class="calc-res-row">
+          <span class="calc-res-label">Subtotal Gastos de Traslado / Viáticos:</span>
+          <span class="calc-res-val" id="resTotalGastos">$45.000</span>
+        </div>
+        <div class="calc-res-row"
+          style="border-top: 1px dashed rgba(255,255,255,0.2); padding-top: 6px; margin-top: 4px;">
+          <span class="calc-res-label" style="font-weight:600; color:#E5E5E5;">TOTAL PROYECTO (Honorarios +
+            Gastos):</span>
+          <span class="calc-res-val" style="font-size: 16px; font-weight:700; color:#D4B87A;"
+            id="resTotalGeneral">$565.000</span>
+        </div>
+      </div>
+
+      <div class="calc-actions">
+        <button class="ui-btn" onclick="closeRateCalculator()">Cancelar</button>
+        <button class="ui-btn ui-btn-primary" onclick="applyRatesToProposal()">✔ Aplicar Valores a la Propuesta</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Indicador visual informativo -->
+  <div class="editor-hint no-print">
+    <span class="editor-hint-badge">WYSIWYG Activo</span>
+    <span>Hacé clic sobre cualquier texto, ítem, subtexto o monto para editar. Los cálculos se actualizan
+      automáticamente.</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DOCUMENTO 1: PROPUESTA AUDIOVISUAL INTEGRAL (ANALIPSIS)
+       Estructura formal de 2 Páginas A4
+       ═══════════════════════════════════════════════════════════════ -->
+  <main class="a4-wrapper" id="doc-analipsis">
+
+    <!-- ─── PÁGINA 1: DATOS, ALCANCE Y ENTREGABLES ─── -->
+    <section class="a4-page" id="analipsis-page-1">
+      <div class="editorial-frame">
+
+        <!-- Encabezado Pág 1 -->
+        <div class="header-top">
+          <div class="brand-block">
+            <div class="brand-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
+            <div class="brand-subtitle" contenteditable="true" spellcheck="false">FOTOGRAFÍA Y VIDEO</div>
+            <a class="brand-link" id="brandPortfolioLinkAnalipsis" href="https://leonfeldmanreino.myportfolio.com"
+              target="_blank" contenteditable="true" spellcheck="false"
+              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+          </div>
+          <div class="header-meta-right">
+            <div class="header-date" contenteditable="true" spellcheck="false">15 · 11 · 2026</div>
+            <div class="header-page-tag">PROPUESTA DE PRODUCCIÓN · PÁG. 01 / 02</div>
+          </div>
+        </div>
+
+        <!-- Título Principal -->
+        <div class="title-block">
+          <h1 class="doc-title" contenteditable="true" spellcheck="false">Propuesta de Producción</h1>
+          <div class="project-name" contenteditable="true" spellcheck="false">Campaña de Contenidos &amp; Cobertura
+            Audiovisual</div>
+          <div class="project-meta" contenteditable="true" spellcheck="false">PRODUCCIÓN EN LOCACIÓN &amp;
+            POSTPRODUCCIÓN DIGITAL</div>
+        </div>
+
+        <hr class="rule-line">
+
+        <!-- 1. DATOS GENERALES -->
+        <div class="meta-box-grid">
+          <div class="meta-item">
+            <span class="meta-label" contenteditable="true" spellcheck="false">CLIENTE</span>
+            <span class="meta-value" contenteditable="true" spellcheck="false">[Nombre del Cliente / Empresa]</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label" contenteditable="true" spellcheck="false">ATENCIÓN</span>
+            <span class="meta-value" contenteditable="true" spellcheck="false">[Nombre del Responsable /
+              Contacto]</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label" contenteditable="true" spellcheck="false">VALIDEZ</span>
+            <span class="meta-value" contenteditable="true" spellcheck="false">15 días corridos</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label" contenteditable="true" spellcheck="false">LOCACIONES</span>
+            <span class="meta-value" contenteditable="true" spellcheck="false">[A convenir / En locación]</span>
+          </div>
+        </div>
+
+        <!-- Descripción breve del proyecto -->
+        <div class="project-summary-block">
+          <div class="summary-heading" contenteditable="true" spellcheck="false">OBJETIVO &amp; SÍNTESIS NARRATIVA DEL
+            PROYECTO</div>
+          <div class="summary-text" contenteditable="true" spellcheck="false">
+            Desarrollo y cobertura de producción integral orientada a la creación de activos audiovisuales y
+            fotográficos de alto impacto estético. La propuesta contempla jornadas de registro en locación con
+            equipamiento cinematográfico profesional, captura fotográfica en alta resolución, montaje de piezas
+            dinámicas para canales digitales y curaduría de colorimetría institucional.
+          </div>
+        </div>
+
+        <hr class="rule-line">
+
+        <div class="page-sections-container" id="page1Sections">
+          <!-- 2. ALCANCE POR JORNADA -->
+          <div class="proposal-section-block" id="sec-block-jornadas" data-section-name="Alcance por Jornada">
+            <div class="section-title-wrap">
+              <div class="section-numeral-title">
+                <span class="sec-num" contenteditable="true" spellcheck="false">I</span>
+                <span class="sec-title" contenteditable="true" spellcheck="false">ALCANCE DE RODAJE POR JORNADA</span>
+              </div>
+              <div class="section-meta-controls">
+                <span class="meta-label" contenteditable="true" spellcheck="false">PLAN DE VISITAS &amp;
+                  COBERTURA</span>
+                <div class="section-reorder-tools no-print">
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)"
+                    title="Subir sección">▲</button>
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)"
+                    title="Bajar sección">▼</button>
+                  <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)"
+                    title="Eliminar sección">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="jornadas-grid" id="jornadasGridAnalipsis">
+              <div class="jornada-card">
+                <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)"
+                  title="Eliminar jornada">✕</button>
+                <div class="jornada-header">
+                  <span class="jornada-title" contenteditable="true" spellcheck="false">JORNADA 01 · [COBERTURA /
+                    LOCACIÓN]</span>
+                  <span class="jornada-badge" contenteditable="true" spellcheck="false">4 HORAS EN LOCACIÓN</span>
+                </div>
+                <div class="jornada-detail" contenteditable="true" spellcheck="false">
+                  Plan de rodaje y registro fotográfico de instalaciones, infraestructura, actividades operativas y
+                  tomas de contexto. Utilización de ópticas fijas y zoom cinematográfico para planos generales y
+                  detalle.
+                </div>
+                <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">
+                  Genera: Tomas base para piezas de video + selección curada de fotografías editadas.
+                </div>
+              </div>
+
+              <div class="jornada-card">
+                <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)"
+                  title="Eliminar jornada">✕</button>
+                <div class="jornada-header">
+                  <span class="jornada-title" contenteditable="true" spellcheck="false">JORNADA 02 · [COBERTURA /
+                    LOCACIÓN]</span>
+                  <span class="jornada-badge" contenteditable="true" spellcheck="false">4 HORAS EN LOCACIÓN</span>
+                </div>
+                <div class="jornada-detail" contenteditable="true" spellcheck="false">
+                  Cobertura de dinámicas de trabajo, interacción con el espacio, detalles de producto o servicio y
+                  testimoniales breves. Iluminación puntual de apoyo y registro sonoro directo en locación.
+                </div>
+                <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">
+                  Genera: Tomas base para piezas de video + selección curada de fotografías editadas.
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:center; margin: 2.5mm 0 2mm;">
+              <button class="add-section-item-trigger no-print" onclick="addAnalipsisJornada()">+ Agregar Jornada de
+                Visita</button>
+            </div>
+          </div>
+
+          <hr class="rule-line" style="margin: 2mm 0;">
+
+          <!-- 3. ENTREGABLES CONCRETOS (DELIMITACIÓN DE ALCANCE) -->
+          <div class="proposal-section-block" id="sec-block-deliverables" data-section-name="Listado de Entregables">
+            <div class="section-title-wrap">
+              <div class="section-numeral-title">
+                <span class="sec-num" contenteditable="true" spellcheck="false">II</span>
+                <span class="sec-title" contenteditable="true" spellcheck="false">LISTADO DE ENTREGABLES FINALES</span>
+              </div>
+              <div class="section-meta-controls">
+                <span class="meta-label" contenteditable="true" spellcheck="false">DELIMITACIÓN DE ALCANCE</span>
+                <div class="section-reorder-tools no-print">
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)"
+                    title="Subir sección">▲</button>
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)"
+                    title="Bajar sección">▼</button>
+                  <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)"
+                    title="Eliminar sección">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="deliverables-box">
+              <div class="deliverables-list" id="deliverablesListAnalipsis">
+                <div class="deliverable-line">
+                  <span class="deliv-dot">✦</span>
+                  <span class="deliv-text" contenteditable="true" spellcheck="false">
+                    <strong>03 Videos / Reels Editados (Formato 9:16 o 16:9):</strong> De hasta 60 segundos de duración,
+                    ritmo dinámico, subtitulado sincronizado y color grade cinemático para plataformas digitales.
+                  </span>
+                  <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)"
+                    title="Eliminar entregable">✕</button>
+                </div>
+                <div class="deliverable-line">
+                  <span class="deliv-dot">✦</span>
+                  <span class="deliv-text" contenteditable="true" spellcheck="false">
+                    <strong>30 Fotografías Digitales Editadas:</strong> Revelado profesional en alta resolución para
+                    prensa, catálogo y web, más versiones optimizadas para redes sociales.
+                  </span>
+                  <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)"
+                    title="Eliminar entregable">✕</button>
+                </div>
+                <div class="deliverable-line">
+                  <span class="deliv-dot">✦</span>
+                  <span class="deliv-text" contenteditable="true" spellcheck="false">
+                    <strong>Archivos Master Finales:</strong> Entrega final vía enlace de descarga de alta velocidad en
+                    resoluciones 4K UHD y Full HD 1080p.
+                  </span>
+                  <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)"
+                    title="Eliminar entregable">✕</button>
+                </div>
+              </div>
+
+              <div style="display:flex; justify-content:center; margin-top: 2mm;">
+                <button class="add-section-item-trigger no-print" onclick="addAnalipsisDeliverable()">+ Agregar
+                  Entregable</button>
+              </div>
+
+              <div class="scope-clause-warning" contenteditable="true" spellcheck="false" style="margin-top: 2mm;">
+                * Cláusula de alcance: Todo entregable, versión, jornada de rodaje extra o gasto no contemplado
+                explícitamente en este listado se presupuestará por separado previa aprobación.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pie de Página 1 -->
+        <div class="page-footer-editorial">
+          <span class="page-footer-tag" contenteditable="true" spellcheck="false">LEÓN FELDMAN · PRODUCCIÓN AUDIOVISUAL
+            &amp; FOTOGRAFÍA</span>
+          <span class="page-footer-pager" contenteditable="true" spellcheck="false">PÁG. 01 / 02 · CONTINÚA CON
+            HONORARIOS &amp; CONDICIONES →</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ─── PÁGINA 2: HONORARIOS, GASTOS, CONDICIONES Y CIERRE ─── -->
+    <section class="a4-page" id="analipsis-page-2">
+      <div class="editorial-frame">
+
+        <!-- Encabezado Pág 2 -->
+        <div class="header-top">
+          <div class="brand-block">
+            <div class="brand-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
+            <div class="brand-subtitle" contenteditable="true" spellcheck="false">FOTOGRAFÍA Y VIDEO</div>
+            <a class="brand-link" href="https://behance.net/leonfeldman" target="_blank" contenteditable="true"
+              spellcheck="false">PORTFOLIO ONLINE ↗</a>
+          </div>
+          <div class="header-meta-right">
+            <div class="header-date" contenteditable="true" spellcheck="false">15 · 11 · 2026</div>
+            <div class="header-page-tag">PROPUESTA DE PRODUCCIÓN · PÁG. 02 / 02</div>
+          </div>
+        </div>
+
+        <!-- Título Pág 2 -->
+        <div class="title-block">
+          <h1 class="doc-title" contenteditable="true" spellcheck="false">Inversión &amp; Condiciones</h1>
+          <div class="project-name" contenteditable="true" spellcheck="false">Desglose de Honorarios, Logística y
+            Términos
+            Comerciales</div>
+          <div class="project-meta" contenteditable="true" spellcheck="false">VALORES EN PESOS ARGENTINOS (ARS) ·
+            PROPUESTA MENSUAL / PROYECTO</div>
+        </div>
+
+        <hr class="rule-line">
+
+        <div class="page-sections-container" id="page2Sections">
+          <!-- 4. HONORARIOS -->
+          <div class="proposal-section-block" id="sec-block-honorarios" data-section-name="Honorarios de Producción">
+            <div class="section-title-wrap">
+              <div class="section-numeral-title">
+                <span class="sec-num" contenteditable="true" spellcheck="false">III</span>
+                <span class="sec-title" contenteditable="true" spellcheck="false">HONORARIOS DE PRODUCCIÓN</span>
+              </div>
+              <div class="section-meta-controls">
+                <span class="meta-label" contenteditable="true" spellcheck="false">RODAJE + PRE + POST +
+                  EQUIPAMIENTO</span>
+                <div class="section-reorder-tools no-print">
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)"
+                    title="Subir sección">▲</button>
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)"
+                    title="Bajar sección">▼</button>
+                  <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)"
+                    title="Eliminar sección">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="financial-table" id="table-honorarios">
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Jornada 01 · Cobertura, Rodaje &amp;
+                    Postproducción</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcAnalipsisTotals()">$280.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ subtexto explicativo">
+                  Pre-producción + rodaje en locación + equipamiento técnico propio + montaje, edición y color
+                </div>
+                <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+              </div>
+
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Jornada 02 · Cobertura, Rodaje &amp;
+                    Postproducción</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcAnalipsisTotals()">$280.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ subtexto explicativo">
+                  Pre-producción + rodaje en locación + equipamiento técnico propio + montaje, edición y color
+                </div>
+                <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:center; margin: 2mm 0 1.5mm;">
+              <button class="add-item-trigger no-print" onclick="addAnalipsisItem('table-honorarios')">+ Agregar Ítem a
+                Honorarios</button>
+            </div>
+
+            <div class="subtotal-row">
+              <span class="subtotal-label" contenteditable="true" spellcheck="false">SUBTOTAL HONORARIOS
+                PROFESIONALES</span>
+              <span class="subtotal-value" id="subtotal-honorarios">$560.000</span>
+            </div>
+          </div>
+
+          <hr class="rule-line" style="margin: 2mm 0;">
+
+          <!-- 5. GASTOS ADICIONALES -->
+          <div class="proposal-section-block" id="sec-block-gastos" data-section-name="Gastos Adicionales & Logística">
+            <div class="section-title-wrap">
+              <div class="section-numeral-title">
+                <span class="sec-num" contenteditable="true" spellcheck="false">IV</span>
+                <span class="sec-title" contenteditable="true" spellcheck="false">GASTOS ADICIONALES &amp;
+                  LOGÍSTICA</span>
+              </div>
+              <div class="section-meta-controls">
+                <span class="meta-label" contenteditable="true" spellcheck="false">COSTOS OPERATIVOS SEPARADOS</span>
+                <div class="section-reorder-tools no-print">
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)"
+                    title="Subir sección">▲</button>
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)"
+                    title="Bajar sección">▼</button>
+                  <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)"
+                    title="Eliminar sección">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="financial-table" id="table-gastos">
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Logística, Traslados &amp; Viáticos
+                    Operativos</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcAnalipsisTotals()">$45.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ subtexto explicativo">
+                  Movilidad vehicular de equipo técnico, peajes y combustible para las jornadas programadas
+                </div>
+                <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:center; margin: 2mm 0 1.5mm;">
+              <button class="add-item-trigger no-print" onclick="addAnalipsisItem('table-gastos')">+ Agregar Ítem a
+                Gastos</button>
+            </div>
+
+            <div class="subtotal-row">
+              <span class="subtotal-label" contenteditable="true" spellcheck="false">SUBTOTAL GASTOS DE TRASLADO &amp;
+                LOGÍSTICA</span>
+              <span class="subtotal-value" id="subtotal-gastos">$45.000</span>
+            </div>
+          </div>
+
+          <hr class="rule-line" style="margin: 2mm 0;">
+
+          <!-- 6. CONDICIONES COMERCIALES -->
+          <div class="proposal-section-block" id="sec-block-condiciones" data-section-name="Condiciones del Servicio">
+            <div class="section-title-wrap">
+              <div class="section-numeral-title">
+                <span class="sec-num" contenteditable="true" spellcheck="false">V</span>
+                <span class="sec-title" contenteditable="true" spellcheck="false">CONDICIONES DEL SERVICIO</span>
+              </div>
+              <div class="section-meta-controls">
+                <span class="meta-label" contenteditable="true" spellcheck="false">TÉRMINOS CONTRACTUALES</span>
+                <div class="section-reorder-tools no-print">
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)"
+                    title="Subir sección">▲</button>
+                  <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)"
+                    title="Bajar sección">▼</button>
+                  <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)"
+                    title="Eliminar sección">✕</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="conditions-grid" id="conditionsGridAnalipsis">
+              <div class="condition-block">
+                <button class="del-btn-card no-print" onclick="deleteConditionBlock(this)"
+                  title="Eliminar condición">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">FORMA DE PAGO</div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  Anticipo del 50% al confirmar la propuesta para reserva de fechas en agenda. Saldo del 50% restante
+                  contra
+                  entrega de los entregables finales aprobados.
+                </div>
+              </div>
+
+              <div class="condition-block">
+                <button class="del-btn-card no-print" onclick="deleteConditionBlock(this)"
+                  title="Eliminar condición">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">RONDAS DE REVISIÓN</div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  Incluye hasta 2 rondas de ajustes de edición y color sobre las piezas listadas. Rondas o cambios
+                  estructurales
+                  posteriores se cotizan a valor hora de edición.
+                </div>
+              </div>
+
+              <div class="condition-block">
+                <button class="del-btn-card no-print" onclick="deleteConditionBlock(this)"
+                  title="Eliminar condición">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">REPROGRAMACIONES &amp; CLIMA
+                </div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  Avisos de reprogramación con al menos 48 hs de antelación. En caso de mal clima para tomas exteriores
+                  o
+                  fuerza mayor, se reasignará fecha sin penalidad.
+                </div>
+              </div>
+
+              <div class="condition-block">
+                <button class="del-btn-card no-print" onclick="deleteConditionBlock(this)"
+                  title="Eliminar condición">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">DERECHOS DE USO</div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  Licencia de uso comercial y publicitario sin vencimiento temporal para todos los canales digitales y
+                  plataformas acordadas del cliente.
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex; justify-content:center; margin: 2mm 0 1mm;">
+              <button class="add-section-item-trigger no-print" onclick="addAnalipsisCondition()">+ Agregar
+                Condición</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. CIERRE: TOTAL GENERAL Y FIRMAS -->
+        <div class="grand-total-section">
+          <div class="grand-total-row">
+            <div class="grand-total-meta">
+              <span class="grand-total-label" contenteditable="true" spellcheck="false">TOTAL GENERAL DEL
+                PROYECTO</span>
+              <span class="grand-total-sub" contenteditable="true" spellcheck="false">Honorarios profesionales de
+                producción + logística y viáticos operativos</span>
+            </div>
+            <div class="grand-total-figure" id="analipsis-grand-total" contenteditable="true" spellcheck="false">
+              $605.000</div>
+          </div>
+        </div>
+
+        <div class="signature-grid">
+          <div class="sig-col">
+            <div class="sig-line"></div>
+            <div class="sig-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
+            <div class="sig-role" contenteditable="true" spellcheck="false">Dirección de Fotografía &amp; Realización
+              Audiovisual</div>
+          </div>
+
+          <div class="sig-col">
+            <div class="sig-line"></div>
+            <div class="sig-name" contenteditable="true" spellcheck="false">[NOMBRE DEL CLIENTE / FIRMA]</div>
+            <div class="sig-role" contenteditable="true" spellcheck="false">Aceptación y Conformidad de la Propuesta
+            </div>
+          </div>
+        </div>
+
+        <!-- Sello de Portfolio y QR en Pie de Página 2 -->
+        <div class="footer-portfolio-row">
+          <div class="portfolio-text-side">
+            <span class="portfolio-label" contenteditable="true" spellcheck="false">PORTFOLIO &amp; SHOWREEL</span>
+            <a class="portfolio-link" id="footerPortfolioLinkAnalipsis" href="https://leonfeldmanreino.myportfolio.com"
+              target="_blank" contenteditable="true" spellcheck="false"
+              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+            <div class="portfolio-note" contenteditable="true" spellcheck="false">Escaneá el código para ver reels,
+              coberturas y colorimetría en alta resolución</div>
+          </div>
+
+          <div class="qr-stamp-wrap" id="qrStampWrapAnalipsis">
+            <div class="qr-box">
+              <div id="qrcodeCanvasAnalipsis"></div>
+            </div>
+            <span class="qr-label" contenteditable="true" spellcheck="false">VER REEL / QR</span>
+          </div>
+        </div>
+
+        <!-- Pager Pág 2 -->
+        <div class="page-footer-editorial" style="margin-top: 2.5mm; padding-top: 2.5mm;">
+          <span class="page-footer-tag" contenteditable="true" spellcheck="false">LEÓN FELDMAN · PRODUCCIÓN AUDIOVISUAL
+            &amp; FOTOGRAFÍA</span>
+          <span class="page-footer-pager" contenteditable="true" spellcheck="false">PÁG. 02 / 02 · CIERRE DE
+            PROPUESTA</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       DOCUMENTO 2: PRESUPUESTO RÁPIDO (1 PÁGINA / ESTILO FELI COLINA)
+       ═══════════════════════════════════════════════════════════════ -->
+  <main class="a4-wrapper is-doc-hidden" id="doc-quick">
+    <div class="a4-page" id="printablePage">
+
+      <!-- Marco fino perimetral (0.5pt) a 10mm del borde -->
+      <div class="editorial-frame">
+
+        <!-- ENCABEZADO SUPERIOR -->
+        <div class="header-top">
+          <div class="brand-block">
+            <div class="brand-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
+            <div class="brand-subtitle" contenteditable="true" spellcheck="false">FOTOGRAFÍA Y VIDEO</div>
+            <a class="brand-link" id="brandPortfolioLink" href="https://leonfeldmanreino.myportfolio.com"
+              target="_blank" contenteditable="true" spellcheck="false"
+              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+          </div>
+          <div class="header-date" contenteditable="true" spellcheck="false">14 · 10 · 2026</div>
+        </div>
+
+        <!-- TÍTULO PRINCIPAL Y METADATOS -->
+        <div class="title-block">
+          <h1 class="doc-title" contenteditable="true" spellcheck="false">Presupuesto</h1>
+          <div class="project-name" contenteditable="true" spellcheck="false">Producción Integral &amp; Cobertura</div>
+          <div class="project-meta" contenteditable="true" spellcheck="false">REGISTRO TÉCNICO · LOCACIÓN &amp; POSTPRODUCCIÓN PROFESIONAL</div>
+        </div>
+
+        <!-- LÍNEA DIVISORIA SUPERIOR -->
+        <hr class="rule-line">
+
+        <!-- 1. GRILLA DE METADATOS DEL CLIENTE (EDITABLE / TOGGLEABLE) -->
+        <div class="quick-meta-grid" id="quickMetaGrid">
+          <div class="quick-meta-item">
+            <span class="quick-meta-label" contenteditable="true" spellcheck="false">CLIENTE</span>
+            <span class="quick-meta-value" contenteditable="true" spellcheck="false">[Nombre del Cliente / Empresa]</span>
+          </div>
+          <div class="quick-meta-item">
+            <span class="quick-meta-label" contenteditable="true" spellcheck="false">ATENCIÓN</span>
+            <span class="quick-meta-value" contenteditable="true" spellcheck="false">[Contacto / Responsable]</span>
+          </div>
+          <div class="quick-meta-item">
+            <span class="quick-meta-label" contenteditable="true" spellcheck="false">VALIDEZ</span>
+            <span class="quick-meta-value" contenteditable="true" spellcheck="false">15 días corridos</span>
+          </div>
+          <div class="quick-meta-item">
+            <span class="quick-meta-label" contenteditable="true" spellcheck="false">LOCACIÓN / FORMATO</span>
+            <span class="quick-meta-value" contenteditable="true" spellcheck="false">[A convenir / En locación]</span>
+          </div>
+        </div>
+
+        <!-- Resumen breve o nota de alcance -->
+        <div class="quick-summary-block" id="quickSummaryBlock">
+          <span class="quick-summary-text" contenteditable="true" spellcheck="false">Propuesta comercial y técnica personalizada según requerimientos de producción, equipamiento y entregables finales.</span>
+        </div>
+
+        <!-- CUERPO PRINCIPAL (OPCIONES I, II Y III O PROPUESTA ÚNICA) -->
+        <div class="body-content layout-2cols" id="bodyLayoutContainer">
+
+          <!-- COLUMNA I -->
+          <div class="option-column" id="col-1">
+            <div class="option-header">
+              <div class="option-header-top">
+                <span class="option-roman" contenteditable="true" spellcheck="false">I</span>
+                <div class="column-header-right">
+                  <span class="option-badge" contenteditable="true" spellcheck="false">OPCIÓN A</span>
+                  <div class="column-reorder-tools no-print">
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnLeft('col-1')" title="Mover columna a la izquierda">◀</button>
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnRight('col-1')" title="Mover columna a la derecha">▶</button>
+                    <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteQuickColumn('col-1')" title="Eliminar columna">✕</button>
+                  </div>
+                </div>
+              </div>
+              <div class="option-name" contenteditable="true" spellcheck="false">COBERTURA ESENCIAL</div>
+              <div class="option-sub" contenteditable="true" spellcheck="false">Plan base de producción y captura técnica</div>
+            </div>
+
+            <!-- Lista de Ítems de la Opción I -->
+            <div class="items-list" id="items-col-1">
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Jornada de producción / sesión</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-1')">$220.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Operador técnico principal en locación</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-1')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Equipamiento técnico &amp; ópticas</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-1')">$90.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Cuerpo profesional, lentes prime/zoom y accesorios</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-1')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Posproducción y revelado</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-1')">incluido</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Edición digital, ajustes de color y entrega en alta resolución</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-1')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+            </div>
+
+            <button class="add-item-trigger no-print" onclick="addNewItem('col-1')">+ Agregar Ítem</button>
+
+            <!-- Total Opción I -->
+            <div class="total-divider"></div>
+            <div class="option-total-row">
+              <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
+              <span class="total-figure" id="total-col-1" contenteditable="true" spellcheck="false">$310.000</span>
+            </div>
+          </div>
+
+          <!-- COLUMNA II -->
+          <div class="option-column" id="col-2">
+            <div class="option-header">
+              <div class="option-header-top">
+                <span class="option-roman" contenteditable="true" spellcheck="false">II</span>
+                <div class="column-header-right">
+                  <span class="option-badge" contenteditable="true" spellcheck="false">RECOMENDADA</span>
+                  <div class="column-reorder-tools no-print">
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnLeft('col-2')" title="Mover columna a la izquierda">◀</button>
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnRight('col-2')" title="Mover columna a la derecha">▶</button>
+                    <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteQuickColumn('col-2')" title="Eliminar columna">✕</button>
+                  </div>
+                </div>
+              </div>
+              <div class="option-name" contenteditable="true" spellcheck="false">PRODUCCIÓN INTEGRAL</div>
+              <div class="option-sub" contenteditable="true" spellcheck="false">Cobertura extendida con mayor nivel de detalle</div>
+            </div>
+
+            <!-- Lista de Ítems de la Opción II -->
+            <div class="items-list" id="items-col-2">
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Jornada completa de producción</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-2')">$380.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Dirección técnica y operador en locación</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-2')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Iluminación puntual y soporte</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-2')">$85.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Set de luces, modificadores y micrófonos de set</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-2')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Postproducción avanzada &amp; máster</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-2')">incluido</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Curaduría fina, colorimetría institucional y 2 revisiones</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-2')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+            </div>
+
+            <button class="add-item-trigger no-print" onclick="addNewItem('col-2')">+ Agregar Ítem</button>
+
+            <!-- Total Opción II -->
+            <div class="total-divider"></div>
+            <div class="option-total-row">
+              <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
+              <span class="total-figure" id="total-col-2" contenteditable="true" spellcheck="false">$465.000</span>
+            </div>
+          </div>
+
+          <!-- COLUMNA III (TERCER PRESUPUESTO / OPCIÓN) -->
+          <div class="option-column" id="col-3" style="display: none;">
+            <div class="option-header">
+              <div class="option-header-top">
+                <span class="option-roman" contenteditable="true" spellcheck="false">III</span>
+                <div class="column-header-right">
+                  <span class="option-badge" contenteditable="true" spellcheck="false">FULL SERVICE</span>
+                  <div class="column-reorder-tools no-print">
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnLeft('col-3')" title="Mover columna a la izquierda">◀</button>
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnRight('col-3')" title="Mover columna a la derecha">▶</button>
+                    <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteQuickColumn('col-3')" title="Eliminar columna">✕</button>
+                  </div>
+                </div>
+              </div>
+              <div class="option-name" contenteditable="true" spellcheck="false">PAQUETE PREMIUM</div>
+              <div class="option-sub" contenteditable="true" spellcheck="false">Producción extendida con soporte técnico completo</div>
+            </div>
+
+            <!-- Lista de Ítems de la Opción III -->
+            <div class="items-list" id="items-col-3">
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Producción extendida con asistente</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-3')">$550.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Operador principal + asistente de cámara e iluminación</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-3')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Equipamiento completo &amp; sonido</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-3')">$140.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Set lumínico completo y captura de sonido multipista</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-3')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Postproducción integral &amp; backups</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false"
+                    onblur="recalcColumn('col-3')">incluido</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false"
+                  data-placeholder="+ detalle / subtexto">Mastering, versiones derivadas y entrega en la nube</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, 'col-3')"
+                  title="Eliminar ítem">✕</button>
+              </div>
+            </div>
+
+            <button class="add-item-trigger no-print" onclick="addNewItem('col-3')">+ Agregar Ítem</button>
+
+            <!-- Total Opción III -->
+            <div class="total-divider"></div>
+            <div class="option-total-row">
+              <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
+              <span class="total-figure" id="total-col-3" contenteditable="true" spellcheck="false">$690.000</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- APARTADO DE TOTAL GENERAL EN MODO RÁPIDO -->
+        <div class="grand-total-section" id="grandTotalSection">
+          <div class="grand-total-divider"></div>
+          <div class="grand-total-row">
+            <div class="grand-total-meta">
+              <span class="grand-total-label" contenteditable="true" spellcheck="false">TOTAL GENERAL</span>
+              <span class="grand-total-sub" contenteditable="true" spellcheck="false">Propuestas I y II
+                combinadas</span>
+            </div>
+            <div class="grand-total-figure" id="grandTotalAmount" contenteditable="true" spellcheck="false"
+              onblur="autoSave()">$779.000</div>
+          </div>
+        </div>
+
+        <!-- CONDICIONES COMERCIALES EN MODO RÁPIDO (PERSONALIZABLE / TOGGLEABLE) -->
+        <div class="quick-conditions-section" id="quickConditionsSection">
+          <div class="quick-conditions-header">
+            <span class="quick-conditions-title" contenteditable="true" spellcheck="false">TÉRMINOS &amp; CONDICIONES
+              DEL SERVICIO</span>
+            <button class="add-section-item-trigger no-print" onclick="addQuickCondition()"
+              title="Agregar nuevo término comercial">+ Agregar Término</button>
+          </div>
+          <div class="quick-conditions-grid" id="quickConditionsGrid">
+            <div class="quick-condition-card">
+              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                title="Eliminar término">✕</button>
+              <div class="condition-heading" contenteditable="true" spellcheck="false">FORMA DE PAGO</div>
+              <div class="condition-body" contenteditable="true" spellcheck="false">
+                50% anticipo al reservar fecha en agenda. Saldo restante del 50% contra entrega de los entregables
+                aprobados.
+              </div>
+            </div>
+            <div class="quick-condition-card">
+              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                title="Eliminar término">✕</button>
+              <div class="condition-heading" contenteditable="true" spellcheck="false">PLAZOS DE ENTREGA</div>
+              <div class="condition-body" contenteditable="true" spellcheck="false">
+                Tomas en crudo en 48 hs vía nube. Primer corte de edición final en 5 a 7 días hábiles a partir del
+                rodaje.
+              </div>
+            </div>
+            <div class="quick-condition-card">
+              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                title="Eliminar término">✕</button>
+              <div class="condition-heading" contenteditable="true" spellcheck="false">RONDAS DE REVISIÓN</div>
+              <div class="condition-body" contenteditable="true" spellcheck="false">
+                Incluye hasta 2 rondas de ajustes de edición y corrección de color sobre las piezas listadas.
+              </div>
+            </div>
+            <div class="quick-condition-card">
+              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                title="Eliminar término">✕</button>
+              <div class="condition-heading" contenteditable="true" spellcheck="false">DERECHOS DE USO</div>
+              <div class="condition-body" contenteditable="true" spellcheck="false">
+                Licencia de uso publicitario y de difusión sin vencimiento para redes sociales y plataformas web del
+                cliente.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FIRMAS DE CONFORMIDAD EN MODO RÁPIDO (EDITABLES / TOGGLEABLE) -->
+        <div class="quick-signature-grid" id="quickSignatureGrid">
+          <div class="sig-col">
+            <div class="sig-line"></div>
+            <div class="sig-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
+            <div class="sig-role" contenteditable="true" spellcheck="false">Dirección de Fotografía &amp; Realización
+              Audiovisual</div>
+          </div>
+          <div class="sig-col">
+            <div class="sig-line"></div>
+            <div class="sig-name" contenteditable="true" spellcheck="false">[ACEPTACIÓN DEL CLIENTE]</div>
+            <div class="sig-role" contenteditable="true" spellcheck="false">Firma, aclaración y fecha de conformidad
+            </div>
+          </div>
+        </div>
+
+        <!-- PIE CON QR Y ENLACE A PORTFOLIO -->
+        <div class="footer-portfolio-row" id="footerPortfolioRow" style="margin-top: 2mm; padding-top: 1.8mm;">
+          <div class="portfolio-text-side">
+            <span class="portfolio-label" contenteditable="true" spellcheck="false">PORTFOLIO &amp; SHOWREEL</span>
+            <a class="portfolio-link" id="footerPortfolioLink" href="https://leonfeldmanreino.myportfolio.com"
+              target="_blank" contenteditable="true" spellcheck="false"
+              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+            <div class="portfolio-note" contenteditable="true" spellcheck="false">Escaneá el código para ver reels,
+              coberturas y colorimetría en alta resolución</div>
+          </div>
+
+          <div class="qr-stamp-wrap" id="qrStampWrap" title="Clic en la URL para cambiar destino del QR">
+            <div class="qr-box">
+              <div id="qrcodeCanvas"></div>
+            </div>
+            <span class="qr-label" contenteditable="true" spellcheck="false">VER REEL / QR</span>
+          </div>
+        </div>
+
+        <!-- Pager Hoja Simple -->
+        <div class="page-footer-editorial" style="margin-top: 1.8mm; padding-top: 1.5mm;">
+          <span class="page-footer-tag" contenteditable="true" spellcheck="false">LEÓN FELDMAN · PRODUCCIÓN AUDIOVISUAL
+            &amp; FOTOGRAFÍA</span>
+          <span class="page-footer-pager" contenteditable="true" spellcheck="false">PRESUPUESTO RESUMIDO · HOJA
+            ÚNICA</span>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ══════════ LÓGICA DE CÁLCULO, FORMATO Y EXPORTACIÓN ══════════ -->
+  <script>
+    let currentCurrency = 'ARS';
+
+    function changeCurrency(curr) {
+      currentCurrency = curr;
+      const metaCurrency = document.querySelectorAll('.project-meta');
+      metaCurrency.forEach(el => {
+        if (el.textContent.includes('VALORES EN')) {
+          el.textContent = curr === 'USD'
+            ? 'VALORES EN DÓLARES (USD) · PROPUESTA DE PRODUCCIÓN'
+            : 'VALORES EN PESOS ARGENTINOS (ARS) · PROPUESTA MENSUAL / PROYECTO';
+        }
+      });
+      recalcAnalipsisTotals();
+      recalcQuickGrandTotal();
+      ['col-1', 'col-2', 'col-3'].forEach(c => recalcColumn(c));
+      autoSave();
+    }
+
+    // Cambio entre Plantillas (Analipsis, Jornada, Pieza, Quick)
+    function changeDocType(val) {
+      const docAnalipsis = document.getElementById('doc-analipsis');
+      const docQuick = document.getElementById('doc-quick');
+      const quickPresetGroup = document.getElementById('quickPresetGroup');
+      const quickLayoutGroup = document.getElementById('quickLayoutGroup');
+      const quickCustomizeGroup = document.getElementById('quickCustomizeGroup');
+      const quickTotalGroup = document.getElementById('quickTotalGroup');
+      const analipsisSectionsGroup = document.getElementById('analipsisSectionsGroup');
+
+      if (val === 'quick') {
+        docAnalipsis.classList.add('is-doc-hidden');
+        docQuick.classList.remove('is-doc-hidden');
+        if (quickPresetGroup) quickPresetGroup.style.display = 'flex';
+        if (quickLayoutGroup) quickLayoutGroup.style.display = 'flex';
+        if (quickCustomizeGroup) quickCustomizeGroup.style.display = 'flex';
+        if (quickTotalGroup) quickTotalGroup.style.display = 'flex';
+        if (analipsisSectionsGroup) analipsisSectionsGroup.style.display = 'none';
+        changeQuickLayout(document.getElementById('layoutSelector').value);
+      } else {
+        docAnalipsis.classList.remove('is-doc-hidden');
+        docQuick.classList.add('is-doc-hidden');
+        if (quickPresetGroup) quickPresetGroup.style.display = 'none';
+        if (quickLayoutGroup) quickLayoutGroup.style.display = 'none';
+        if (quickCustomizeGroup) quickCustomizeGroup.style.display = 'none';
+        if (quickTotalGroup) quickTotalGroup.style.display = 'none';
+        if (analipsisSectionsGroup) analipsisSectionsGroup.style.display = 'flex';
+
+        if (val === 'jornada') {
+          applyJornadaPreset();
+        } else if (val === 'pieza') {
+          applyPiezaPreset();
+        } else if (val === 'analipsis') {
+          applyAnalipsisPreset();
+        }
+        recalcAnalipsisTotals();
+      }
+      setTimeout(updateQR, 100);
+      autoSave();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // ESCENARIOS Y PRESETS PARA PRESUPUESTO RÁPIDO (SIMPLE)
+    // ═══════════════════════════════════════════════════════════════
+    function applyQuickPreset(presetKey) {
+      const isUSD = currentCurrency === 'USD';
+      const projName = document.querySelector('#doc-quick .project-name');
+      const projMeta = document.querySelector('#doc-quick .project-meta');
+      const summaryText = document.querySelector('#doc-quick .quick-summary-text');
+      const clientVal = document.querySelector('#doc-quick #quickMetaGrid .quick-meta-item:nth-child(1) .quick-meta-value');
+      const atnVal = document.querySelector('#doc-quick #quickMetaGrid .quick-meta-item:nth-child(2) .quick-meta-value');
+      const validezVal = document.querySelector('#doc-quick #quickMetaGrid .quick-meta-item:nth-child(3) .quick-meta-value');
+      const locVal = document.querySelector('#doc-quick #quickMetaGrid .quick-meta-item:nth-child(4) .quick-meta-value');
+
+      const col1 = document.getElementById('col-1');
+      const col2 = document.getElementById('col-2');
+      const col3 = document.getElementById('col-3');
+      const items1 = document.getElementById('items-col-1');
+      const items2 = document.getElementById('items-col-2');
+      const items3 = document.getElementById('items-col-3');
+
+      if (presetKey === 'quick-foto') {
+        if (projName) projName.textContent = 'Producción & Cobertura Fotográfica';
+        if (projMeta) projMeta.textContent = 'CAPTURA EN ALTA RESOLUCIÓN · ESTUDIO / LOCACIÓN & POSTPRODUCCIÓN';
+        if (summaryText) summaryText.textContent = 'Servicio fotográfico profesional con dirección de arte, esquemas de iluminación dedicados, captura en RAW y revelado digital minucioso.';
+        if (clientVal) clientVal.textContent = '[Cliente / Estudio / Marca]';
+        if (atnVal) atnVal.textContent = '[Dirección / Producción]';
+        if (validezVal) validezVal.textContent = '15 días corridos';
+        if (locVal) locVal.textContent = 'Estudio / Locación a convenir';
+
+        setQuickColumn(col1, items1, {
+          badge: 'ESENCIAL',
+          name: 'SESIÓN MEDIA JORNADA',
+          sub: '4 horas de toma + selección y revelado de 20 fotografías',
+          items: [
+            { desc: 'Media jornada fotográfica (4 hs)', amount: isUSD ? 190 : 190000, sub: 'Cámara full frame 61MP + lentes prime de alta definición' },
+            { desc: 'Set lumínico autónomo de apoyo', amount: isUSD ? 70 : 70000, sub: 'Flashes portátiles y modificadores suaves' },
+            { desc: 'Revelado & retoque digital (20 fotos)', amount: isUSD ? 90 : 90000, sub: 'Limpieza fina, colorimetría institucional y exportación sRGB / TIFF' },
+            { desc: 'Entrega en galería nube privada', amount: 'incluido', sub: 'Descarga directa en alta resolución sin compresión' }
+          ]
+        }, 'col-1');
+
+        setQuickColumn(col2, items2, {
+          badge: 'RECOMENDADA',
+          name: 'JORNADA COMPLETA / CAMPAÑA',
+          sub: '8 horas de cobertura + 45 fotos con retoque avanzado',
+          items: [
+            { desc: 'Jornada completa de sesión (8 hs)', amount: isUSD ? 340 : 340000, sub: 'Dirección fotográfica integral en locación o estudio' },
+            { desc: 'Set de luces y modificadores pro', amount: isUSD ? 110 : 110000, sub: 'Esquema completo multiflash y banderas de control' },
+            { desc: 'Asistente de cámara e iluminación', amount: isUSD ? 85 : 85000, sub: 'Asistencia técnica continua y control lumínico en set' },
+            { desc: 'Retoque minucioso (45 fotos)', amount: isUSD ? 190 : 190000, sub: 'Retoque editorial de piel, texturas y color grading de autor' }
+          ]
+        }, 'col-2');
+
+        setQuickColumn(col3, items3, {
+          badge: 'COBERTURA FULL',
+          name: 'CAMPAÑA TOTAL & CATÁLOGO',
+          sub: 'Jornada extendida + 70 fotos retocadas + soporte técnico',
+          items: [
+            { desc: 'Jornada extendida de estudio/exterior', amount: isUSD ? 450 : 450000, sub: 'Registro exhaustivo de producto, modelos e infraestructura' },
+            { desc: 'Dirección de arte & pre-producción', amount: isUSD ? 120 : 120000, sub: 'Moodboards, plan de tomas y coordinación de estilismo' },
+            { desc: 'Retoque publicitario de alta gama (70 fotos)', amount: isUSD ? 280 : 280000, sub: 'Edición minuciosa para vía pública, imprenta y web' },
+            { desc: 'Backups redundantes en dos discos', amount: 'incluido', sub: 'Almacenamiento seguro por 12 meses garantizado' }
+          ]
+        }, 'col-3');
+      } else if (presetKey === 'quick-video') {
+        if (projName) projName.textContent = 'Realización Audiovisual & Rodaje Cinematográfico';
+        if (projMeta) projMeta.textContent = 'PRODUCCIÓN EN LOCACIÓN · FORMATO 4K UHD & POSTPRODUCCIÓN';
+        if (summaryText) summaryText.textContent = 'Producción cinematográfica integral: rodaje con cámara cinema line, ópticas prime, sonido directo profesional y postproducción completa.';
+        if (clientVal) clientVal.textContent = '[Productora / Empresa / Artista]';
+        if (atnVal) atnVal.textContent = '[Producción Audiovisual]';
+        if (validezVal) validezVal.textContent = '15 días corridos';
+        if (locVal) locVal.textContent = 'Locación técnica a designar';
+
+        setQuickColumn(col1, items1, {
+          badge: 'OPCIÓN BÁSICA',
+          name: 'REGISTRO A UNA CÁMARA',
+          sub: 'Jornada de rodaje con estabilizador + edición de pieza principal',
+          items: [
+            { desc: 'Operador de cámara cinematográfica', amount: isUSD ? 230 : 230000, sub: 'Jornada en locación con cuerpo Cinema Line 4K' },
+            { desc: 'Set óptico prime / zoom f/2.8 & gimbal', amount: isUSD ? 100 : 100000, sub: 'Estabilizador motorizado y ópticas cinematográficas' },
+            { desc: 'Captura de sonido directo en set', amount: isUSD ? 70 : 70000, sub: 'Micrófono shotgun y sistema inalámbrico de respaldo' },
+            { desc: 'Montaje dinámico y corrección de color', amount: isUSD ? 140 : 140000, sub: 'Edición de pieza final hasta 90s + 2 rondas de ajustes' }
+          ]
+        }, 'col-1');
+
+        setQuickColumn(col2, items2, {
+          badge: 'RECOMENDADA',
+          name: 'PRODUCCIÓN MULTICÁMARA',
+          sub: 'Dos operadores de cámara sincronizados + sonido multipista',
+          items: [
+            { desc: 'Dos operadores de cámara en set', amount: isUSD ? 420 : 420000, sub: 'Cobertura sincronizada de plano general y planos detalle' },
+            { desc: 'Equipamiento dual y monitoreo', amount: isUSD ? 150 : 150000, sub: '2 cuerpos Cinema Line 4K con ópticas coincidentes' },
+            { desc: 'Sonido directo multipista', amount: isUSD ? 90 : 90000, sub: 'Línea de consola + micrófonos estéreo de ambiente' },
+            { desc: 'Montaje multicámara & color grading', amount: isUSD ? 200 : 200000, sub: 'Edición máster, mezcla de audio y colorimetría profesional' }
+          ]
+        }, 'col-2');
+
+        setQuickColumn(col3, items3, {
+          badge: 'FULL CINEMA',
+          name: 'RODAJE INTEGRAL + ADAPTACIONES',
+          sub: 'Tres operadores + sonido directo + piezas derivadas para redes',
+          items: [
+            { desc: 'Tres operadores de cámara en rodaje', amount: isUSD ? 600 : 600000, sub: 'Cobertura cinemática total a 3 puntos de vista sincronizados' },
+            { desc: 'Iluminación cinematográfica LED bicolor', amount: isUSD ? 160 : 160000, sub: 'Set de 3 luces con fresnel y softboxes para ambientación' },
+            { desc: 'Master audiovisual institucional (16:9 4K)', amount: isUSD ? 250 : 250000, sub: 'Montaje rítmico, diseño sonoro y mastering de audio' },
+            { desc: '3 Adaptaciones verticales (9:16 reels)', amount: isUSD ? 140 : 140000, sub: 'Cortes verticales con subtítulos animados listos para pauta' }
+          ]
+        }, 'col-3');
+      } else if (presetKey === 'quick-hibrido') {
+        if (projName) projName.textContent = 'Producción Híbrida (Fotografía & Video Combinados)';
+        if (projMeta) projMeta.textContent = 'COBERTURA SIMULTÁNEA · FOTO 61MP + VIDEO 4K UHD';
+        if (summaryText) summaryText.textContent = 'Cobertura combinada orientada a optimizar tiempos y presupuesto: registro audiovisual para campañas digitales y banco fotográfico de alta resolución.';
+        if (clientVal) clientVal.textContent = '[Cliente / Campaña / Marca]';
+        if (atnVal) atnVal.textContent = '[Marketing & Contenidos]';
+        if (validezVal) validezVal.textContent = '15 días corridos';
+        if (locVal) locVal.textContent = 'Estudio / Locación del proyecto';
+
+        setQuickColumn(col1, items1, {
+          badge: 'COMBO ESENCIAL',
+          name: 'FOTO + VIDEO CORTO',
+          sub: 'Media jornada híbrida: 15 fotos editadas + 1 reel dinámico',
+          items: [
+            { desc: 'Media jornada de producción híbrida', amount: isUSD ? 220 : 220000, sub: 'Operador técnico con equipamiento dual foto y video 4K' },
+            { desc: '15 Fotografías en alta resolución', amount: isUSD ? 90 : 90000, sub: 'Revelado profesional y versiones web / catálogo' },
+            { desc: '1 Video / Reel editado (hasta 45s)', amount: isUSD ? 100 : 100000, sub: 'Formato vertical 9:16 con música y subtítulos sincronizados' },
+            { desc: 'Set de luz continua y micrófono corbatero', amount: 'incluido', sub: 'Iluminación suave y captura sonora directa' }
+          ]
+        }, 'col-1');
+
+        setQuickColumn(col2, items2, {
+          badge: 'RECOMENDADO',
+          name: 'CAMPAÑA INTEGRAL DUAL',
+          sub: 'Jornada completa: 35 fotos de autor + 3 reels dinámicos',
+          items: [
+            { desc: 'Jornada completa de rodaje y fotos', amount: isUSD ? 390 : 390000, sub: 'Dirección de arte y cobertura alternada de situaciones y producto' },
+            { desc: 'Equipamiento profesional dual', amount: isUSD ? 120 : 120000, sub: 'Cuerpos 61MP y Cinema Line 4K con set óptico prime' },
+            { desc: '35 Fotos con retoque avanzado', amount: isUSD ? 180 : 180000, sub: 'Curaduría editorial para tienda online y catálogo' },
+            { desc: '3 Videos / Reels editados (9:16)', amount: isUSD ? 220 : 220000, sub: 'Montaje dinámico, efectos de sonido y gradación de color' }
+          ]
+        }, 'col-2');
+
+        setQuickColumn(col3, items3, {
+          badge: 'COBERTURA 360°',
+          name: 'PAQUETE INTEGRAL MARCA',
+          sub: 'Equipo doble (fotógrafo + videógrafo) + catálogo + spot máster',
+          items: [
+            { desc: 'Fotógrafo y realizador dedicados', amount: isUSD ? 650 : 650000, sub: 'Dos profesionales cubriendo en simultáneo toda la jornada' },
+            { desc: '50 Fotografías de campaña retocadas', amount: isUSD ? 240 : 240000, sub: 'Retoque minucioso para vía pública, imprenta y web' },
+            { desc: '1 Spot principal 16:9 + 4 reels 9:16', amount: isUSD ? 320 : 320000, sub: 'Pieza institucional máster y adaptaciones para redes' },
+            { desc: 'Iluminación, sonido y teleprompter', amount: isUSD ? 140 : 140000, sub: 'Infraestructura técnica completa para set profesional' }
+          ]
+        }, 'col-3');
+      } else if (presetKey === 'quick-custom') {
+        if (projName) projName.textContent = 'Propuesta de Producción Personalizada';
+        if (projMeta) projMeta.textContent = 'ESTRUCTURA MODULAR A MEDIDA · COTIZACIÓN DIRECTA';
+        if (summaryText) summaryText.textContent = 'Escribí acá la descripción general del proyecto, alcances convenidos y requerimientos específicos de entrega.';
+        if (clientVal) clientVal.textContent = '[Nombre del Cliente]';
+        if (atnVal) atnVal.textContent = '[Contacto]';
+        if (validezVal) validezVal.textContent = '15 días corridos';
+        if (locVal) locVal.textContent = '[Locación a convenir]';
+
+        setQuickColumn(col1, items1, {
+          badge: 'OPCIÓN I',
+          name: 'PROPUESTA BASE',
+          sub: 'Detalle o descripción de la primera opción',
+          items: [
+            { desc: 'Servicio profesional principal', amount: isUSD ? 150 : 150000, sub: 'Descripción del concepto o alcance' },
+            { desc: 'Equipamiento o recursos técnicos', amount: isUSD ? 50 : 50000, sub: 'Detalle técnico de los elementos provistos' },
+            { desc: 'Entregables aprobados', amount: 'incluido', sub: 'Formato y especificaciones de entrega' }
+          ]
+        }, 'col-1');
+
+        setQuickColumn(col2, items2, {
+          badge: 'OPCIÓN II',
+          name: 'PROPUESTA AMPLIADA',
+          sub: 'Detalle o descripción de la segunda opción',
+          items: [
+            { desc: 'Servicio profesional ampliado', amount: isUSD ? 280 : 280000, sub: 'Descripción del concepto o alcance extendido' },
+            { desc: 'Equipamiento adicional y soporte', amount: isUSD ? 80 : 80000, sub: 'Detalle técnico de los elementos adicionales' },
+            { desc: 'Entregables ampliados', amount: 'incluido', sub: 'Especificaciones y rondas de revisión incluidas' }
+          ]
+        }, 'col-2');
+
+        setQuickColumn(col3, items3, {
+          badge: 'OPCIÓN III',
+          name: 'PROPUESTA INTEGRAL',
+          sub: 'Detalle o descripción de la tercera opción',
+          items: [
+            { desc: 'Servicio completo con soporte extendido', amount: isUSD ? 420 : 420000, sub: 'Alcance integral del proyecto' },
+            { desc: 'Infraestructura técnica completa', amount: isUSD ? 120 : 120000, sub: 'Equipamiento de máxima categoría' },
+            { desc: 'Entregables máster y adaptaciones', amount: 'incluido', sub: 'Entrega final en múltiples formatos y resoluciones' }
+          ]
+        }, 'col-3');
+      }
+
+      ['col-1', 'col-2', 'col-3'].forEach(c => recalcColumn(c));
+      recalcQuickGrandTotal();
+      autoSave();
+    }
+
+    function setQuickColumn(colEl, itemsEl, data, colId) {
+      if (!colEl || !itemsEl) return;
+      const badgeEl = colEl.querySelector('.option-badge');
+      const nameEl = colEl.querySelector('.option-name');
+      const subEl = colEl.querySelector('.option-sub');
+      if (badgeEl) badgeEl.textContent = data.badge;
+      if (nameEl) nameEl.textContent = data.name;
+      if (subEl) subEl.textContent = data.sub;
+
+      itemsEl.innerHTML = data.items.map(it => `
+        <div class="item-entry">
+          <div class="item-main-row">
+            <span class="item-desc" contenteditable="true" spellcheck="false">${it.desc}</span>
+            <span class="item-dots"></span>
+            <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcColumn('${colId}')">${typeof it.amount === 'number' ? formatMoney(it.amount) : it.amount}</span>
+          </div>
+          <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle / subtexto">${it.sub || ''}</div>
+          <button class="item-delete-btn no-print" onclick="deleteItem(this, '${colId}')" title="Eliminar ítem">✕</button>
+        </div>
+      `).join('');
+    }
+
+    // Acciones de personalización y reordenamiento para Presupuesto Rápido
+    function handleQuickCustomAction(val) {
+      if (val === 'toggle-meta') {
+        const meta = document.getElementById('quickMetaGrid');
+        if (meta) meta.classList.toggle('is-hidden');
+      } else if (val === 'toggle-summary') {
+        const sum = document.getElementById('quickSummaryBlock');
+        if (sum) sum.classList.toggle('is-hidden');
+      } else if (val === 'toggle-conditions') {
+        const cond = document.getElementById('quickConditionsSection');
+        if (cond) cond.classList.toggle('is-hidden');
+      } else if (val === 'toggle-signatures') {
+        const sig = document.getElementById('quickSignatureGrid');
+        if (sig) sig.classList.toggle('is-hidden');
+      } else if (val === 'add-column') {
+        addNewQuickColumn();
+      } else if (val === 'remove-last-col') {
+        removeLastQuickColumn();
+      } else if (val === 'add-item-col1') {
+        addNewItem('col-1');
+      } else if (val === 'add-item-col2') {
+        addNewItem('col-2');
+      } else if (val === 'add-item-col3') {
+        addNewItem('col-3');
+      } else if (val === 'add-condition') {
+        addQuickCondition();
+      }
+      autoSave();
+    }
+
+    // Funciones de control de columnas fluidas
+    function moveColumnLeft(colId) {
+      const col = document.getElementById(colId);
+      if (!col) return;
+      const prev = col.previousElementSibling;
+      if (prev && prev.classList.contains('option-column')) {
+        col.parentNode.insertBefore(col, prev);
+        renumberQuickColumns();
+        autoSave();
+      }
+    }
+
+    function moveColumnRight(colId) {
+      const col = document.getElementById(colId);
+      if (!col) return;
+      const next = col.nextElementSibling;
+      if (next && next.classList.contains('option-column')) {
+        col.parentNode.insertBefore(next, col);
+        renumberQuickColumns();
+        autoSave();
+      }
+    }
+
+    function deleteQuickColumn(colId) {
+      const col = document.getElementById(colId);
+      if (!col) return;
+      const container = document.getElementById('bodyLayoutContainer');
+      const allCols = container.querySelectorAll('.option-column');
+      if (allCols.length <= 1) {
+        alert('Debe quedar al menos una columna de propuesta.');
+        return;
+      }
+      if (!confirm('¿Deseás eliminar esta columna de propuesta?')) return;
+      
+      col.remove();
+      const remainingCols = container.querySelectorAll('.option-column');
+      if (remainingCols.length === 1) {
+        document.getElementById('layoutSelector').value = 'layout-1col';
+        changeQuickLayout('layout-1col');
+      } else if (remainingCols.length === 2) {
+        document.getElementById('layoutSelector').value = 'layout-2cols';
+        changeQuickLayout('layout-2cols');
+      }
+      renumberQuickColumns();
+      recalcQuickGrandTotal();
+      autoSave();
+    }
+
+    function addNewQuickColumn() {
+      const container = document.getElementById('bodyLayoutContainer');
+      const allCols = container.querySelectorAll('.option-column');
+      const count = allCols.length;
+
+      if (count === 1) {
+        const col2 = document.getElementById('col-2');
+        if (col2) {
+          col2.style.display = 'flex';
+          document.getElementById('layoutSelector').value = 'layout-2cols';
+          changeQuickLayout('layout-2cols');
+        }
+      } else if (count === 2 || (count > 2 && document.getElementById('col-3')?.style.display === 'none')) {
+        const col3 = document.getElementById('col-3');
+        if (col3) {
+          col3.style.display = 'flex';
+          document.getElementById('layoutSelector').value = 'layout-3cols';
+          changeQuickLayout('layout-3cols');
+        }
+      } else {
+        alert('La hoja A4 simple está optimizada hasta para 3 columnas simultáneas para evitar desbordes de margen.');
+      }
+      renumberQuickColumns();
+      autoSave();
+    }
+
+    function removeLastQuickColumn() {
+      const container = document.getElementById('bodyLayoutContainer');
+      const currentLayout = document.getElementById('layoutSelector').value;
+      if (currentLayout === 'layout-3cols') {
+        document.getElementById('layoutSelector').value = 'layout-2cols';
+        changeQuickLayout('layout-2cols');
+      } else if (currentLayout === 'layout-2cols') {
+        document.getElementById('layoutSelector').value = 'layout-1col';
+        changeQuickLayout('layout-1col');
+      }
+      renumberQuickColumns();
+      autoSave();
+    }
+
+    function renumberQuickColumns() {
+      const container = document.getElementById('bodyLayoutContainer');
+      if (!container) return;
+      const cols = container.querySelectorAll('.option-column');
+      cols.forEach((col, idx) => {
+        const romanEl = col.querySelector('.option-roman');
+        if (romanEl && idx < ROMAN_NUMERALS.length) {
+          romanEl.textContent = ROMAN_NUMERALS[idx];
+        }
+      });
+    }
+
+    function addQuickCondition() {
+      const grid = document.getElementById('quickConditionsGrid');
+      if (!grid) return;
+      const card = document.createElement('div');
+      card.className = 'quick-condition-card';
+      card.innerHTML = `
+        <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)" title="Eliminar término">✕</button>
+        <div class="condition-heading" contenteditable="true" spellcheck="false">NUEVA CLÁUSULA</div>
+        <div class="condition-body" contenteditable="true" spellcheck="false">
+          Detalle y condiciones acordadas para la prestación del servicio.
+        </div>
+      `;
+      grid.appendChild(card);
+      const heading = card.querySelector('.condition-heading');
+      if (heading) {
+        heading.focus();
+        selectElementText(heading);
+      }
+      autoSave();
+    }
+
+    function deleteQuickCondition(btn) {
+      const card = btn.closest('.quick-condition-card');
+      if (card) {
+        card.remove();
+        autoSave();
+      }
+    }
+
+    function getCurrencySymbol() {
+      return currentCurrency === 'USD' ? 'US$' : '$';
+    }
+
+    function applyAnalipsisPreset() {
+      const sym = getCurrencySymbol();
+      const p1 = currentCurrency === 'USD' ? 280 : 280000;
+      const pG = currentCurrency === 'USD' ? 45 : 45000;
+
+      const title = document.querySelector('#doc-analipsis .project-name');
+      const meta = document.querySelector('#doc-analipsis .project-meta');
+      const summary = document.querySelector('#doc-analipsis .summary-text');
+      if (title) title.textContent = 'Campaña de Contenidos & Cobertura Audiovisual';
+      if (meta) meta.textContent = 'PRODUCCIÓN EN LOCACIÓN & POSTPRODUCCIÓN DIGITAL';
+      if (summary) summary.textContent = 'Desarrollo y cobertura de producción integral orientada a la creación de activos audiovisuales y fotográficos de alto impacto estético. La propuesta contempla jornadas de registro en locación con equipamiento cinematográfico profesional, captura fotográfica en alta resolución, montaje de piezas dinámicas para canales digitales y curaduría de colorimetría institucional.';
+
+      const grid = document.getElementById('jornadasGridAnalipsis');
+      if (grid) {
+        grid.innerHTML = `
+          <div class="jornada-card">
+            <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)" title="Eliminar jornada">✕</button>
+            <div class="jornada-header">
+              <span class="jornada-title" contenteditable="true" spellcheck="false">JORNADA 01 · [COBERTURA / LOCACIÓN]</span>
+              <span class="jornada-badge" contenteditable="true" spellcheck="false">4 HORAS EN LOCACIÓN</span>
+            </div>
+            <div class="jornada-detail" contenteditable="true" spellcheck="false">
+              Plan de rodaje y registro fotográfico de instalaciones, infraestructura, actividades operativas y tomas de contexto. Utilización de ópticas fijas y zoom cinematográfico para planos generales y detalle.
+            </div>
+            <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">
+              Genera: Tomas base para piezas de video + selección curada de fotografías editadas.
+            </div>
+          </div>
+          <div class="jornada-card">
+            <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)" title="Eliminar jornada">✕</button>
+            <div class="jornada-header">
+              <span class="jornada-title" contenteditable="true" spellcheck="false">JORNADA 02 · [COBERTURA / LOCACIÓN]</span>
+              <span class="jornada-badge" contenteditable="true" spellcheck="false">4 HORAS EN LOCACIÓN</span>
+            </div>
+            <div class="jornada-detail" contenteditable="true" spellcheck="false">
+              Cobertura de dinámicas de trabajo, interacción con el espacio, detalles de producto o servicio y testimoniales breves. Iluminación puntual de apoyo y registro sonoro directo en locación.
+            </div>
+            <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">
+              Genera: Tomas base para piezas de video + selección curada de fotografías editadas.
+            </div>
+          </div>
+        `;
+      }
+
+      const deliv = document.getElementById('deliverablesListAnalipsis');
+      if (deliv) {
+        deliv.innerHTML = `
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>03 Videos / Reels Editados (Formato 9:16 o 16:9):</strong> De hasta 60 segundos de duración, ritmo dinámico, subtitulado sincronizado y color grade cinemático para plataformas digitales.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>30 Fotografías Digitales Editadas:</strong> Revelado profesional en alta resolución para prensa, catálogo y web, más versiones optimizadas para redes sociales.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>Archivos Master Finales:</strong> Entrega final vía enlace de descarga de alta velocidad en resoluciones 4K UHD y Full HD 1080p.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+        `;
+      }
+
+      const hTable = document.getElementById('table-honorarios');
+      if (hTable) {
+        hTable.innerHTML = `
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Jornada 01 · Cobertura, Rodaje &amp; Postproducción</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(p1)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Pre-producción + rodaje en locación + equipamiento técnico propio + montaje, edición y color
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Jornada 02 · Cobertura, Rodaje &amp; Postproducción</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(p1)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Pre-producción + rodaje en locación + equipamiento técnico propio + montaje, edición y color
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+        `;
+      }
+
+      const gTable = document.getElementById('table-gastos');
+      if (gTable) {
+        gTable.innerHTML = `
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Logística, Traslados &amp; Viáticos Operativos</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(pG)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Movilidad vehicular de equipo técnico, peajes y combustible para las jornadas programadas
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+        `;
+      }
+    }
+
+    function applyJornadaPreset() {
+      const sym = getCurrencySymbol();
+      const pJor = currentCurrency === 'USD' ? 250 : 250000;
+      const pEq = currentCurrency === 'USD' ? 80 : 80000;
+      const pG = currentCurrency === 'USD' ? 30 : 30000;
+
+      const title = document.querySelector('#doc-analipsis .project-name');
+      const meta = document.querySelector('#doc-analipsis .project-meta');
+      const summary = document.querySelector('#doc-analipsis .summary-text');
+      if (title) title.textContent = 'Jornada de Rodaje Técnico & Cobertura Integral';
+      if (meta) meta.textContent = 'PRODUCCIÓN EN LOCACIÓN & EQUIPAMIENTO CINEMATOGRÁFICO';
+      if (summary) summary.textContent = 'Cobertura intensiva de rodaje técnico y registro fotográfico en locación. Se contempla dirección de fotografía, cámara cinema line 4K con set óptico prime/zoom, iluminación LED puntual y captura de sonido directo.';
+
+      const grid = document.getElementById('jornadasGridAnalipsis');
+      if (grid) {
+        grid.innerHTML = `
+          <div class="jornada-card">
+            <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)" title="Eliminar jornada">✕</button>
+            <div class="jornada-header">
+              <span class="jornada-title" contenteditable="true" spellcheck="false">JORNADA 01 · RODAJE EN LOCACIÓN</span>
+              <span class="jornada-badge" contenteditable="true" spellcheck="false">8 HORAS DE RODAJE</span>
+            </div>
+            <div class="jornada-detail" contenteditable="true" spellcheck="false">
+              Registro cinematográfico con cámara Sony FX3, set de lentes fijos prime y zoom f/2.8, trípode de video y gimbal estabilizador. Captura fotográfica con iluminación de apoyo y registro sonoro multipista en set.
+            </div>
+            <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">
+              Genera: Bruto catalogado + tomas de alta calidad para edición y revelado fotográfico.
+            </div>
+          </div>
+        `;
+      }
+
+      const deliv = document.getElementById('deliverablesListAnalipsis');
+      if (deliv) {
+        deliv.innerHTML = `
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>Material Bruto Completo Catalogado:</strong> Registro en tarjetas de alta velocidad, backup de seguridad en doble disco y entrega ordenada por tomas y planos.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>Master ProRes / 4K UHD de Rodaje:</strong> Tomas seleccionadas exportadas con perfil de color cinematográfico para post-producción directa.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>Selección de 25 Fotografías Reveladas:</strong> Curaduría y revelado digital en alta resolución para prensa, catálogo institucional y web.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+        `;
+      }
+
+      const hTable = document.getElementById('table-honorarios');
+      if (hTable) {
+        hTable.innerHTML = `
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Jornada Técnica de Rodaje (8 horas en locación)</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(pJor)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Dirección de fotografía, operación de cámara Cinema Line y registro de audio directo
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Equipamiento Cinematográfico &amp; Ópticas Prime</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(pEq)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Cuerpo Sony FX3, ópticas prime/zoom f/2.8, trípode de video, monitor y gimbal
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+        `;
+      }
+
+      const gTable = document.getElementById('table-gastos');
+      if (gTable) {
+        gTable.innerHTML = `
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Movilidad, Peajes &amp; Viáticos Técnicos</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(pG)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Traslado vehicular ida y vuelta a locación con equipamiento y viáticos de set
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+        `;
+      }
+    }
+
+    function applyPiezaPreset() {
+      const sym = getCurrencySymbol();
+      const pPieza = currentCurrency === 'USD' ? 420 : 420000;
+      const pPost = currentCurrency === 'USD' ? 120 : 120000;
+      const pG = currentCurrency === 'USD' ? 35 : 35000;
+
+      const title = document.querySelector('#doc-analipsis .project-name');
+      const meta = document.querySelector('#doc-analipsis .project-meta');
+      const summary = document.querySelector('#doc-analipsis .summary-text');
+      if (title) title.textContent = 'Producción Audiovisual por Pieza Cerrada (Spot Publicitario / Institucional)';
+      if (meta) meta.textContent = 'DESARROLLO INTEGRAL: PRE-PRODUCCIÓN, RODAJE Y POSTPRODUCCIÓN';
+      if (summary) summary.textContent = 'Producción llave en mano de pieza institucional/comercial. Contempla pre-producción (guion y plan de tomas), jornada de rodaje con iluminación y sonido, y post-producción integral con montaje dinámico, corrección de color y subtitulado.';
+
+      const grid = document.getElementById('jornadasGridAnalipsis');
+      if (grid) {
+        grid.innerHTML = `
+          <div class="jornada-card">
+            <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)" title="Eliminar jornada">✕</button>
+            <div class="jornada-header">
+              <span class="jornada-title" contenteditable="true" spellcheck="false">PRODUCCIÓN Y RODAJE · PIEZA PRINCIPAL</span>
+              <span class="jornada-badge" contenteditable="true" spellcheck="false">RODAJE + PRE + POST COMPLETA</span>
+            </div>
+            <div class="jornada-detail" contenteditable="true" spellcheck="false">
+              Pre-producción y coordinación de scouting, jornada de rodaje en locación con equipamiento cinematográfico y sonido directo. Postproducción integral con 2 rondas de feedback.
+            </div>
+            <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">
+              Genera: Spot institucional máster 4K UHD + 2 adaptaciones verticales (9:16) para reels/TikTok.
+            </div>
+          </div>
+        `;
+      }
+
+      const deliv = document.getElementById('deliverablesListAnalipsis');
+      if (deliv) {
+        deliv.innerHTML = `
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>01 Spot Publicitario / Institucional Máster (60s):</strong> Formato horizontal 16:9 4K UHD, montaje cinemático, corrección de color profesional y diseño sonoro.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>02 Adaptaciones Verticales (15s y 30s):</strong> Formato vertical 9:16 optimizado para Reels, Instagram Stories y TikTok con subtítulos sincronizados.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+          <div class="deliverable-line">
+            <span class="deliv-dot">✦</span>
+            <span class="deliv-text" contenteditable="true" spellcheck="false">
+              <strong>20 Fotografías Publicitarias:</strong> Tomas de producto, interacción y contexto en alta resolución para pauta digital y web.
+            </span>
+            <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+          </div>
+        `;
+      }
+
+      const hTable = document.getElementById('table-honorarios');
+      if (hTable) {
+        hTable.innerHTML = `
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Realización Integral de Pieza Audiovisual (Llave en mano)</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(pPieza)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Pre-producción, plan de tomas, rodaje en locación con equipamiento cinematográfico y post-producción integral
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Postproducción Avanzada &amp; Color Grading</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(pPost)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Montaje rítmico, mastering de audio, corrección de color institucional y 2 rondas de revisión incluidas
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+        `;
+      }
+
+      const gTable = document.getElementById('table-gastos');
+      if (gTable) {
+        gTable.innerHTML = `
+          <div class="item-entry">
+            <div class="item-main-row">
+              <span class="item-desc" contenteditable="true" spellcheck="false">Logística de Producción &amp; Catering de Rodaje</span>
+              <span class="item-dots"></span>
+              <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(pG)}</span>
+            </div>
+            <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">
+              Traslado de equipo a locación, peajes y viáticos operativos de producción
+            </div>
+            <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+          </div>
+        `;
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GESTIÓN Y REORDENAMIENTO MANUAL DE SECCIONES (SUBIR / BAJAR / ELIMINAR)
+    // ═══════════════════════════════════════════════════════════════
+    const ROMAN_NUMERALS = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+    function renumberAllSections() {
+      const sections = document.querySelectorAll('#doc-analipsis .proposal-section-block');
+      sections.forEach((sec, idx) => {
+        const numEl = sec.querySelector('.sec-num');
+        if (numEl && idx < ROMAN_NUMERALS.length) {
+          numEl.textContent = ROMAN_NUMERALS[idx];
+        }
+      });
+    }
+
+    function moveSectionUp(btn) {
+      const block = btn.closest('.proposal-section-block');
+      if (!block) return;
+
+      const prev = block.previousElementSibling;
+      if (prev && prev.classList.contains('proposal-section-block')) {
+        block.parentNode.insertBefore(block, prev);
+      } else if (block.parentNode && block.parentNode.id === 'page2Sections') {
+        const p1 = document.getElementById('page1Sections');
+        if (p1) p1.appendChild(block);
+      }
+      renumberAllSections();
+      autoSave();
+    }
+
+    function moveSectionDown(btn) {
+      const block = btn.closest('.proposal-section-block');
+      if (!block) return;
+
+      const next = block.nextElementSibling;
+      if (next && next.classList.contains('proposal-section-block')) {
+        block.parentNode.insertBefore(next, block);
+      } else if (block.parentNode && block.parentNode.id === 'page1Sections') {
+        const p2 = document.getElementById('page2Sections');
+        if (p2) p2.insertBefore(block, p2.firstChild);
+      }
+      renumberAllSections();
+      autoSave();
+    }
+
+    function deleteSectionBlock(btn) {
+      const block = btn.closest('.proposal-section-block');
+      if (!block) return;
+      const secName = block.getAttribute('data-section-name') || 'esta sección';
+
+      if (!confirm(`¿Deseás eliminar la sección "${secName}"? Las demás secciones subirán para ocupar su espacio.`)) return;
+
+      block.remove();
+      renumberAllSections();
+      recalcAnalipsisTotals();
+      autoSave();
+    }
+
+    function handleSectionAction(val) {
+      if (val === 'restore') {
+        const currDocType = document.getElementById('docTypeSelector')?.value || 'analipsis';
+        changeDocType(currDocType);
+      } else if (val === 'add-custom') {
+        const customTitle = prompt('Ingresá el título para la nueva sección:', 'SECCIÓN ADICIONAL');
+        if (!customTitle || !customTitle.trim()) return;
+
+        const p2 = document.getElementById('page2Sections');
+        if (!p2) return;
+
+        const newSec = document.createElement('div');
+        newSec.className = 'proposal-section-block';
+        newSec.setAttribute('data-section-name', customTitle.trim());
+        newSec.innerHTML = `
+          <div class="section-title-wrap">
+            <div class="section-numeral-title">
+              <span class="sec-num" contenteditable="true" spellcheck="false">•</span>
+              <span class="sec-title" contenteditable="true" spellcheck="false">${customTitle.trim().toUpperCase()}</span>
+            </div>
+            <div class="section-meta-controls">
+              <span class="meta-label" contenteditable="true" spellcheck="false">DETALLE COMPLEMENTARIO</span>
+              <div class="section-reorder-tools no-print">
+                <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)" title="Subir sección">▲</button>
+                <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)" title="Bajar sección">▼</button>
+                <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)" title="Eliminar sección">✕</button>
+              </div>
+            </div>
+          </div>
+          <div class="summary-text" contenteditable="true" spellcheck="false" style="padding: 2mm 0 3mm;">
+            Hacé clic acá para escribir el contenido o especificaciones de esta nueva sección.
+          </div>
+          <hr class="rule-line" style="margin: 2mm 0;">
+        `;
+        p2.appendChild(newSec);
+        renumberAllSections();
+        autoSave();
+      }
+    }
+
+    // Cambio dinámico de estructura en modo rápido (1 col, 2 cols o 3 cols)
+    function changeQuickLayout(val) {
+      const container = document.getElementById('bodyLayoutContainer');
+      const col2 = document.getElementById('col-2');
+      const col3 = document.getElementById('col-3');
+      const grandTotalSec = document.getElementById('grandTotalSection');
+      const grandTotalSelectGroup = document.getElementById('grandTotalSelector').closest('.panel-group');
+
+      container.classList.remove('layout-1col', 'layout-2cols', 'layout-3cols');
+
+      if (val === 'layout-1col') {
+        container.classList.add('layout-1col');
+        col2.style.display = 'none';
+        col3.style.display = 'none';
+        grandTotalSec.classList.add('is-hidden');
+        if (grandTotalSelectGroup) grandTotalSelectGroup.style.display = 'none';
+      } else if (val === 'layout-3cols') {
+        container.classList.add('layout-3cols');
+        col2.style.display = 'flex';
+        col3.style.display = 'flex';
+        if (grandTotalSelectGroup) grandTotalSelectGroup.style.display = 'flex';
+        toggleQuickGrandTotal(document.getElementById('grandTotalSelector').value);
+      } else {
+        container.classList.add('layout-2cols');
+        col2.style.display = 'flex';
+        col3.style.display = 'none';
+        if (grandTotalSelectGroup) grandTotalSelectGroup.style.display = 'flex';
+        toggleQuickGrandTotal(document.getElementById('grandTotalSelector').value);
+      }
+      autoSave();
+    }
+
+    // Toggle de visibilidad del Total General en modo rápido
+    function toggleQuickGrandTotal(val) {
+      const grandTotalSec = document.getElementById('grandTotalSection');
+      const col1Title = document.querySelector('#col-1 .total-title');
+      const col2Title = document.querySelector('#col-2 .total-title');
+
+      if (val === 'show') {
+        grandTotalSec.classList.remove('is-hidden');
+        if (col1Title && col1Title.textContent.trim() === 'TOTAL') col1Title.textContent = 'SUBTOTAL';
+        if (col2Title && col2Title.textContent.trim() === 'TOTAL') col2Title.textContent = 'SUBTOTAL';
+        recalcQuickGrandTotal();
+      } else {
+        grandTotalSec.classList.add('is-hidden');
+        if (col1Title && col1Title.textContent.trim() === 'SUBTOTAL') col1Title.textContent = 'TOTAL';
+        if (col2Title && col2Title.textContent.trim() === 'SUBTOTAL') col2Title.textContent = 'TOTAL';
+      }
+      autoSave();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // CÁLCULOS DEL DOCUMENTO ANALIPSIS (HONORARIOS + GASTOS = TOTAL)
+    // ═══════════════════════════════════════════════════════════════
+    function calcTableSum(containerId) {
+      const container = document.getElementById(containerId);
+      if (!container) return 0;
+      let total = 0;
+      const amounts = container.querySelectorAll('.item-amount');
+      amounts.forEach(el => {
+        const txt = el.textContent.trim().toLowerCase();
+        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '') {
+          total += parseMoney(txt);
+        }
+      });
+      return total;
+    }
+
+    function recalcAnalipsisTotals() {
+      const honorarios = calcTableSum('table-honorarios');
+      const gastos = calcTableSum('table-gastos');
+      const totalGeneral = honorarios + gastos;
+
+      const subH = document.getElementById('subtotal-honorarios');
+      const subG = document.getElementById('subtotal-gastos');
+      const totalG = document.getElementById('analipsis-grand-total');
+
+      if (subH) subH.textContent = formatMoney(honorarios);
+      if (subG) subG.textContent = formatMoney(gastos);
+      if (totalG) totalG.textContent = formatMoney(totalGeneral);
+
+      autoSave();
+    }
+
+    function addAnalipsisItem(containerId) {
+      const list = document.getElementById(containerId);
+      const div = document.createElement('div');
+      div.className = 'item-entry';
+      div.innerHTML = `
+        <div class="item-main-row">
+          <span class="item-desc" contenteditable="true" spellcheck="false">Nuevo concepto</span>
+          <span class="item-dots"></span>
+          <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">$0</span>
+        </div>
+        <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo"></div>
+        <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+      `;
+      list.appendChild(div);
+
+      const newDesc = div.querySelector('.item-desc');
+      newDesc.focus();
+      selectElementText(newDesc);
+      autoSave();
+    }
+
+    function deleteAnalipsisItem(btn) {
+      const entry = btn.closest('.item-entry');
+      if (entry) {
+        entry.remove();
+        recalcAnalipsisTotals();
+      }
+      autoSave();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // CALCULADORA DE TARIFAS Y HORAS REALES DE PRODUCCIÓN
+    // ═══════════════════════════════════════════════════════════════
+    function openRateCalculator() {
+      calcRates();
+      const modal = document.getElementById('rateCalcModal');
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeRateCalculator() {
+      const modal = document.getElementById('rateCalcModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.id === 'rateCalcModal') {
+        closeRateCalculator();
+      }
+    }
+
+    function calcRates() {
+      const hRodaje = parseFloat(document.getElementById('calcHorasRodaje')?.value) || 0;
+      const hPre = parseFloat(document.getElementById('calcHorasPre')?.value) || 0;
+      const hPost = parseFloat(document.getElementById('calcHorasPost')?.value) || 0;
+      const hViaje = parseFloat(document.getElementById('calcHorasViaje')?.value) || 0;
+      const tarifaHora = parseFloat(document.getElementById('calcTarifaHora')?.value) || 0;
+      const costoEquipo = parseFloat(document.getElementById('calcCostoEquipo')?.value) || 0;
+      const gastoTraslado = parseFloat(document.getElementById('calcGastoTraslado')?.value) || 0;
+      const cantJornadas = parseFloat(document.getElementById('calcCantJornadas')?.value) || 1;
+
+      const hTrabajoJor = hRodaje + hPre + hPost;
+      const hTotalesJor = hTrabajoJor + hViaje;
+      const honorarioJornada = (hTrabajoJor * tarifaHora) + costoEquipo;
+      const totalHonorarios = honorarioJornada * cantJornadas;
+      const totalGastos = gastoTraslado * cantJornadas;
+      const totalGeneral = totalHonorarios + totalGastos;
+
+      const resH = document.getElementById('resHorasTotalesJor');
+      if (resH) resH.textContent = `${hTrabajoJor} hs trabajo (+ ${hViaje} hs viaje = ${hTotalesJor} hs)`;
+
+      const resJor = document.getElementById('resHonorarioJornada');
+      if (resJor) resJor.textContent = formatMoney(honorarioJornada);
+
+      const resTotH = document.getElementById('resTotalHonorarios');
+      if (resTotH) resTotH.textContent = formatMoney(totalHonorarios);
+
+      const resTotG = document.getElementById('resTotalGastos');
+      if (resTotG) resTotG.textContent = formatMoney(totalGastos);
+
+      const resTotGen = document.getElementById('resTotalGeneral');
+      if (resTotGen) resTotGen.textContent = formatMoney(totalGeneral);
+    }
+
+    function applyRatesToProposal() {
+      const hRodaje = parseFloat(document.getElementById('calcHorasRodaje')?.value) || 3;
+      const hPre = parseFloat(document.getElementById('calcHorasPre')?.value) || 2;
+      const hPost = parseFloat(document.getElementById('calcHorasPost')?.value) || 5;
+      const hViaje = parseFloat(document.getElementById('calcHorasViaje')?.value) || 2;
+      const tarifaHora = parseFloat(document.getElementById('calcTarifaHora')?.value) || 20000;
+      const costoEquipo = parseFloat(document.getElementById('calcCostoEquipo')?.value) || 40000;
+      const gastoTraslado = parseFloat(document.getElementById('calcGastoTraslado')?.value) || 22500;
+      const cantJornadas = parseFloat(document.getElementById('calcCantJornadas')?.value) || 2;
+
+      const hTrabajoJor = hRodaje + hPre + hPost;
+      const honorarioJornada = (hTrabajoJor * tarifaHora) + costoEquipo;
+      const totalGastos = gastoTraslado * cantJornadas;
+
+      // Actualizar Jornadas en tabla de Honorarios si existen
+      const entriesH = document.querySelectorAll('#table-honorarios .item-entry');
+      if (entriesH.length >= 1) {
+        const amt1 = entriesH[0].querySelector('.item-amount');
+        const sub1 = entriesH[0].querySelector('.item-subtext');
+        if (amt1) amt1.textContent = formatMoney(honorarioJornada);
+        if (sub1) sub1.textContent = `Pre-producción (${hPre}hs) + ${hRodaje}hs rodaje en locación + equipamiento técnico propio + montaje, edición y color (${hPost}hs)`;
+      }
+      if (entriesH.length >= 2) {
+        const amt2 = entriesH[1].querySelector('.item-amount');
+        const sub2 = entriesH[1].querySelector('.item-subtext');
+        if (amt2) amt2.textContent = formatMoney(honorarioJornada);
+        if (sub2) sub2.textContent = `Pre-producción (${hPre}hs) + ${hRodaje}hs rodaje en locación + equipamiento técnico propio + montaje, edición y color (${hPost}hs)`;
+      }
+
+      // Actualizar tabla de Gastos
+      const entriesG = document.querySelectorAll('#table-gastos .item-entry');
+      if (entriesG.length >= 1) {
+        const amtG = entriesG[0].querySelector('.item-amount');
+        const subG = entriesG[0].querySelector('.item-subtext');
+        if (amtG) amtG.textContent = formatMoney(totalGastos);
+        if (subG) subG.textContent = `Movilidad vehicular de equipo técnico, peajes y viáticos para ${cantJornadas} jornadas (${hViaje}hs traslado c/u)`;
+      }
+
+      recalcAnalipsisTotals();
+      closeRateCalculator();
+      autoSave();
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GESTIÓN DINÁMICA DE JORNADAS, ENTREGABLES Y CONDICIONES
+    // ═══════════════════════════════════════════════════════════════
+    function addAnalipsisJornada() {
+      const grid = document.getElementById('jornadasGridAnalipsis');
+      if (!grid) return;
+      const count = grid.querySelectorAll('.jornada-card').length + 1;
+      const numStr = count < 10 ? '0' + count : count;
+      const card = document.createElement('div');
+      card.className = 'jornada-card';
+      card.innerHTML = `
+        <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)" title="Eliminar jornada">✕</button>
+        <div class="jornada-header">
+          <span class="jornada-title" contenteditable="true" spellcheck="false">JORNADA ${numStr} · [COBERTURA / LOCACIÓN]</span>
+          <span class="jornada-badge" contenteditable="true" spellcheck="false">4 HORAS EN LOCACIÓN</span>
+        </div>
+        <div class="jornada-detail" contenteditable="true" spellcheck="false">
+          Cobertura y registro técnico en locación con equipamiento cinematográfico profesional y captura de sonido directo.
+        </div>
+        <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">
+          Genera: Activos audiovisuales y fotografías seleccionadas para entregables finales.
+        </div>
+      `;
+      grid.appendChild(card);
+      autoSave();
+    }
+
+    function deleteJornadaCard(btn) {
+      const card = btn.closest('.jornada-card');
+      if (card) {
+        card.remove();
+        autoSave();
+      }
+    }
+
+    function addAnalipsisDeliverable() {
+      const list = document.getElementById('deliverablesListAnalipsis');
+      if (!list) return;
+      const line = document.createElement('div');
+      line.className = 'deliverable-line';
+      line.innerHTML = `
+        <span class="deliv-dot">✦</span>
+        <span class="deliv-text" contenteditable="true" spellcheck="false">
+          <strong>Nuevo Entregable:</strong> Especificación de formato, resolución, duración y destino de publicación.
+        </span>
+        <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+      `;
+      list.appendChild(line);
+      autoSave();
+    }
+
+    function deleteDeliverableLine(btn) {
+      const line = btn.closest('.deliverable-line');
+      if (line) {
+        line.remove();
+        autoSave();
+      }
+    }
+
+    function addAnalipsisCondition() {
+      const grid = document.getElementById('conditionsGridAnalipsis');
+      if (!grid) return;
+      const block = document.createElement('div');
+      block.className = 'condition-block';
+      block.innerHTML = `
+        <button class="del-btn-card no-print" onclick="deleteConditionBlock(this)" title="Eliminar condición">✕</button>
+        <div class="condition-heading" contenteditable="true" spellcheck="false">NUEVA CLÁUSULA</div>
+        <div class="condition-body" contenteditable="true" spellcheck="false">
+          Términos y especificaciones complementarias del servicio a convenir entre las partes.
+        </div>
+      `;
+      grid.appendChild(block);
+      autoSave();
+    }
+
+    function deleteConditionBlock(btn) {
+      const block = btn.closest('.condition-block');
+      if (block) {
+        block.remove();
+        autoSave();
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GESTIÓN DEL CÓDIGO QR DINÁMICO
+    // ═══════════════════════════════════════════════════════════════
+    let qrInstanceQuick = null;
+    let qrInstanceAnalipsis = null;
+
+    function getTargetURL() {
+      const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
+      let linkEl = docType === 'analipsis'
+        ? document.getElementById('footerPortfolioLinkAnalipsis')
+        : document.getElementById('footerPortfolioLink');
+
+      let text = linkEl?.textContent || 'leonfeldmanreino.myportfolio.com';
+      text = text.replace(' ↗', '').trim();
+      if (!text.startsWith('http://') && !text.startsWith('https://')) {
+        text = 'https://' + text;
+      }
+      return text;
+    }
+
+    function syncPortfolioLinks(url) {
+      const targetUrl = url || getTargetURL();
+      const allLinks = [
+        document.getElementById('brandPortfolioLink'),
+        document.getElementById('brandPortfolioLinkAnalipsis'),
+        document.getElementById('footerPortfolioLink'),
+        document.getElementById('footerPortfolioLinkAnalipsis')
+      ];
+      allLinks.forEach(l => {
+        if (l) l.href = targetUrl;
+      });
+    }
+
+    function updateQR(forcedUrl) {
+      const url = forcedUrl || getTargetURL();
+
+      // QR en modo Analipsis
+      const cAnalipsis = document.getElementById('qrcodeCanvasAnalipsis');
+      if (cAnalipsis && typeof QRCode !== 'undefined') {
+        cAnalipsis.innerHTML = '';
+        try {
+          qrInstanceAnalipsis = new QRCode(cAnalipsis, {
+            text: url,
+            width: 72,
+            height: 72,
+            colorDark: '#1C1A17',
+            colorLight: '#FFFFFF',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        } catch (e) { }
+      }
+
+      // QR en modo Quick
+      const cQuick = document.getElementById('qrcodeCanvas');
+      if (cQuick && typeof QRCode !== 'undefined') {
+        cQuick.innerHTML = '';
+        try {
+          qrInstanceQuick = new QRCode(cQuick, {
+            text: url,
+            width: 72,
+            height: 72,
+            colorDark: '#1C1A17',
+            colorLight: '#FFFFFF',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+        } catch (e) { }
+      }
+    }
+
+    function toggleQR(val) {
+      const wrapAnalipsis = document.getElementById('qrStampWrapAnalipsis');
+      const wrapQuick = document.getElementById('qrStampWrap');
+
+      if (val === 'show') {
+        if (wrapAnalipsis) wrapAnalipsis.classList.remove('is-hidden');
+        if (wrapQuick) wrapQuick.classList.remove('is-hidden');
+        updateQR();
+      } else {
+        if (wrapAnalipsis) wrapAnalipsis.classList.add('is-hidden');
+        if (wrapQuick) wrapQuick.classList.add('is-hidden');
+      }
+      autoSave();
+    }
+
+    // Recalcular suma unificada del Total General en modo rápido
+    function recalcQuickGrandTotal() {
+      const t1 = parseMoney(document.getElementById('total-col-1')?.textContent || '');
+      const t2 = parseMoney(document.getElementById('total-col-2')?.textContent || '');
+      const t3 = parseMoney(document.getElementById('total-col-3')?.textContent || '');
+      const is3Cols = document.getElementById('layoutSelector')?.value === 'layout-3cols';
+      const grandTotalEl = document.getElementById('grandTotalAmount');
+      if (grandTotalEl) {
+        grandTotalEl.textContent = formatMoney(t1 + t2 + (is3Cols ? t3 : 0));
+      }
+    }
+
+    // Cambio de tema visual
+    function changeTheme(themeName) {
+      document.body.className = '';
+      if (themeName !== 'original') {
+        document.body.classList.add(themeName);
+      }
+      autoSave();
+    }
+
+    // Parseo de montos numéricos ($200.000 -> 200000)
+    function parseMoney(text) {
+      if (!text) return 0;
+      const clean = text.replace(/[^0-9]/g, '');
+      const val = parseInt(clean, 10);
+      return isNaN(val) ? 0 : val;
+    }
+
+    // Formateo de montos ($200.000 o US$200,000)
+    function formatMoney(num) {
+      if (currentCurrency === 'USD') {
+        return 'US$' + num.toLocaleString('en-US');
+      }
+      return '$' + num.toLocaleString('es-AR');
+    }
+
+    // Recalcular total de una columna en modo rápido
+    function recalcColumn(colId) {
+      const col = document.getElementById(colId);
+      if (!col) return;
+
+      const amounts = col.querySelectorAll('.items-list .item-amount');
+      let sum = 0;
+      let hasNumbers = false;
+
+      amounts.forEach(el => {
+        const txt = el.textContent.trim().toLowerCase();
+        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '') {
+          const num = parseMoney(txt);
+          if (num > 0) {
+            sum += num;
+            hasNumbers = true;
+          }
+        }
+      });
+
+      const totalEl = document.getElementById('total-' + colId);
+      if (totalEl && hasNumbers) {
+        totalEl.textContent = formatMoney(sum);
+      }
+
+      recalcQuickGrandTotal();
+      autoSave();
+    }
+
+    // Agregar nuevo ítem con subtexto a una columna en modo rápido
+    function addNewItem(colId) {
+      const list = document.getElementById('items-' + colId);
+      const div = document.createElement('div');
+      div.className = 'item-entry';
+      div.innerHTML = `
+        <div class="item-main-row">
+          <span class="item-desc" contenteditable="true" spellcheck="false">Nuevo concepto</span>
+          <span class="item-dots"></span>
+          <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcColumn('${colId}')">$0</span>
+        </div>
+        <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle / subtexto"></div>
+        <button class="item-delete-btn no-print" onclick="deleteItem(this, '${colId}')" title="Eliminar ítem">✕</button>
+      `;
+      list.appendChild(div);
+
+      const newDesc = div.querySelector('.item-desc');
+      newDesc.focus();
+      selectElementText(newDesc);
+      autoSave();
+    }
+
+    // Eliminar ítem en modo rápido
+    function deleteItem(btn, colId) {
+      const entry = btn.closest('.item-entry');
+      if (entry) {
+        entry.remove();
+        recalcColumn(colId);
+      }
+      autoSave();
+    }
+
+    function selectElementText(el) {
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    }
+
+    // Guardado automático en localStorage
+    function autoSave() {
+      const data = {
+        docType: document.getElementById('docTypeSelector')?.value || 'analipsis',
+        currency: currentCurrency || 'ARS',
+        analipsisHTML: document.getElementById('doc-analipsis')?.innerHTML || '',
+        quickHTML: document.getElementById('doc-quick')?.innerHTML || '',
+        quickPreset: document.getElementById('quickPresetSelector')?.value || 'quick-show',
+        layout: document.getElementById('layoutSelector')?.value || 'layout-2cols',
+        theme: document.getElementById('themeSelector')?.value || 'original',
+        grandTotal: document.getElementById('grandTotalSelector')?.value || 'show',
+        qr: document.getElementById('qrSelector')?.value || 'show'
+      };
+      localStorage.setItem('leon_presupuesto_editorial_v7', JSON.stringify(data));
+    }
+
+    // Cargar borrador guardado
+    function loadSaved() {
+      const saved = localStorage.getItem('leon_presupuesto_editorial_v7');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          if (data.analipsisHTML) document.getElementById('doc-analipsis').innerHTML = data.analipsisHTML;
+          if (data.quickHTML) document.getElementById('doc-quick').innerHTML = data.quickHTML;
+
+          if (data.currency) {
+            currentCurrency = data.currency;
+            const currSel = document.getElementById('currencySelector');
+            if (currSel) currSel.value = data.currency;
+          }
+          if (data.theme) {
+            document.getElementById('themeSelector').value = data.theme;
+            changeTheme(data.theme);
+          }
+          if (data.layout) {
+            document.getElementById('layoutSelector').value = data.layout;
+          }
+          if (data.quickPreset) {
+            const qpSel = document.getElementById('quickPresetSelector');
+            if (qpSel) qpSel.value = data.quickPreset;
+          }
+          if (data.grandTotal) {
+            document.getElementById('grandTotalSelector').value = data.grandTotal;
+          }
+          if (data.qr) {
+            document.getElementById('qrSelector').value = data.qr;
+            toggleQR(data.qr);
+          }
+          if (data.docType) {
+            document.getElementById('docTypeSelector').value = data.docType;
+            changeDocType(data.docType);
+          } else {
+            changeDocType('analipsis');
+          }
+        } catch (e) { }
+      } else {
+        changeDocType('analipsis');
+      }
+    }
+
+    // Restaurar ejemplo original
+    function restoreOriginalExample() {
+      if (!confirm('¿Deseas restaurar la plantilla con todos los datos y valores de referencia?')) return;
+      localStorage.removeItem('leon_presupuesto_editorial_v7');
+      localStorage.removeItem('leon_presupuesto_editorial_v6');
+      localStorage.removeItem('leon_presupuesto_editorial_v5');
+      localStorage.removeItem('leon_presupuesto_editorial_v4');
+      localStorage.removeItem('leon_presupuesto_editorial_v3');
+      localStorage.removeItem('leon_presupuesto_editorial_v2');
+      location.reload();
+    }
+
+    // Guardar copia descargable HTML para archivar la cotización del cliente
+    function saveHTMLBackup() {
+      const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
+      let proj = 'Presupuesto';
+      let date = '2026';
+
+      if (docType === 'analipsis') {
+        proj = (document.querySelector('#doc-analipsis .project-name')?.textContent || 'Propuesta_Analipsis')
+          .trim().replace(/[^a-zA-Z0-9_\u00C0-\u017F\s-]/g, '').replace(/\s+/g, '_');
+        date = (document.querySelector('#doc-analipsis .header-date')?.textContent || '2026')
+          .trim().replace(/[^0-9.]/g, '');
+      } else {
+        proj = (document.querySelector('#doc-quick .project-name')?.textContent || 'Presupuesto')
+          .trim().replace(/[^a-zA-Z0-9_\u00C0-\u017F\s-]/g, '').replace(/\s+/g, '_');
+        date = (document.querySelector('#doc-quick .header-date')?.textContent || '2026')
+          .trim().replace(/[^0-9.]/g, '');
+      }
+
+      const filename = `Presupuesto_${proj}_${date || 'backup'}.html`;
+      const fullDoc = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([fullDoc], { type: 'text/html;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    }
+
+    // Exportación limpia a PDF
+    function exportPDF() {
+      window.print();
+    }
+
+    // Guardado continuo al editar texto
+    document.addEventListener('input', (e) => {
+      if (e.target.isContentEditable) {
+        if (e.target.id === 'footerPortfolioLink' || e.target.id === 'footerPortfolioLinkAnalipsis' || e.target.id === 'brandPortfolioLink') {
+          updateQR();
+        }
+        autoSave();
+      }
+    });
+
+    document.addEventListener('focusout', (e) => {
+      if (e.target.id === 'footerPortfolioLink' || e.target.id === 'footerPortfolioLinkAnalipsis' || e.target.id === 'brandPortfolioLink') {
+        updateQR();
+        autoSave();
+      }
+    });
+
+    // Atajos de teclado (Ctrl + P)
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        exportPDF();
+      }
+    });
+
+    // Inicialización al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+      loadSaved();
+      recalcAnalipsisTotals();
+      updateQR();
+    });
+    setTimeout(() => {
+      recalcAnalipsisTotals();
+      updateQR();
+    }, 150);
+  </script>
+
+</body>
+
+</html>
