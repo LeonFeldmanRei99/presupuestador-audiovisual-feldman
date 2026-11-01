@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/calc.test.mjs",
-    "start": "npx serve ."
+    "start": "node server.js"
   },
   "keywords": [
     "presupuestos",

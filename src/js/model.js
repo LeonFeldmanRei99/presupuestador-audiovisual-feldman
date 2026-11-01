@@ -35,7 +35,7 @@ export const TEMPLATE_JORNADA = {
     anticipoPercent: 50,
     authorName: 'LEÓN FELDMAN REINOSO',
     authorRole: 'Dirección de Fotografía & Realización Audiovisual',
-    portfolioUrl: 'https://behance.net/leonfeldman'
+    portfolioUrl: 'https://leonfeldmanreino.myportfolio.com'
   },
   sections: [
     {
@@ -177,7 +177,7 @@ export const TEMPLATE_MENSUAL = {
     anticipoPercent: 50,
     authorName: 'LEÓN FELDMAN REINOSO',
     authorRole: 'Dirección de Fotografía & Realización Audiovisual',
-    portfolioUrl: 'https://behance.net/leonfeldman'
+    portfolioUrl: 'https://leonfeldmanreino.myportfolio.com'
   },
   sections: [
     {
@@ -326,7 +326,7 @@ export const TEMPLATE_PIEZA = {
     anticipoPercent: 50,
     authorName: 'LEÓN FELDMAN REINOSO',
     authorRole: 'Dirección de Fotografía & Realización Audiovisual',
-    portfolioUrl: 'https://behance.net/leonfeldman'
+    portfolioUrl: 'https://leonfeldmanreino.myportfolio.com'
   },
   sections: [
     {
@@ -417,11 +417,14 @@ export const TEMPLATE_PIEZA = {
 /**
  * Catálogo de plantillas predefinidas del sistema.
  */
-export const DEFAULT_TEMPLATES = [
-  TEMPLATE_MENSUAL,
-  TEMPLATE_JORNADA,
-  TEMPLATE_PIEZA
-];
+export const DEFAULT_TEMPLATES = Object.assign(
+  [TEMPLATE_MENSUAL, TEMPLATE_JORNADA, TEMPLATE_PIEZA],
+  {
+    mensual: TEMPLATE_MENSUAL,
+    jornada: TEMPLATE_JORNADA,
+    pieza: TEMPLATE_PIEZA
+  }
+);
 
 /**
  * Clona profundamente un objeto de presupuesto o plantilla para editarlo sin mutar el original.
@@ -475,7 +478,7 @@ export function createEmptyBudget() {
       anticipoPercent: 50,
       authorName: 'LEÓN FELDMAN REINOSO',
       authorRole: 'Dirección de Fotografía & Realización Audiovisual',
-      portfolioUrl: 'https://behance.net/leonfeldman'
+      portfolioUrl: 'https://leonfeldmanreino.myportfolio.com'
     },
     sections: [
       {

@@ -472,7 +472,7 @@ function recalculateNumerals() {
 /**
  * Abre el modal para seleccionar el tipo de sección a añadir.
  */
-function openAddSectionModal() {
+export function openAddSectionModal() {
   const modal = document.getElementById('addSectionModal');
   if (modal) modal.classList.add('active');
 }
@@ -480,6 +480,11 @@ function openAddSectionModal() {
 export function closeAddSectionModal() {
   const modal = document.getElementById('addSectionModal');
   if (modal) modal.classList.remove('active');
+}
+
+export function confirmAddSection(type = 'financial') {
+  createSectionOfType(type);
+  return currentBudgetRef?.sections?.[currentBudgetRef.sections.length - 1] || null;
 }
 
 export function createSectionOfType(type) {
@@ -690,7 +695,7 @@ export function renderPreview() {
           <div class="brand-block">
             <div class="brand-name">${escapeHtml(m.authorName || 'LEÓN FELDMAN REINOSO')}</div>
             <div class="brand-subtitle">${escapeHtml(m.authorRole || 'FOTOGRAFÍA Y VIDEO')}</div>
-            <a class="brand-link" href="${escapeHtml(m.portfolioUrl || 'https://behance.net/leonfeldman')}" target="_blank">PORTFOLIO ONLINE ↗</a>
+            <a class="brand-link" href="${escapeHtml(m.portfolioUrl || 'https://leonfeldmanreino.myportfolio.com')}" target="_blank" rel="noopener noreferrer">leonfeldmanreino.myportfolio.com ↗</a>
           </div>
           <div class="header-meta-right">
             <div class="header-date">${escapeHtml(m.date || '')}</div>

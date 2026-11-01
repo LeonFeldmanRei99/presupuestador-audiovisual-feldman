@@ -1590,6 +1590,317 @@
     }
 
     /* ═══════════════════════════════════════════════════════════════
+       8B. HERRAMIENTAS FLUIDAS DE ÍTEMS, DRAG & DROP, PORTFOLIO Y DENSIDAD A4
+       ═══════════════════════════════════════════════════════════════ */
+    .portfolio-link-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .edit-link-btn {
+      background: rgba(110, 43, 38, 0.08);
+      border: 0.5px solid var(--line-subtle);
+      color: var(--accent-bordeaux);
+      font-size: 9px;
+      padding: 1px 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      opacity: 0.55;
+      transition: all 0.18s ease;
+      line-height: 1.2;
+      font-family: var(--font-sans);
+    }
+
+    .portfolio-link-wrap:hover .edit-link-btn,
+    .edit-link-btn:hover {
+      opacity: 1;
+      background: rgba(110, 43, 38, 0.18);
+      border-color: var(--accent-bordeaux);
+    }
+
+    /* Barra flotante de acciones por cada ítem / tarjeta */
+    .item-tools {
+      display: inline-flex;
+      align-items: center;
+      gap: 2px;
+      background: rgba(242, 238, 230, 0.96);
+      border: 0.5px solid var(--line-subtle);
+      border-radius: 10px;
+      padding: 1px 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+      z-index: 25;
+    }
+
+    body.theme-white .item-tools,
+    body.theme-white-bordeaux .item-tools {
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .item-entry > .item-tools,
+    .jornada-card > .item-tools,
+    .deliverable-line > .item-tools,
+    .condition-block > .item-tools,
+    .quick-condition-card > .item-tools {
+      position: absolute;
+      top: -6px;
+      right: 0;
+    }
+
+    .item-entry:hover > .item-tools,
+    .jornada-card:hover > .item-tools,
+    .deliverable-line:hover > .item-tools,
+    .condition-block:hover > .item-tools,
+    .quick-condition-card:hover > .item-tools,
+    .item-tools:focus-within {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Ocultar botones sueltos heredados cuando existe .item-tools */
+    .has-fluid-tools > .item-delete-btn,
+    .has-fluid-tools > .del-btn-card {
+      display: none !important;
+    }
+
+    .drag-handle {
+      cursor: grab;
+      user-select: none;
+      color: var(--text-muted);
+      font-size: 9px;
+      padding: 0 3px;
+    }
+
+    .drag-handle:active {
+      cursor: grabbing;
+    }
+
+    .dragging {
+      opacity: 0.45 !important;
+      outline: 1px dashed var(--accent-bordeaux) !important;
+    }
+
+    .drag-over-top {
+      box-shadow: inset 0 2px 0 0 var(--accent-bordeaux) !important;
+    }
+
+    .drag-over-bottom {
+      box-shadow: inset 0 -2px 0 0 var(--accent-bordeaux) !important;
+    }
+
+    /* Propuesta Única (1 Columna) mejorada */
+    .body-content.layout-1col {
+      display: flex;
+      flex-direction: column;
+      max-width: 158mm;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+    }
+
+    .body-content.layout-1col .option-column {
+      width: 100%;
+      height: auto;
+      flex: 1;
+    }
+
+    /* Permitir que la hoja crezca visualmente si se agregan muchos ítems sin cortar botones */
+    .a4-page {
+      min-height: 297mm;
+      height: auto;
+      max-height: none;
+      overflow: visible;
+    }
+
+    .editorial-frame {
+      min-height: 278mm;
+      height: auto;
+      flex: 1;
+      overflow: visible;
+    }
+
+    /* Modos de Densidad / Espaciado A4 */
+    body.spacing-compact .a4-page {
+      padding: 7.5mm;
+    }
+    body.spacing-compact .editorial-frame {
+      padding: 6.5mm 8.5mm 6mm;
+      min-height: 282mm;
+    }
+    body.spacing-compact .doc-title {
+      font-size: 26pt;
+    }
+    body.spacing-compact .header-top {
+      margin-bottom: 2.5mm;
+    }
+    body.spacing-compact .title-block {
+      margin-bottom: 2mm;
+    }
+    body.spacing-compact .meta-box-grid,
+    body.spacing-compact .quick-meta-grid {
+      margin: 1.2mm 0;
+      padding: 1.2mm 0;
+    }
+    body.spacing-compact .financial-table,
+    body.spacing-compact .items-list {
+      gap: 1.6mm;
+      margin: 2mm 0;
+    }
+    body.spacing-compact .jornadas-grid {
+      gap: 4mm;
+      margin-bottom: 2.5mm;
+    }
+    body.spacing-compact .jornada-card {
+      padding: 2.5mm 3mm;
+    }
+    body.spacing-compact .deliverables-box {
+      padding: 2.5mm 3.5mm;
+      margin: 2mm 0;
+    }
+    body.spacing-compact .conditions-grid,
+    body.spacing-compact .quick-conditions-grid {
+      gap: 2.5mm 5mm;
+      margin: 2mm 0;
+    }
+
+    body.spacing-relaxed .financial-table,
+    body.spacing-relaxed .items-list {
+      gap: 4.5mm;
+    }
+    body.spacing-relaxed .jornadas-grid {
+      gap: 8mm;
+    }
+    body.spacing-relaxed .conditions-grid,
+    body.spacing-relaxed .quick-conditions-grid {
+      gap: 5mm 8mm;
+    }
+
+    /* Toast de notificación */
+    .app-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(16px);
+      background: rgba(20, 20, 20, 0.96);
+      border: 1px solid var(--ui-accent);
+      color: #F5F5F5;
+      padding: 9px 18px;
+      border-radius: 30px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      letter-spacing: 0.03em;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .app-toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Lista de Presets en el Modal */
+    .preset-item-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .preset-item-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(212, 184, 122, 0.4);
+    }
+
+    .preset-item-info {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .preset-item-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #F0F0F0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .preset-item-meta {
+      font-size: 10.5px;
+      color: #9A9A9A;
+    }
+
+    .preset-item-actions {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+
+    .preset-mini-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #EAEAEA;
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .preset-mini-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #D4B87A;
+      color: #FFF;
+    }
+
+    .preset-mini-btn.primary {
+      background: #6E2B26;
+      border-color: #8A3731;
+      color: #FFF;
+      font-weight: 600;
+    }
+
+    .preset-mini-btn.primary:hover {
+      background: #8A3731;
+    }
+
+    .preset-mini-btn.danger:hover {
+      background: rgba(192, 57, 43, 0.25);
+      border-color: #E74C3C;
+      color: #FF6B6B;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10.5px;
+      padding: 3px 9px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #BDBDBD;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
        9. REGLAS ESTRICTAS DE IMPRESIÓN Y EXPORTACIÓN A PDF
        ═══════════════════════════════════════════════════════════════ */
     @media print {
@@ -1612,7 +1923,14 @@
       .control-panel,
       .editor-hint,
       .add-item-trigger,
+      .add-section-item-trigger,
       .item-delete-btn,
+      .del-btn-card,
+      .item-tools,
+      .edit-link-btn,
+      .section-reorder-tools,
+      .column-reorder-tools,
+      .app-toast,
       .no-print,
       .is-doc-hidden {
         display: none !important;
@@ -1628,7 +1946,9 @@
         box-shadow: none !important;
         width: 210mm !important;
         height: 297mm !important;
+        min-height: 297mm !important;
         max-height: 297mm !important;
+        overflow: hidden !important;
         page-break-after: always !important;
         page-break-inside: avoid !important;
         -webkit-print-color-adjust: exact !important;
@@ -1637,6 +1957,12 @@
 
       .a4-page:last-child {
         page-break-after: auto !important;
+      }
+
+      .editorial-frame {
+        height: 100% !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
       }
 
       [contenteditable="true"] {
@@ -1700,6 +2026,7 @@
       <select class="ui-select" id="quickCustomizeSelect"
         onchange="handleQuickCustomAction(this.value); this.value='';">
         <option value="" disabled selected>⚙ Personalizar Simple...</option>
+        <option value="add-item-active">➕ Agregar Ítem a Propuesta Activa</option>
         <option value="add-column">➕ Agregar Nueva Columna / Opción</option>
         <option value="remove-last-col">➖ Quitar Última Columna</option>
         <option value="toggle-meta">📋 Alternar Datos Cliente</option>
@@ -1722,10 +2049,19 @@
       </select>
     </div>
 
+    <div class="panel-group">
+      <span class="panel-label">Espaciado:</span>
+      <select class="ui-select" id="spacingSelector" onchange="changeSpacing(this.value)">
+        <option value="normal">Normal (A4 Estándar)</option>
+        <option value="spacing-compact">Compacto (Más ítems por hoja)</option>
+        <option value="spacing-relaxed">Holgado (Editorial aireado)</option>
+      </select>
+    </div>
+
     <div class="panel-group" id="quickTotalGroup" style="display: none;">
       <span class="panel-label">Total General:</span>
       <select class="ui-select" id="grandTotalSelector" onchange="toggleQuickGrandTotal(this.value)">
-        <option value="show">Visible (Suma I + II)</option>
+        <option value="show">Visible (Suma Opciones)</option>
         <option value="hide">Oculto (Opciones alternativas)</option>
       </select>
     </div>
@@ -1741,14 +2077,22 @@
     <div class="panel-group" id="analipsisSectionsGroup">
       <select class="ui-select" id="sectionManageSelect" onchange="handleSectionAction(this.value); this.value='';">
         <option value="" disabled selected>📑 Secciones...</option>
-        <option value="restore">↻ Restaurar Secciones</option>
-        <option value="add-custom">+ Nueva Sección</option>
+        <option value="add-financial">➕ Nueva Sección Financiera (con Subtotal)</option>
+        <option value="add-jornadas">➕ Nueva Sección de Jornadas</option>
+        <option value="add-deliverables">➕ Nueva Sección de Entregables</option>
+        <option value="add-conditions">➕ Nueva Sección de Condiciones</option>
+        <option value="add-custom">➕ Nueva Sección de Texto Libre</option>
+        <option value="restore">↻ Restaurar Secciones Originales</option>
       </select>
     </div>
 
     <div class="panel-group">
+      <button class="ui-btn" onclick="openPresetsModal()"
+        title="Guardar y cargar Presets completos (Local, Servidor y Archivo JSON)">⭐ Presets</button>
       <button class="ui-btn" onclick="openRateCalculator()"
         title="Calcular valor por jornada desglosando horas reales, equipo y viaje">🧮 Calcular Jornada</button>
+      <button class="ui-btn" onclick="promptEditPortfolioUrl()"
+        title="Editar URL de tu Portfolio y actualizar todos los links y el QR">🔗 Link Portfolio</button>
       <button class="ui-btn" onclick="saveHTMLBackup()"
         title="Descarga un archivo HTML de esta cotización para conservarla para siempre">💾 Guardar Copia</button>
       <button class="ui-btn" onclick="restoreOriginalExample()" title="Carga el contenido original de referencia">↻
@@ -1757,6 +2101,54 @@
         Exportar PDF</button>
     </div>
   </header>
+
+  <!-- Input oculto para importar archivos JSON de Presets -->
+  <input type="file" id="presetJsonInput" accept=".json,application/json" style="display:none;" onchange="handleImportPresetFile(event)">
+
+  <!-- ══════════ MODAL GESTOR DE PRESETS (LOCAL + SERVIDOR + JSON) ══════════ -->
+  <div class="rate-calc-backdrop no-print" id="presetsModal" onclick="handleBackdropClick(event)">
+    <div class="rate-calc-modal" style="max-width: 660px;">
+      <div class="calc-modal-header">
+        <div>
+          <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+            <h2 class="calc-modal-title" style="margin-bottom:0;">⭐ Gestor de Presets &amp; Plantillas</h2>
+            <span class="status-pill" id="presetSyncStatus">🟢 Guardado Local + Servidor</span>
+          </div>
+          <p class="calc-modal-subtitle">Guardá el presupuesto completo (ítems, secciones, diseño y calculadora) en el navegador, en el servidor o exportalo como archivo JSON.</p>
+        </div>
+        <button class="calc-close-btn" onclick="closePresetsModal()">✕</button>
+      </div>
+
+      <!-- Formulario para guardar el estado actual como Preset -->
+      <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 12px 14px; margin-bottom: 16px;">
+        <div style="font-size: 11px; font-weight: 600; color: #D4B87A; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">
+          Guardar Presupuesto Actual como Preset
+        </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <input type="text" id="newPresetNameInput" class="calc-input" style="flex: 2; min-width: 180px;" placeholder="Nombre del preset (ej: Campaña Redes 2 Visitas)">
+          <input type="text" id="newPresetDescInput" class="calc-input" style="flex: 2; min-width: 160px;" placeholder="Nota breve opcional (ej: Cliente / Rubro)">
+          <button class="ui-btn ui-btn-primary" onclick="saveCurrentAsPreset()" style="border-radius: 8px; white-space: nowrap;">💾 Guardar Preset</button>
+        </div>
+      </div>
+
+      <!-- Lista de Presets guardados -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+        <span style="font-size: 11px; color: #AAA; text-transform: uppercase; letter-spacing: 0.08em;">Tus Presets Guardados</span>
+        <div style="display:flex; gap: 6px;">
+          <button class="preset-mini-btn" onclick="exportCurrentBudgetJson()" title="Descargar presupuesto actual como archivo .json">📤 Exportar Actual (.json)</button>
+          <button class="preset-mini-btn" onclick="triggerImportPresetJson()" title="Importar un archivo .json desde tu PC o Drive">📥 Importar (.json)</button>
+        </div>
+      </div>
+
+      <div id="presetsListContainer" style="display: flex; flex-direction: column; gap: 8px; max-height: 290px; overflow-y: auto; padding-right: 4px; margin-bottom: 16px;">
+        <!-- Render dinámico de presets -->
+      </div>
+
+      <div class="calc-actions">
+        <button class="ui-btn" onclick="closePresetsModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ══════════ MODAL DE CÁLCULO DE JORNADA & HORAS REALES ══════════ -->
   <div class="rate-calc-backdrop no-print" id="rateCalcModal" onclick="handleBackdropClick(event)">
@@ -1863,9 +2255,12 @@
           <div class="brand-block">
             <div class="brand-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
             <div class="brand-subtitle" contenteditable="true" spellcheck="false">FOTOGRAFÍA Y VIDEO</div>
-            <a class="brand-link" id="brandPortfolioLinkAnalipsis" href="https://leonfeldmanreino.myportfolio.com"
-              target="_blank" contenteditable="true" spellcheck="false"
-              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+            <div class="portfolio-link-wrap">
+              <a class="brand-link portfolio-anchor" id="brandPortfolioLinkAnalipsis" href="https://leonfeldmanreino.myportfolio.com"
+                target="_blank" rel="noopener noreferrer"
+                title="Abrir Portfolio en pestaña nueva">leonfeldmanreino.myportfolio.com ↗</a>
+              <button type="button" class="edit-link-btn no-print" onclick="promptEditPortfolioUrl(event)" title="Cambiar URL del Portfolio">✎</button>
+            </div>
           </div>
           <div class="header-meta-right">
             <div class="header-date" contenteditable="true" spellcheck="false">15 · 11 · 2026</div>
@@ -2070,8 +2465,12 @@
           <div class="brand-block">
             <div class="brand-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
             <div class="brand-subtitle" contenteditable="true" spellcheck="false">FOTOGRAFÍA Y VIDEO</div>
-            <a class="brand-link" href="https://behance.net/leonfeldman" target="_blank" contenteditable="true"
-              spellcheck="false">PORTFOLIO ONLINE ↗</a>
+            <div class="portfolio-link-wrap">
+              <a class="brand-link portfolio-anchor" id="brandPortfolioLinkAnalipsisP2" href="https://leonfeldmanreino.myportfolio.com"
+                target="_blank" rel="noopener noreferrer"
+                title="Abrir Portfolio en pestaña nueva">leonfeldmanreino.myportfolio.com ↗</a>
+              <button type="button" class="edit-link-btn no-print" onclick="promptEditPortfolioUrl(event)" title="Cambiar URL del Portfolio">✎</button>
+            </div>
           </div>
           <div class="header-meta-right">
             <div class="header-date" contenteditable="true" spellcheck="false">15 · 11 · 2026</div>
@@ -2318,14 +2717,17 @@
         <div class="footer-portfolio-row">
           <div class="portfolio-text-side">
             <span class="portfolio-label" contenteditable="true" spellcheck="false">PORTFOLIO &amp; SHOWREEL</span>
-            <a class="portfolio-link" id="footerPortfolioLinkAnalipsis" href="https://leonfeldmanreino.myportfolio.com"
-              target="_blank" contenteditable="true" spellcheck="false"
-              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+            <div class="portfolio-link-wrap">
+              <a class="portfolio-link portfolio-anchor" id="footerPortfolioLinkAnalipsis" href="https://leonfeldmanreino.myportfolio.com"
+                target="_blank" rel="noopener noreferrer"
+                title="Abrir Portfolio en pestaña nueva">leonfeldmanreino.myportfolio.com ↗</a>
+              <button type="button" class="edit-link-btn no-print" onclick="promptEditPortfolioUrl(event)" title="Cambiar URL del Portfolio">✎</button>
+            </div>
             <div class="portfolio-note" contenteditable="true" spellcheck="false">Escaneá el código para ver reels,
               coberturas y colorimetría en alta resolución</div>
           </div>
 
-          <div class="qr-stamp-wrap" id="qrStampWrapAnalipsis">
+          <div class="qr-stamp-wrap" id="qrStampWrapAnalipsis" onclick="openPortfolioInNewTab(event)" title="Clic para abrir el Portfolio online">
             <div class="qr-box">
               <div id="qrcodeCanvasAnalipsis"></div>
             </div>
@@ -2360,9 +2762,12 @@
           <div class="brand-block">
             <div class="brand-name" contenteditable="true" spellcheck="false">LEÓN FELDMAN REINOSO</div>
             <div class="brand-subtitle" contenteditable="true" spellcheck="false">FOTOGRAFÍA Y VIDEO</div>
-            <a class="brand-link" id="brandPortfolioLink" href="https://leonfeldmanreino.myportfolio.com"
-              target="_blank" contenteditable="true" spellcheck="false"
-              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+            <div class="portfolio-link-wrap">
+              <a class="brand-link portfolio-anchor" id="brandPortfolioLink" href="https://leonfeldmanreino.myportfolio.com"
+                target="_blank" rel="noopener noreferrer"
+                title="Abrir Portfolio en pestaña nueva">leonfeldmanreino.myportfolio.com ↗</a>
+              <button type="button" class="edit-link-btn no-print" onclick="promptEditPortfolioUrl(event)" title="Cambiar URL del Portfolio">✎</button>
+            </div>
           </div>
           <div class="header-date" contenteditable="true" spellcheck="false">14 · 10 · 2026</div>
         </div>
@@ -2698,14 +3103,17 @@
         <div class="footer-portfolio-row" id="footerPortfolioRow" style="margin-top: 2mm; padding-top: 1.8mm;">
           <div class="portfolio-text-side">
             <span class="portfolio-label" contenteditable="true" spellcheck="false">PORTFOLIO &amp; SHOWREEL</span>
-            <a class="portfolio-link" id="footerPortfolioLink" href="https://leonfeldmanreino.myportfolio.com"
-              target="_blank" contenteditable="true" spellcheck="false"
-              title="Clic para editar URL">leonfeldmanreino.myportfolio.com ↗</a>
+            <div class="portfolio-link-wrap">
+              <a class="portfolio-link portfolio-anchor" id="footerPortfolioLink" href="https://leonfeldmanreino.myportfolio.com"
+                target="_blank" rel="noopener noreferrer"
+                title="Abrir Portfolio en pestaña nueva">leonfeldmanreino.myportfolio.com ↗</a>
+              <button type="button" class="edit-link-btn no-print" onclick="promptEditPortfolioUrl(event)" title="Cambiar URL del Portfolio">✎</button>
+            </div>
             <div class="portfolio-note" contenteditable="true" spellcheck="false">Escaneá el código para ver reels,
               coberturas y colorimetría en alta resolución</div>
           </div>
 
-          <div class="qr-stamp-wrap" id="qrStampWrap" title="Clic en la URL para cambiar destino del QR">
+          <div class="qr-stamp-wrap" id="qrStampWrap" onclick="openPortfolioInNewTab(event)" title="Clic para abrir el Portfolio online">
             <div class="qr-box">
               <div id="qrcodeCanvas"></div>
             </div>
@@ -2727,7 +3135,12 @@
 
   <!-- ══════════ LÓGICA DE CÁLCULO, FORMATO Y EXPORTACIÓN ══════════ -->
   <script>
+    const DEFAULT_PORTFOLIO_URL = 'https://leonfeldmanreino.myportfolio.com';
+    const PRESETS_STORAGE_KEY = 'leon_presets_library_v1';
+    const DRAFT_STORAGE_KEY = 'leon_presupuesto_editorial_v8';
     let currentCurrency = 'ARS';
+    let currentSpacing = 'normal';
+    let currentPortfolioUrl = DEFAULT_PORTFOLIO_URL;
 
     function changeCurrency(curr) {
       currentCurrency = curr;
@@ -2740,13 +3153,13 @@
         }
       });
       recalcAnalipsisTotals();
+      recalcAllQuickColumns();
       recalcQuickGrandTotal();
-      ['col-1', 'col-2', 'col-3'].forEach(c => recalcColumn(c));
       autoSave();
     }
 
     // Cambio entre Plantillas (Analipsis, Jornada, Pieza, Quick)
-    function changeDocType(val) {
+    function changeDocType(val, skipPresetOverwrite = false) {
       const docAnalipsis = document.getElementById('doc-analipsis');
       const docQuick = document.getElementById('doc-quick');
       const quickPresetGroup = document.getElementById('quickPresetGroup');
@@ -2763,7 +3176,9 @@
         if (quickCustomizeGroup) quickCustomizeGroup.style.display = 'flex';
         if (quickTotalGroup) quickTotalGroup.style.display = 'flex';
         if (analipsisSectionsGroup) analipsisSectionsGroup.style.display = 'none';
-        changeQuickLayout(document.getElementById('layoutSelector').value);
+        ensureQuickColumnsExist();
+        changeQuickLayout(document.getElementById('layoutSelector')?.value || 'layout-2cols');
+        recalcAllQuickColumns();
       } else {
         docAnalipsis.classList.remove('is-doc-hidden');
         docQuick.classList.add('is-doc-hidden');
@@ -2773,16 +3188,19 @@
         if (quickTotalGroup) quickTotalGroup.style.display = 'none';
         if (analipsisSectionsGroup) analipsisSectionsGroup.style.display = 'flex';
 
-        if (val === 'jornada') {
-          applyJornadaPreset();
-        } else if (val === 'pieza') {
-          applyPiezaPreset();
-        } else if (val === 'analipsis') {
-          applyAnalipsisPreset();
+        if (!skipPresetOverwrite) {
+          if (val === 'jornada') {
+            applyJornadaPreset();
+          } else if (val === 'pieza') {
+            applyPiezaPreset();
+          } else if (val === 'analipsis') {
+            applyAnalipsisPreset();
+          }
         }
         recalcAnalipsisTotals();
       }
-      setTimeout(updateQR, 100);
+      upgradeDOMControls();
+      setTimeout(() => updateQR(currentPortfolioUrl), 80);
       autoSave();
     }
 
@@ -2790,6 +3208,7 @@
     // ESCENARIOS Y PRESETS PARA PRESUPUESTO RÁPIDO (SIMPLE)
     // ═══════════════════════════════════════════════════════════════
     function applyQuickPreset(presetKey) {
+      ensureQuickColumnsExist();
       const isUSD = currentCurrency === 'USD';
       const projName = document.querySelector('#doc-quick .project-name');
       const projMeta = document.querySelector('#doc-quick .project-meta');
@@ -2981,9 +3400,82 @@
         }, 'col-3');
       }
 
-      ['col-1', 'col-2', 'col-3'].forEach(c => recalcColumn(c));
+      recalcAllQuickColumns();
       recalcQuickGrandTotal();
+      upgradeDOMControls();
       autoSave();
+    }
+
+    // Garantiza que las 3 columnas base existan siempre en el DOM aunque hayan sido borradas en sesiones previas
+    function ensureQuickColumnsExist() {
+      const container = document.getElementById('bodyLayoutContainer');
+      if (!container) return;
+
+      const defaults = [
+        { id: 'col-1', roman: 'I', badge: 'OPCIÓN A', name: 'COBERTURA ESENCIAL', sub: 'Plan base de producción y captura técnica', total: '$310.000' },
+        { id: 'col-2', roman: 'II', badge: 'RECOMENDADA', name: 'PRODUCCIÓN INTEGRAL', sub: 'Cobertura extendida con mayor nivel de detalle', total: '$465.000' },
+        { id: 'col-3', roman: 'III', badge: 'FULL SERVICE', name: 'PAQUETE PREMIUM', sub: 'Producción extendida con soporte técnico completo', total: '$690.000' }
+      ];
+
+      defaults.forEach((def, idx) => {
+        let col = document.getElementById(def.id);
+        if (!col) {
+          col = document.createElement('div');
+          col.className = 'option-column';
+          col.id = def.id;
+          if (idx === 2) col.style.display = 'none';
+          col.innerHTML = `
+            <div class="option-header">
+              <div class="option-header-top">
+                <span class="option-roman" contenteditable="true" spellcheck="false">${def.roman}</span>
+                <div class="column-header-right">
+                  <span class="option-badge" contenteditable="true" spellcheck="false">${def.badge}</span>
+                  <div class="column-reorder-tools no-print">
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnLeft('${def.id}')" title="Mover columna a la izquierda">◀</button>
+                    <button type="button" class="btn-sec-tool" onclick="moveColumnRight('${def.id}')" title="Mover columna a la derecha">▶</button>
+                    <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteQuickColumn('${def.id}')" title="Ocultar/Eliminar columna">✕</button>
+                  </div>
+                </div>
+              </div>
+              <div class="option-name" contenteditable="true" spellcheck="false">${def.name}</div>
+              <div class="option-sub" contenteditable="true" spellcheck="false">${def.sub}</div>
+            </div>
+            <div class="items-list" id="items-${def.id}">
+              <div class="item-entry">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Jornada de producción / sesión</span>
+                  <span class="item-dots"></span>
+                  <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcColumn('${def.id}')">$220.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle / subtexto">Operador técnico principal en locación</div>
+                <button class="item-delete-btn no-print" onclick="deleteItem(this, '${def.id}')" title="Eliminar ítem">✕</button>
+              </div>
+            </div>
+            <button class="add-item-trigger no-print" onclick="addNewItem('${def.id}')">+ Agregar Ítem</button>
+            <div class="total-divider"></div>
+            <div class="option-total-row">
+              <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
+              <span class="total-figure" id="total-${def.id}" contenteditable="true" spellcheck="false">${def.total}</span>
+            </div>
+          `;
+          container.appendChild(col);
+        } else {
+          // Asegurar que tenga lista de ítems y botón de agregar ítem
+          if (!col.querySelector('.items-list')) {
+            const list = document.createElement('div');
+            list.className = 'items-list';
+            list.id = 'items-' + col.id;
+            col.insertBefore(list, col.querySelector('.total-divider'));
+          }
+          if (!col.querySelector('.add-item-trigger')) {
+            const btn = document.createElement('button');
+            btn.className = 'add-item-trigger no-print';
+            btn.textContent = '+ Agregar Ítem';
+            btn.setAttribute('onclick', `addNewItem('${col.id}')`);
+            col.insertBefore(btn, col.querySelector('.total-divider'));
+          }
+        }
+      });
     }
 
     function setQuickColumn(colEl, itemsEl, data, colId) {
@@ -3010,6 +3502,10 @@
 
     // Acciones de personalización y reordenamiento para Presupuesto Rápido
     function handleQuickCustomAction(val) {
+      ensureQuickColumnsExist();
+      const container = document.getElementById('bodyLayoutContainer');
+      const cols = container ? Array.from(container.querySelectorAll('.option-column')) : [];
+
       if (val === 'toggle-meta') {
         const meta = document.getElementById('quickMetaGrid');
         if (meta) meta.classList.toggle('is-hidden');
@@ -3026,12 +3522,30 @@
         addNewQuickColumn();
       } else if (val === 'remove-last-col') {
         removeLastQuickColumn();
+      } else if (val === 'add-item-active') {
+        const visibleCol = cols.find(c => c.style.display !== 'none') || cols[0];
+        if (visibleCol) addNewItem(visibleCol.id);
       } else if (val === 'add-item-col1') {
-        addNewItem('col-1');
+        const target = cols[0] || document.getElementById('col-1');
+        if (target) addNewItem(target.id);
       } else if (val === 'add-item-col2') {
-        addNewItem('col-2');
+        const target = cols[1] || document.getElementById('col-2');
+        if (target) {
+          if (target.style.display === 'none') {
+            document.getElementById('layoutSelector').value = 'layout-2cols';
+            changeQuickLayout('layout-2cols');
+          }
+          addNewItem(target.id);
+        }
       } else if (val === 'add-item-col3') {
-        addNewItem('col-3');
+        const target = cols[2] || document.getElementById('col-3');
+        if (target) {
+          if (target.style.display === 'none') {
+            document.getElementById('layoutSelector').value = 'layout-3cols';
+            changeQuickLayout('layout-3cols');
+          }
+          addNewItem(target.id);
+        }
       } else if (val === 'add-condition') {
         addQuickCondition();
       }
@@ -3039,88 +3553,126 @@
     }
 
     // Funciones de control de columnas fluidas
-    function moveColumnLeft(colId) {
-      const col = document.getElementById(colId);
+    function moveColumnLeft(colIdOrBtn) {
+      const col = typeof colIdOrBtn === 'string' ? document.getElementById(colIdOrBtn) : colIdOrBtn.closest('.option-column');
       if (!col) return;
       const prev = col.previousElementSibling;
       if (prev && prev.classList.contains('option-column')) {
         col.parentNode.insertBefore(col, prev);
         renumberQuickColumns();
+        recalcQuickGrandTotal();
         autoSave();
       }
     }
 
-    function moveColumnRight(colId) {
-      const col = document.getElementById(colId);
+    function moveColumnRight(colIdOrBtn) {
+      const col = typeof colIdOrBtn === 'string' ? document.getElementById(colIdOrBtn) : colIdOrBtn.closest('.option-column');
       if (!col) return;
       const next = col.nextElementSibling;
       if (next && next.classList.contains('option-column')) {
         col.parentNode.insertBefore(next, col);
         renumberQuickColumns();
+        recalcQuickGrandTotal();
         autoSave();
       }
     }
 
-    function deleteQuickColumn(colId) {
-      const col = document.getElementById(colId);
+    function duplicateQuickColumn(colIdOrBtn) {
+      const col = typeof colIdOrBtn === 'string' ? document.getElementById(colIdOrBtn) : colIdOrBtn.closest('.option-column');
       if (!col) return;
       const container = document.getElementById('bodyLayoutContainer');
-      const allCols = container.querySelectorAll('.option-column');
-      if (allCols.length <= 1) {
-        alert('Debe quedar al menos una columna de propuesta.');
+      const cols = Array.from(container.querySelectorAll('.option-column'));
+      const visibleCols = cols.filter(c => c.style.display !== 'none');
+
+      if (visibleCols.length >= 3) {
+        showToast('Ya están activas las 3 columnas máximas en hoja A4');
         return;
       }
-      if (!confirm('¿Deseás eliminar esta columna de propuesta?')) return;
-      
-      col.remove();
-      const remainingCols = container.querySelectorAll('.option-column');
-      if (remainingCols.length === 1) {
-        document.getElementById('layoutSelector').value = 'layout-1col';
-        changeQuickLayout('layout-1col');
-      } else if (remainingCols.length === 2) {
-        document.getElementById('layoutSelector').value = 'layout-2cols';
-        changeQuickLayout('layout-2cols');
+
+      const hiddenCol = cols.find(c => c.style.display === 'none');
+      if (hiddenCol) {
+        // Copiar contenido de la columna origen a la columna oculta y mostrarla
+        const srcBadge = col.querySelector('.option-badge')?.textContent || 'OPCIÓN';
+        const srcName = col.querySelector('.option-name')?.textContent || 'PROPUESTA';
+        const srcSub = col.querySelector('.option-sub')?.textContent || '';
+        const srcItems = col.querySelector('.items-list')?.innerHTML || '';
+
+        const dstBadge = hiddenCol.querySelector('.option-badge');
+        const dstName = hiddenCol.querySelector('.option-name');
+        const dstSub = hiddenCol.querySelector('.option-sub');
+        const dstItems = hiddenCol.querySelector('.items-list');
+
+        if (dstBadge) dstBadge.textContent = srcBadge + ' (COPIA)';
+        if (dstName) dstName.textContent = srcName;
+        if (dstSub) dstSub.textContent = srcSub;
+        if (dstItems) dstItems.innerHTML = srcItems;
+
+        hiddenCol.style.display = 'flex';
+        const newVisibleCount = visibleCols.length + 1;
+        const newLayout = newVisibleCount === 2 ? 'layout-2cols' : 'layout-3cols';
+        const layoutSel = document.getElementById('layoutSelector');
+        if (layoutSel) layoutSel.value = newLayout;
+        changeQuickLayout(newLayout);
+        recalcColumn(hiddenCol.id);
+        upgradeDOMControls();
+        showToast('Columna duplicada');
       }
+    }
+
+    function deleteQuickColumn(colIdOrBtn) {
+      const col = typeof colIdOrBtn === 'string' ? document.getElementById(colIdOrBtn) : colIdOrBtn.closest('.option-column');
+      if (!col) return;
+      const container = document.getElementById('bodyLayoutContainer');
+      const visibleCols = Array.from(container.querySelectorAll('.option-column')).filter(c => c.style.display !== 'none');
+      if (visibleCols.length <= 1) {
+        showToast('Debe quedar al menos una propuesta activa');
+        return;
+      }
+      if (!confirm('¿Deseás ocultar/quitar esta columna de propuesta?')) return;
+
+      // Movemos la columna al final y la ocultamos sin destruir el nodo para no romper Propuesta Única
+      col.style.display = 'none';
+      container.appendChild(col);
+
+      const remainingVisible = visibleCols.length - 1;
+      const newLayout = remainingVisible === 1 ? 'layout-1col' : 'layout-2cols';
+      const layoutSel = document.getElementById('layoutSelector');
+      if (layoutSel) layoutSel.value = newLayout;
+      changeQuickLayout(newLayout);
       renumberQuickColumns();
       recalcQuickGrandTotal();
       autoSave();
     }
 
     function addNewQuickColumn() {
-      const container = document.getElementById('bodyLayoutContainer');
-      const allCols = container.querySelectorAll('.option-column');
-      const count = allCols.length;
-
-      if (count === 1) {
-        const col2 = document.getElementById('col-2');
-        if (col2) {
-          col2.style.display = 'flex';
-          document.getElementById('layoutSelector').value = 'layout-2cols';
-          changeQuickLayout('layout-2cols');
-        }
-      } else if (count === 2 || (count > 2 && document.getElementById('col-3')?.style.display === 'none')) {
-        const col3 = document.getElementById('col-3');
-        if (col3) {
-          col3.style.display = 'flex';
-          document.getElementById('layoutSelector').value = 'layout-3cols';
-          changeQuickLayout('layout-3cols');
-        }
+      ensureQuickColumnsExist();
+      const currentLayout = document.getElementById('layoutSelector')?.value || 'layout-2cols';
+      if (currentLayout === 'layout-1col') {
+        document.getElementById('layoutSelector').value = 'layout-2cols';
+        changeQuickLayout('layout-2cols');
+        showToast('Segunda columna activada');
+      } else if (currentLayout === 'layout-2cols') {
+        document.getElementById('layoutSelector').value = 'layout-3cols';
+        changeQuickLayout('layout-3cols');
+        showToast('Tercera columna activada');
       } else {
-        alert('La hoja A4 simple está optimizada hasta para 3 columnas simultáneas para evitar desbordes de margen.');
+        showToast('Ya están activas las 3 columnas en la hoja A4');
       }
       renumberQuickColumns();
       autoSave();
     }
 
     function removeLastQuickColumn() {
-      const container = document.getElementById('bodyLayoutContainer');
-      const currentLayout = document.getElementById('layoutSelector').value;
+      ensureQuickColumnsExist();
+      const currentLayout = document.getElementById('layoutSelector')?.value || 'layout-2cols';
       if (currentLayout === 'layout-3cols') {
         document.getElementById('layoutSelector').value = 'layout-2cols';
         changeQuickLayout('layout-2cols');
+        showToast('Reducido a 2 columnas');
       } else if (currentLayout === 'layout-2cols') {
         document.getElementById('layoutSelector').value = 'layout-1col';
         changeQuickLayout('layout-1col');
+        showToast('Modo Propuesta Única (1 columna) activado');
       }
       renumberQuickColumns();
       autoSave();
@@ -3129,7 +3681,7 @@
     function renumberQuickColumns() {
       const container = document.getElementById('bodyLayoutContainer');
       if (!container) return;
-      const cols = container.querySelectorAll('.option-column');
+      const cols = Array.from(container.querySelectorAll('.option-column')).filter(c => c.style.display !== 'none');
       cols.forEach((col, idx) => {
         const romanEl = col.querySelector('.option-roman');
         if (romanEl && idx < ROMAN_NUMERALS.length) {
@@ -3543,121 +4095,271 @@
       autoSave();
     }
 
+    function duplicateSectionBlock(btn) {
+      const block = btn.closest('.proposal-section-block');
+      if (!block) return;
+      const clone = block.cloneNode(true);
+      clone.id = 'sec-block-' + Date.now();
+      const titleEl = clone.querySelector('.sec-title');
+      if (titleEl) titleEl.textContent = titleEl.textContent.trim() + ' (COPIA)';
+      const finTable = clone.querySelector('.financial-table');
+      if (finTable) {
+        const newTableId = 'table-custom-' + Date.now();
+        finTable.id = newTableId;
+        const addBtn = clone.querySelector('.add-item-trigger');
+        if (addBtn) addBtn.setAttribute('onclick', `addAnalipsisItem('${newTableId}')`);
+        const subVal = clone.querySelector('.subtotal-value');
+        if (subVal) subVal.id = 'subtotal-' + newTableId;
+      }
+      block.parentNode.insertBefore(clone, block.nextSibling);
+      renumberAllSections();
+      recalcAnalipsisTotals();
+      upgradeDOMControls();
+      autoSave();
+      showToast('Sección duplicada');
+    }
+
     function deleteSectionBlock(btn) {
       const block = btn.closest('.proposal-section-block');
       if (!block) return;
-      const secName = block.getAttribute('data-section-name') || 'esta sección';
+      const secName = block.querySelector('.sec-title')?.textContent || block.getAttribute('data-section-name') || 'esta sección';
 
-      if (!confirm(`¿Deseás eliminar la sección "${secName}"? Las demás secciones subirán para ocupar su espacio.`)) return;
+      if (!confirm(`¿Deseás eliminar la sección "${secName}"? Las demás secciones se renumerarán automáticamente.`)) return;
+
+      // Eliminar hr adyacente si existe
+      const next = block.nextElementSibling;
+      if (next && next.tagName === 'HR') next.remove();
 
       block.remove();
       renumberAllSections();
       recalcAnalipsisTotals();
       autoSave();
+      showToast('Sección eliminada');
     }
 
     function handleSectionAction(val) {
+      if (!val) return;
       if (val === 'restore') {
+        if (!confirm('¿Restaurar las secciones originales de esta plantilla?')) return;
         const currDocType = document.getElementById('docTypeSelector')?.value || 'analipsis';
-        changeDocType(currDocType);
-      } else if (val === 'add-custom') {
-        const customTitle = prompt('Ingresá el título para la nueva sección:', 'SECCIÓN ADICIONAL');
-        if (!customTitle || !customTitle.trim()) return;
+        localStorage.removeItem(DRAFT_STORAGE_KEY);
+        localStorage.removeItem('leon_presupuesto_editorial_v7');
+        location.reload();
+        return;
+      }
 
-        const p2 = document.getElementById('page2Sections');
-        if (!p2) return;
+      const p1 = document.getElementById('page1Sections');
+      const p2 = document.getElementById('page2Sections');
+      const targetPage = (val === 'add-jornadas' || val === 'add-deliverables') ? (p1 || p2) : (p2 || p1);
+      if (!targetPage) return;
 
-        const newSec = document.createElement('div');
-        newSec.className = 'proposal-section-block';
-        newSec.setAttribute('data-section-name', customTitle.trim());
-        newSec.innerHTML = `
-          <div class="section-title-wrap">
-            <div class="section-numeral-title">
-              <span class="sec-num" contenteditable="true" spellcheck="false">•</span>
-              <span class="sec-title" contenteditable="true" spellcheck="false">${customTitle.trim().toUpperCase()}</span>
-            </div>
-            <div class="section-meta-controls">
-              <span class="meta-label" contenteditable="true" spellcheck="false">DETALLE COMPLEMENTARIO</span>
-              <div class="section-reorder-tools no-print">
-                <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)" title="Subir sección">▲</button>
-                <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)" title="Bajar sección">▼</button>
-                <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)" title="Eliminar sección">✕</button>
-              </div>
+      const customTitle = prompt('Ingresá el título para la nueva sección:',
+        val === 'add-financial' ? 'RUBRO ADICIONAL DE PRODUCCIÓN' :
+        val === 'add-jornadas' ? 'JORNADAS COMPLEMENTARIAS' :
+        val === 'add-deliverables' ? 'ENTREGABLES ADICIONALES' :
+        val === 'add-conditions' ? 'CLÁUSULAS ESPECIALES' : 'SECCIÓN ADICIONAL'
+      );
+      if (!customTitle || !customTitle.trim()) return;
+
+      const secId = 'sec-custom-' + Date.now();
+      const tableId = 'table-custom-' + Date.now();
+      const gridId = 'grid-custom-' + Date.now();
+      const newSec = document.createElement('div');
+      newSec.className = 'proposal-section-block';
+      newSec.id = secId;
+      newSec.setAttribute('data-section-name', customTitle.trim());
+
+      const headerHTML = `
+        <div class="section-title-wrap">
+          <div class="section-numeral-title">
+            <span class="sec-num" contenteditable="true" spellcheck="false">•</span>
+            <span class="sec-title" contenteditable="true" spellcheck="false">${customTitle.trim().toUpperCase()}</span>
+          </div>
+          <div class="section-meta-controls">
+            <span class="meta-label" contenteditable="true" spellcheck="false">DETALLE DE SECCIÓN</span>
+            <div class="section-reorder-tools no-print">
+              <button type="button" class="btn-sec-tool" onclick="moveSectionUp(this)" title="Subir sección">▲</button>
+              <button type="button" class="btn-sec-tool" onclick="moveSectionDown(this)" title="Bajar sección">▼</button>
+              <button type="button" class="btn-sec-tool" onclick="duplicateSectionBlock(this)" title="Duplicar sección">⧉</button>
+              <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteSectionBlock(this)" title="Eliminar sección">✕</button>
             </div>
           </div>
+        </div>
+      `;
+
+      if (val === 'add-financial') {
+        newSec.innerHTML = `
+          ${headerHTML}
+          <div class="financial-table" id="${tableId}">
+            <div class="item-entry">
+              <div class="item-main-row">
+                <span class="item-desc" contenteditable="true" spellcheck="false">Nuevo ítem o servicio</span>
+                <span class="item-dots"></span>
+                <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(0)}</span>
+              </div>
+              <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo">Especificación técnica o alcance del rubro</div>
+              <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:center; margin: 2mm 0 1.5mm;">
+            <button class="add-item-trigger no-print" onclick="addAnalipsisItem('${tableId}')">+ Agregar Ítem</button>
+          </div>
+          <div class="subtotal-row">
+            <span class="subtotal-label" contenteditable="true" spellcheck="false">SUBTOTAL ${customTitle.trim().toUpperCase()}</span>
+            <span class="subtotal-value" id="subtotal-${tableId}">${formatMoney(0)}</span>
+          </div>
+        `;
+      } else if (val === 'add-jornadas') {
+        newSec.innerHTML = `
+          ${headerHTML}
+          <div class="jornadas-grid" id="${gridId}">
+            <div class="jornada-card">
+              <button class="del-btn-card no-print" onclick="deleteJornadaCard(this)" title="Eliminar jornada">✕</button>
+              <div class="jornada-header">
+                <span class="jornada-title" contenteditable="true" spellcheck="false">JORNADA ADICIONAL · [LOCACIÓN]</span>
+                <span class="jornada-badge" contenteditable="true" spellcheck="false">4 HORAS</span>
+              </div>
+              <div class="jornada-detail" contenteditable="true" spellcheck="false">Detalle de cobertura técnica y operativa en locación.</div>
+              <div class="jornada-deliverable-sub" contenteditable="true" spellcheck="false">Genera: Material bruto y selección editada.</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:center; margin: 2.5mm 0 2mm;">
+            <button class="add-section-item-trigger no-print" onclick="addAnalipsisJornada('${gridId}')">+ Agregar Jornada</button>
+          </div>
+        `;
+      } else if (val === 'add-deliverables') {
+        newSec.innerHTML = `
+          ${headerHTML}
+          <div class="deliverables-box">
+            <div class="deliverables-list" id="${gridId}">
+              <div class="deliverable-line">
+                <span class="deliv-dot">✦</span>
+                <span class="deliv-text" contenteditable="true" spellcheck="false">
+                  <strong>Nuevo Entregable:</strong> Especificación de formato, resolución y entrega final.
+                </span>
+                <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
+              </div>
+            </div>
+            <div style="display:flex; justify-content:center; margin-top: 2mm;">
+              <button class="add-section-item-trigger no-print" onclick="addAnalipsisDeliverable('${gridId}')">+ Agregar Entregable</button>
+            </div>
+          </div>
+        `;
+      } else if (val === 'add-conditions') {
+        newSec.innerHTML = `
+          ${headerHTML}
+          <div class="conditions-grid" id="${gridId}">
+            <div class="condition-block">
+              <button class="del-btn-card no-print" onclick="deleteConditionBlock(this)" title="Eliminar condición">✕</button>
+              <div class="condition-heading" contenteditable="true" spellcheck="false">CONDICIÓN ESPECIAL</div>
+              <div class="condition-body" contenteditable="true" spellcheck="false">Detalle de los términos acordados para este bloque.</div>
+            </div>
+          </div>
+          <div style="display:flex; justify-content:center; margin: 2mm 0 1mm;">
+            <button class="add-section-item-trigger no-print" onclick="addAnalipsisCondition('${gridId}')">+ Agregar Condición</button>
+          </div>
+        `;
+      } else {
+        newSec.innerHTML = `
+          ${headerHTML}
           <div class="summary-text" contenteditable="true" spellcheck="false" style="padding: 2mm 0 3mm;">
             Hacé clic acá para escribir el contenido o especificaciones de esta nueva sección.
           </div>
-          <hr class="rule-line" style="margin: 2mm 0;">
         `;
-        p2.appendChild(newSec);
-        renumberAllSections();
-        autoSave();
       }
+
+      targetPage.appendChild(newSec);
+      renumberAllSections();
+      recalcAnalipsisTotals();
+      upgradeDOMControls();
+      autoSave();
+      showToast(`Sección "${customTitle.trim()}" agregada`);
     }
 
-    // Cambio dinámico de estructura en modo rápido (1 col, 2 cols o 3 cols)
+    // ═══════════════════════════════════════════════════════════════
+    // CAMBIO DE LAYOUT EN MODO RÁPIDO (1 COL PROPUESTA ÚNICA, 2 COLS, 3 COLS)
+    // ═══════════════════════════════════════════════════════════════
     function changeQuickLayout(val) {
+      ensureQuickColumnsExist();
       const container = document.getElementById('bodyLayoutContainer');
-      const col2 = document.getElementById('col-2');
-      const col3 = document.getElementById('col-3');
+      if (!container) return;
+
+      const cols = Array.from(container.querySelectorAll('.option-column'));
       const grandTotalSec = document.getElementById('grandTotalSection');
-      const grandTotalSelectGroup = document.getElementById('grandTotalSelector').closest('.panel-group');
+      const grandTotalSelectGroup = document.getElementById('grandTotalSelector')?.closest('.panel-group');
 
       container.classList.remove('layout-1col', 'layout-2cols', 'layout-3cols');
 
       if (val === 'layout-1col') {
         container.classList.add('layout-1col');
-        col2.style.display = 'none';
-        col3.style.display = 'none';
-        grandTotalSec.classList.add('is-hidden');
+        if (cols[0]) cols[0].style.display = 'flex';
+        if (cols[1]) cols[1].style.display = 'none';
+        if (cols[2]) cols[2].style.display = 'none';
+        const col0Title = cols[0]?.querySelector('.total-title');
+        if (col0Title && col0Title.textContent.trim() === 'SUBTOTAL') {
+          col0Title.textContent = 'TOTAL';
+        }
+        if (grandTotalSec) grandTotalSec.classList.add('is-hidden');
         if (grandTotalSelectGroup) grandTotalSelectGroup.style.display = 'none';
       } else if (val === 'layout-3cols') {
         container.classList.add('layout-3cols');
-        col2.style.display = 'flex';
-        col3.style.display = 'flex';
+        if (cols[0]) cols[0].style.display = 'flex';
+        if (cols[1]) cols[1].style.display = 'flex';
+        if (cols[2]) cols[2].style.display = 'flex';
         if (grandTotalSelectGroup) grandTotalSelectGroup.style.display = 'flex';
-        toggleQuickGrandTotal(document.getElementById('grandTotalSelector').value);
+        toggleQuickGrandTotal(document.getElementById('grandTotalSelector')?.value || 'show');
       } else {
         container.classList.add('layout-2cols');
-        col2.style.display = 'flex';
-        col3.style.display = 'none';
+        if (cols[0]) cols[0].style.display = 'flex';
+        if (cols[1]) cols[1].style.display = 'flex';
+        if (cols[2]) cols[2].style.display = 'none';
         if (grandTotalSelectGroup) grandTotalSelectGroup.style.display = 'flex';
-        toggleQuickGrandTotal(document.getElementById('grandTotalSelector').value);
+        toggleQuickGrandTotal(document.getElementById('grandTotalSelector')?.value || 'show');
       }
+
+      renumberQuickColumns();
+      recalcAllQuickColumns();
+      recalcQuickGrandTotal();
+      upgradeDOMControls();
       autoSave();
     }
 
     // Toggle de visibilidad del Total General en modo rápido
     function toggleQuickGrandTotal(val) {
       const grandTotalSec = document.getElementById('grandTotalSection');
-      const col1Title = document.querySelector('#col-1 .total-title');
-      const col2Title = document.querySelector('#col-2 .total-title');
+      const container = document.getElementById('bodyLayoutContainer');
+      const cols = container ? Array.from(container.querySelectorAll('.option-column')) : [];
 
       if (val === 'show') {
-        grandTotalSec.classList.remove('is-hidden');
-        if (col1Title && col1Title.textContent.trim() === 'TOTAL') col1Title.textContent = 'SUBTOTAL';
-        if (col2Title && col2Title.textContent.trim() === 'TOTAL') col2Title.textContent = 'SUBTOTAL';
+        if (grandTotalSec) grandTotalSec.classList.remove('is-hidden');
+        cols.forEach(c => {
+          const t = c.querySelector('.total-title');
+          if (t && t.textContent.trim() === 'TOTAL') t.textContent = 'SUBTOTAL';
+        });
         recalcQuickGrandTotal();
       } else {
-        grandTotalSec.classList.add('is-hidden');
-        if (col1Title && col1Title.textContent.trim() === 'SUBTOTAL') col1Title.textContent = 'TOTAL';
-        if (col2Title && col2Title.textContent.trim() === 'SUBTOTAL') col2Title.textContent = 'TOTAL';
+        if (grandTotalSec) grandTotalSec.classList.add('is-hidden');
+        cols.forEach(c => {
+          const t = c.querySelector('.total-title');
+          if (t && t.textContent.trim() === 'SUBTOTAL') t.textContent = 'TOTAL';
+        });
       }
       autoSave();
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // CÁLCULOS DEL DOCUMENTO ANALIPSIS (HONORARIOS + GASTOS = TOTAL)
+    // CÁLCULOS DEL DOCUMENTO ANALIPSIS (TODAS LAS SECCIONES FINANCIERAS)
     // ═══════════════════════════════════════════════════════════════
-    function calcTableSum(containerId) {
-      const container = document.getElementById(containerId);
+    function calcTableSum(containerOrId) {
+      const container = typeof containerOrId === 'string'
+        ? document.getElementById(containerOrId)
+        : containerOrId;
       if (!container) return 0;
       let total = 0;
       const amounts = container.querySelectorAll('.item-amount');
       amounts.forEach(el => {
         const txt = el.textContent.trim().toLowerCase();
-        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '') {
+        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '' && txt !== 's/c' && txt !== 'bonificado') {
           total += parseMoney(txt);
         }
       });
@@ -3665,39 +4367,61 @@
     }
 
     function recalcAnalipsisTotals() {
-      const honorarios = calcTableSum('table-honorarios');
-      const gastos = calcTableSum('table-gastos');
-      const totalGeneral = honorarios + gastos;
+      const docAnalipsis = document.getElementById('doc-analipsis');
+      if (!docAnalipsis) return;
 
-      const subH = document.getElementById('subtotal-honorarios');
-      const subG = document.getElementById('subtotal-gastos');
+      let totalGeneral = 0;
+      const finTables = docAnalipsis.querySelectorAll('.financial-table');
+
+      finTables.forEach(table => {
+        const sum = calcTableSum(table);
+        totalGeneral += sum;
+
+        // Actualizar el subtotal de esta sección financiera
+        const secBlock = table.closest('.proposal-section-block');
+        const subVal = secBlock ? secBlock.querySelector('.subtotal-value') : null;
+        if (subVal) {
+          subVal.textContent = formatMoney(sum);
+        }
+      });
+
       const totalG = document.getElementById('analipsis-grand-total');
-
-      if (subH) subH.textContent = formatMoney(honorarios);
-      if (subG) subG.textContent = formatMoney(gastos);
       if (totalG) totalG.textContent = formatMoney(totalGeneral);
 
       autoSave();
     }
 
-    function addAnalipsisItem(containerId) {
-      const list = document.getElementById(containerId);
+    function addAnalipsisItem(containerIdOrBtn) {
+      let list = null;
+      if (typeof containerIdOrBtn === 'string') {
+        list = document.getElementById(containerIdOrBtn);
+      } else if (containerIdOrBtn && containerIdOrBtn.closest) {
+        const sec = containerIdOrBtn.closest('.proposal-section-block');
+        list = sec ? sec.querySelector('.financial-table') : null;
+      }
+      if (!list) list = document.getElementById('table-honorarios');
+      if (!list) return;
+
       const div = document.createElement('div');
       div.className = 'item-entry';
       div.innerHTML = `
         <div class="item-main-row">
           <span class="item-desc" contenteditable="true" spellcheck="false">Nuevo concepto</span>
           <span class="item-dots"></span>
-          <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">$0</span>
+          <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcAnalipsisTotals()">${formatMoney(0)}</span>
         </div>
         <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ subtexto explicativo"></div>
         <button class="item-delete-btn no-print" onclick="deleteAnalipsisItem(this)" title="Eliminar">✕</button>
       `;
       list.appendChild(div);
+      upgradeDOMControls();
 
       const newDesc = div.querySelector('.item-desc');
-      newDesc.focus();
-      selectElementText(newDesc);
+      if (newDesc) {
+        newDesc.focus();
+        selectElementText(newDesc);
+      }
+      recalcAnalipsisTotals();
       autoSave();
     }
 
@@ -3727,6 +4451,8 @@
     function handleBackdropClick(e) {
       if (e.target.id === 'rateCalcModal') {
         closeRateCalculator();
+      } else if (e.target.id === 'presetsModal') {
+        closePresetsModal();
       }
     }
 
@@ -3763,6 +4489,9 @@
       if (resTotGen) resTotGen.textContent = formatMoney(totalGeneral);
     }
 
+    // Alias por compatibilidad
+    const recalcRates = calcRates;
+
     function applyRatesToProposal() {
       const hRodaje = parseFloat(document.getElementById('calcHorasRodaje')?.value) || 3;
       const hPre = parseFloat(document.getElementById('calcHorasPre')?.value) || 2;
@@ -3777,40 +4506,62 @@
       const honorarioJornada = (hTrabajoJor * tarifaHora) + costoEquipo;
       const totalGastos = gastoTraslado * cantJornadas;
 
-      // Actualizar Jornadas en tabla de Honorarios si existen
-      const entriesH = document.querySelectorAll('#table-honorarios .item-entry');
-      if (entriesH.length >= 1) {
-        const amt1 = entriesH[0].querySelector('.item-amount');
-        const sub1 = entriesH[0].querySelector('.item-subtext');
-        if (amt1) amt1.textContent = formatMoney(honorarioJornada);
-        if (sub1) sub1.textContent = `Pre-producción (${hPre}hs) + ${hRodaje}hs rodaje en locación + equipamiento técnico propio + montaje, edición y color (${hPost}hs)`;
-      }
-      if (entriesH.length >= 2) {
-        const amt2 = entriesH[1].querySelector('.item-amount');
-        const sub2 = entriesH[1].querySelector('.item-subtext');
-        if (amt2) amt2.textContent = formatMoney(honorarioJornada);
-        if (sub2) sub2.textContent = `Pre-producción (${hPre}hs) + ${hRodaje}hs rodaje en locación + equipamiento técnico propio + montaje, edición y color (${hPost}hs)`;
+      const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
+
+      if (docType === 'quick') {
+        const container = document.getElementById('bodyLayoutContainer');
+        const visibleCol = container ? Array.from(container.querySelectorAll('.option-column')).find(c => c.style.display !== 'none') : null;
+        if (visibleCol) {
+          const entries = visibleCol.querySelectorAll('.item-entry');
+          if (entries.length >= 1) {
+            const amt1 = entries[0].querySelector('.item-amount');
+            const sub1 = entries[0].querySelector('.item-subtext');
+            if (amt1) amt1.textContent = formatMoney(honorarioJornada * cantJornadas);
+            if (sub1) sub1.textContent = `${cantJornadas} jornada(s): Pre (${hPre}hs) + Rodaje (${hRodaje}hs) + Post (${hPost}hs) + Equipo`;
+          }
+          if (entries.length >= 2) {
+            const amt2 = entries[1].querySelector('.item-amount');
+            const sub2 = entries[1].querySelector('.item-subtext');
+            if (amt2) amt2.textContent = formatMoney(totalGastos);
+            if (sub2) sub2.textContent = `Logística, traslados y viáticos (${cantJornadas} visitas · ${hViaje}hs viaje c/u)`;
+          }
+          recalcColumn(visibleCol.id);
+        }
+      } else {
+        const entriesH = document.querySelectorAll('#table-honorarios .item-entry');
+        if (entriesH.length >= 1) {
+          const amt1 = entriesH[0].querySelector('.item-amount');
+          const sub1 = entriesH[0].querySelector('.item-subtext');
+          if (amt1) amt1.textContent = formatMoney(honorarioJornada);
+          if (sub1) sub1.textContent = `Pre-producción (${hPre}hs) + ${hRodaje}hs rodaje en locación + equipamiento técnico propio + montaje, edición y color (${hPost}hs)`;
+        }
+        if (entriesH.length >= 2) {
+          const amt2 = entriesH[1].querySelector('.item-amount');
+          const sub2 = entriesH[1].querySelector('.item-subtext');
+          if (amt2) amt2.textContent = formatMoney(honorarioJornada);
+          if (sub2) sub2.textContent = `Pre-producción (${hPre}hs) + ${hRodaje}hs rodaje en locación + equipamiento técnico propio + montaje, edición y color (${hPost}hs)`;
+        }
+
+        const entriesG = document.querySelectorAll('#table-gastos .item-entry');
+        if (entriesG.length >= 1) {
+          const amtG = entriesG[0].querySelector('.item-amount');
+          const subG = entriesG[0].querySelector('.item-subtext');
+          if (amtG) amtG.textContent = formatMoney(totalGastos);
+          if (subG) subG.textContent = `Movilidad vehicular de equipo técnico, peajes y viáticos para ${cantJornadas} jornadas (${hViaje}hs traslado c/u)`;
+        }
+        recalcAnalipsisTotals();
       }
 
-      // Actualizar tabla de Gastos
-      const entriesG = document.querySelectorAll('#table-gastos .item-entry');
-      if (entriesG.length >= 1) {
-        const amtG = entriesG[0].querySelector('.item-amount');
-        const subG = entriesG[0].querySelector('.item-subtext');
-        if (amtG) amtG.textContent = formatMoney(totalGastos);
-        if (subG) subG.textContent = `Movilidad vehicular de equipo técnico, peajes y viáticos para ${cantJornadas} jornadas (${hViaje}hs traslado c/u)`;
-      }
-
-      recalcAnalipsisTotals();
       closeRateCalculator();
+      showToast('Valores de calculadora aplicados a la propuesta');
       autoSave();
     }
 
     // ═══════════════════════════════════════════════════════════════
     // GESTIÓN DINÁMICA DE JORNADAS, ENTREGABLES Y CONDICIONES
     // ═══════════════════════════════════════════════════════════════
-    function addAnalipsisJornada() {
-      const grid = document.getElementById('jornadasGridAnalipsis');
+    function addAnalipsisJornada(targetGridId) {
+      const grid = document.getElementById(targetGridId || 'jornadasGridAnalipsis') || document.querySelector('#doc-analipsis .jornadas-grid');
       if (!grid) return;
       const count = grid.querySelectorAll('.jornada-card').length + 1;
       const numStr = count < 10 ? '0' + count : count;
@@ -3830,6 +4581,7 @@
         </div>
       `;
       grid.appendChild(card);
+      upgradeDOMControls();
       autoSave();
     }
 
@@ -3841,8 +4593,8 @@
       }
     }
 
-    function addAnalipsisDeliverable() {
-      const list = document.getElementById('deliverablesListAnalipsis');
+    function addAnalipsisDeliverable(targetListId) {
+      const list = document.getElementById(targetListId || 'deliverablesListAnalipsis') || document.querySelector('#doc-analipsis .deliverables-list');
       if (!list) return;
       const line = document.createElement('div');
       line.className = 'deliverable-line';
@@ -3854,6 +4606,7 @@
         <button class="del-btn-card no-print" onclick="deleteDeliverableLine(this)" title="Eliminar entregable">✕</button>
       `;
       list.appendChild(line);
+      upgradeDOMControls();
       autoSave();
     }
 
@@ -3865,8 +4618,8 @@
       }
     }
 
-    function addAnalipsisCondition() {
-      const grid = document.getElementById('conditionsGridAnalipsis');
+    function addAnalipsisCondition(targetGridId) {
+      const grid = document.getElementById(targetGridId || 'conditionsGridAnalipsis') || document.querySelector('#doc-analipsis .conditions-grid');
       if (!grid) return;
       const block = document.createElement('div');
       block.className = 'condition-block';
@@ -3878,6 +4631,7 @@
         </div>
       `;
       grid.appendChild(block);
+      upgradeDOMControls();
       autoSave();
     }
 
@@ -3890,42 +4644,87 @@
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // GESTIÓN DEL CÓDIGO QR DINÁMICO
+    // GESTIÓN DE PORTFOLIO LINKS Y CÓDIGO QR DINÁMICO
     // ═══════════════════════════════════════════════════════════════
     let qrInstanceQuick = null;
     let qrInstanceAnalipsis = null;
 
-    function getTargetURL() {
-      const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
-      let linkEl = docType === 'analipsis'
-        ? document.getElementById('footerPortfolioLinkAnalipsis')
-        : document.getElementById('footerPortfolioLink');
-
-      let text = linkEl?.textContent || 'leonfeldmanreino.myportfolio.com';
-      text = text.replace(' ↗', '').trim();
-      if (!text.startsWith('http://') && !text.startsWith('https://')) {
-        text = 'https://' + text;
+    function normalizePortfolioUrl(rawUrl) {
+      let clean = String(rawUrl || DEFAULT_PORTFOLIO_URL).replace('↗', '').trim();
+      if (!clean || clean.toLowerCase() === 'portfolio online') {
+        clean = DEFAULT_PORTFOLIO_URL;
       }
-      return text;
+      if (!clean.startsWith('http://') && !clean.startsWith('https://')) {
+        clean = 'https://' + clean;
+      }
+      return clean;
     }
 
-    function syncPortfolioLinks(url) {
-      const targetUrl = url || getTargetURL();
-      const allLinks = [
-        document.getElementById('brandPortfolioLink'),
-        document.getElementById('brandPortfolioLinkAnalipsis'),
-        document.getElementById('footerPortfolioLink'),
-        document.getElementById('footerPortfolioLinkAnalipsis')
-      ];
-      allLinks.forEach(l => {
-        if (l) l.href = targetUrl;
+    function formatPortfolioDisplayText(url) {
+      return url.replace(/^https?:\/\//i, '').replace(/\/+$/, '') + ' ↗';
+    }
+
+    function getTargetURL() {
+      return normalizePortfolioUrl(currentPortfolioUrl || DEFAULT_PORTFOLIO_URL);
+    }
+
+    function syncPortfolioLinks(newUrl) {
+      const targetUrl = normalizePortfolioUrl(newUrl || currentPortfolioUrl || DEFAULT_PORTFOLIO_URL);
+      currentPortfolioUrl = targetUrl;
+      const displayTxt = formatPortfolioDisplayText(targetUrl);
+
+      const allLinks = document.querySelectorAll('.brand-link, .portfolio-link, .portfolio-anchor');
+      allLinks.forEach(a => {
+        a.href = targetUrl;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        // Quitar contenteditable del anchor para que el clic navegue efectivamente al portfolio
+        a.removeAttribute('contenteditable');
+        a.textContent = displayTxt;
+        a.title = `Abrir ${targetUrl} en una nueva pestaña`;
+
+        // Asegurar que tenga el botón de edición rápida al lado si no lo tiene
+        if (!a.parentElement.classList.contains('portfolio-link-wrap')) {
+          const wrap = document.createElement('div');
+          wrap.className = 'portfolio-link-wrap';
+          a.parentNode.insertBefore(wrap, a);
+          wrap.appendChild(a);
+          const editBtn = document.createElement('button');
+          editBtn.type = 'button';
+          editBtn.className = 'edit-link-btn no-print';
+          editBtn.textContent = '✎';
+          editBtn.title = 'Cambiar URL del Portfolio';
+          editBtn.setAttribute('onclick', 'promptEditPortfolioUrl(event)');
+          wrap.appendChild(editBtn);
+        }
       });
+
+      updateQR(targetUrl);
+    }
+
+    function promptEditPortfolioUrl(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      const current = getTargetURL();
+      const input = prompt('Ingresá la URL de tu Portfolio (se actualizarán todos los enlaces y códigos QR):', current);
+      if (input !== null && input.trim() !== '') {
+        const normalized = normalizePortfolioUrl(input.trim());
+        syncPortfolioLinks(normalized);
+        autoSave();
+        showToast('Links de Portfolio y Código QR actualizados');
+      }
+    }
+
+    function openPortfolioInNewTab(e) {
+      if (e && e.target && e.target.isContentEditable) return;
+      window.open(getTargetURL(), '_blank', 'noopener,noreferrer');
     }
 
     function updateQR(forcedUrl) {
-      const url = forcedUrl || getTargetURL();
+      const url = normalizePortfolioUrl(forcedUrl || getTargetURL());
 
-      // QR en modo Analipsis
       const cAnalipsis = document.getElementById('qrcodeCanvasAnalipsis');
       if (cAnalipsis && typeof QRCode !== 'undefined') {
         cAnalipsis.innerHTML = '';
@@ -3941,7 +4740,6 @@
         } catch (e) { }
       }
 
-      // QR en modo Quick
       const cQuick = document.getElementById('qrcodeCanvas');
       if (cQuick && typeof QRCode !== 'undefined') {
         cQuick.innerHTML = '';
@@ -3973,65 +4771,93 @@
       autoSave();
     }
 
-    // Recalcular suma unificada del Total General en modo rápido
+    // ═══════════════════════════════════════════════════════════════
+    // CÁLCULOS EN MODO RÁPIDO (1, 2 Y 3 COLUMNAS)
+    // ═══════════════════════════════════════════════════════════════
+    function recalcAllQuickColumns() {
+      const container = document.getElementById('bodyLayoutContainer');
+      if (!container) return;
+      const cols = container.querySelectorAll('.option-column');
+      cols.forEach(col => recalcColumn(col));
+    }
+
     function recalcQuickGrandTotal() {
-      const t1 = parseMoney(document.getElementById('total-col-1')?.textContent || '');
-      const t2 = parseMoney(document.getElementById('total-col-2')?.textContent || '');
-      const t3 = parseMoney(document.getElementById('total-col-3')?.textContent || '');
-      const is3Cols = document.getElementById('layoutSelector')?.value === 'layout-3cols';
+      const container = document.getElementById('bodyLayoutContainer');
+      if (!container) return;
+      const visibleCols = Array.from(container.querySelectorAll('.option-column')).filter(c => c.style.display !== 'none');
+      let sum = 0;
+      visibleCols.forEach(col => {
+        const fig = col.querySelector('.total-figure');
+        if (fig) sum += parseMoney(fig.textContent || '');
+      });
       const grandTotalEl = document.getElementById('grandTotalAmount');
       if (grandTotalEl) {
-        grandTotalEl.textContent = formatMoney(t1 + t2 + (is3Cols ? t3 : 0));
+        grandTotalEl.textContent = formatMoney(sum);
       }
     }
 
-    // Cambio de tema visual
-    function changeTheme(themeName) {
+    function applyBodyClasses() {
+      const themeName = document.getElementById('themeSelector')?.value || 'original';
+      const spacingName = document.getElementById('spacingSelector')?.value || currentSpacing || 'normal';
       document.body.className = '';
-      if (themeName !== 'original') {
+      if (themeName && themeName !== 'original') {
         document.body.classList.add(themeName);
       }
+      if (spacingName && spacingName !== 'normal') {
+        document.body.classList.add(spacingName);
+      }
+    }
+
+    function changeTheme(themeName) {
+      applyBodyClasses();
       autoSave();
     }
 
-    // Parseo de montos numéricos ($200.000 -> 200000)
+    function changeSpacing(spacingName) {
+      currentSpacing = spacingName || 'normal';
+      applyBodyClasses();
+      autoSave();
+    }
+
     function parseMoney(text) {
       if (!text) return 0;
-      const clean = text.replace(/[^0-9]/g, '');
+      const clean = String(text).replace(/[^0-9]/g, '');
       const val = parseInt(clean, 10);
       return isNaN(val) ? 0 : val;
     }
 
-    // Formateo de montos ($200.000 o US$200,000)
     function formatMoney(num) {
+      const safeNum = isNaN(num) ? 0 : num;
       if (currentCurrency === 'USD') {
-        return 'US$' + num.toLocaleString('en-US');
+        return 'US$' + safeNum.toLocaleString('en-US');
       }
-      return '$' + num.toLocaleString('es-AR');
+      return '$' + safeNum.toLocaleString('es-AR');
     }
 
-    // Recalcular total de una columna en modo rápido
-    function recalcColumn(colId) {
-      const col = document.getElementById(colId);
+    function recalcColumn(colOrId) {
+      let col = null;
+      if (typeof colOrId === 'string') {
+        col = document.getElementById(colOrId);
+      } else if (colOrId && colOrId.classList) {
+        col = colOrId.classList.contains('option-column') ? colOrId : colOrId.closest('.option-column');
+      }
       if (!col) return;
 
       const amounts = col.querySelectorAll('.items-list .item-amount');
       let sum = 0;
-      let hasNumbers = false;
 
       amounts.forEach(el => {
         const txt = el.textContent.trim().toLowerCase();
-        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '') {
+        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '' && txt !== 's/c' && txt !== 'bonificado') {
           const num = parseMoney(txt);
           if (num > 0) {
             sum += num;
-            hasNumbers = true;
           }
         }
       });
 
-      const totalEl = document.getElementById('total-' + colId);
-      if (totalEl && hasNumbers) {
+      const totalEl = col.querySelector('.total-figure') || document.getElementById('total-' + col.id);
+      if (totalEl) {
         totalEl.textContent = formatMoney(sum);
       }
 
@@ -4039,109 +4865,712 @@
       autoSave();
     }
 
-    // Agregar nuevo ítem con subtexto a una columna en modo rápido
-    function addNewItem(colId) {
-      const list = document.getElementById('items-' + colId);
+    // Agregar nuevo ítem con subtexto a cualquier columna (incluso en Propuesta Única)
+    function addNewItem(colIdOrBtn) {
+      ensureQuickColumnsExist();
+      let col = null;
+      if (typeof colIdOrBtn === 'string') {
+        col = document.getElementById(colIdOrBtn);
+      } else if (colIdOrBtn && colIdOrBtn.closest) {
+        col = colIdOrBtn.closest('.option-column');
+      }
+
+      // Si la columna buscada no existe o está oculta en modo 1 columna, usar la primera columna visible
+      const container = document.getElementById('bodyLayoutContainer');
+      if (!col || (container && container.classList.contains('layout-1col') && col.style.display === 'none')) {
+        const visibleCols = container ? Array.from(container.querySelectorAll('.option-column')).filter(c => c.style.display !== 'none') : [];
+        col = visibleCols[0] || (container ? container.querySelector('.option-column') : null);
+      }
+      if (!col) return;
+
+      let list = col.querySelector('.items-list') || document.getElementById('items-' + col.id);
+      if (!list) {
+        list = document.createElement('div');
+        list.className = 'items-list';
+        list.id = 'items-' + col.id;
+        col.insertBefore(list, col.querySelector('.add-item-trigger') || col.querySelector('.total-divider'));
+      }
+
       const div = document.createElement('div');
       div.className = 'item-entry';
       div.innerHTML = `
         <div class="item-main-row">
           <span class="item-desc" contenteditable="true" spellcheck="false">Nuevo concepto</span>
           <span class="item-dots"></span>
-          <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcColumn('${colId}')">$0</span>
+          <span class="item-amount" contenteditable="true" spellcheck="false" onblur="recalcColumn('${col.id}')">${formatMoney(0)}</span>
         </div>
         <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle / subtexto"></div>
-        <button class="item-delete-btn no-print" onclick="deleteItem(this, '${colId}')" title="Eliminar ítem">✕</button>
+        <button class="item-delete-btn no-print" onclick="deleteItem(this, '${col.id}')" title="Eliminar ítem">✕</button>
       `;
       list.appendChild(div);
+      upgradeDOMControls();
 
       const newDesc = div.querySelector('.item-desc');
-      newDesc.focus();
-      selectElementText(newDesc);
+      if (newDesc) {
+        newDesc.focus();
+        selectElementText(newDesc);
+      }
+      recalcColumn(col);
       autoSave();
     }
 
-    // Eliminar ítem en modo rápido
     function deleteItem(btn, colId) {
       const entry = btn.closest('.item-entry');
+      const col = entry ? entry.closest('.option-column') : document.getElementById(colId);
       if (entry) {
         entry.remove();
-        recalcColumn(colId);
+        if (col) recalcColumn(col);
       }
       autoSave();
     }
 
     function selectElementText(el) {
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
+      try {
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      } catch (e) { }
     }
 
-    // Guardado automático en localStorage
-    function autoSave() {
-      const data = {
-        docType: document.getElementById('docTypeSelector')?.value || 'analipsis',
-        currency: currentCurrency || 'ARS',
-        analipsisHTML: document.getElementById('doc-analipsis')?.innerHTML || '',
-        quickHTML: document.getElementById('doc-quick')?.innerHTML || '',
-        quickPreset: document.getElementById('quickPresetSelector')?.value || 'quick-show',
-        layout: document.getElementById('layoutSelector')?.value || 'layout-2cols',
-        theme: document.getElementById('themeSelector')?.value || 'original',
-        grandTotal: document.getElementById('grandTotalSelector')?.value || 'show',
-        qr: document.getElementById('qrSelector')?.value || 'show'
-      };
-      localStorage.setItem('leon_presupuesto_editorial_v7', JSON.stringify(data));
-    }
+    // ═══════════════════════════════════════════════════════════════
+    // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN Y DRAG & DROP
+    // ═══════════════════════════════════════════════════════════════
+    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card';
+    let draggedElement = null;
 
-    // Cargar borrador guardado
-    function loadSaved() {
-      const saved = localStorage.getItem('leon_presupuesto_editorial_v7');
-      if (saved) {
-        try {
-          const data = JSON.parse(saved);
-          if (data.analipsisHTML) document.getElementById('doc-analipsis').innerHTML = data.analipsisHTML;
-          if (data.quickHTML) document.getElementById('doc-quick').innerHTML = data.quickHTML;
+    function moveGenericItem(btn, direction) {
+      const item = btn.closest(REORDERABLE_SELECTORS);
+      if (!item || !item.parentNode) return;
+      const parent = item.parentNode;
 
-          if (data.currency) {
-            currentCurrency = data.currency;
-            const currSel = document.getElementById('currencySelector');
-            if (currSel) currSel.value = data.currency;
-          }
-          if (data.theme) {
-            document.getElementById('themeSelector').value = data.theme;
-            changeTheme(data.theme);
-          }
-          if (data.layout) {
-            document.getElementById('layoutSelector').value = data.layout;
-          }
-          if (data.quickPreset) {
-            const qpSel = document.getElementById('quickPresetSelector');
-            if (qpSel) qpSel.value = data.quickPreset;
-          }
-          if (data.grandTotal) {
-            document.getElementById('grandTotalSelector').value = data.grandTotal;
-          }
-          if (data.qr) {
-            document.getElementById('qrSelector').value = data.qr;
-            toggleQR(data.qr);
-          }
-          if (data.docType) {
-            document.getElementById('docTypeSelector').value = data.docType;
-            changeDocType(data.docType);
-          } else {
-            changeDocType('analipsis');
-          }
-        } catch (e) { }
+      if (direction === 'up') {
+        const prev = item.previousElementSibling;
+        if (prev) parent.insertBefore(item, prev);
       } else {
-        changeDocType('analipsis');
+        const next = item.nextElementSibling;
+        if (next) parent.insertBefore(next, item);
+      }
+      recalcAfterItemChange(parent);
+      autoSave();
+    }
+
+    function duplicateGenericItem(btn) {
+      const item = btn.closest(REORDERABLE_SELECTORS);
+      if (!item || !item.parentNode) return;
+      const parent = item.parentNode;
+      const clone = item.cloneNode(true);
+      clone.classList.remove('dragging', 'drag-over-top', 'drag-over-bottom');
+      parent.insertBefore(clone, item.nextSibling);
+      upgradeDOMControls();
+      recalcAfterItemChange(parent);
+      autoSave();
+      showToast('Ítem duplicado');
+    }
+
+    function deleteGenericItem(btn) {
+      const item = btn.closest(REORDERABLE_SELECTORS);
+      if (!item || !item.parentNode) return;
+      const parent = item.parentNode;
+      item.remove();
+      recalcAfterItemChange(parent);
+      autoSave();
+    }
+
+    function recalcAfterItemChange(container) {
+      if (!container) return;
+      const quickCol = container.closest('.option-column');
+      if (quickCol) {
+        recalcColumn(quickCol);
+      }
+      if (container.closest('#doc-analipsis')) {
+        recalcAnalipsisTotals();
       }
     }
 
-    // Restaurar ejemplo original
+    function upgradeDOMControls() {
+      // 1. Inyectar barra de herramientas fluida (.item-tools) en cada ítem, jornada, entregable y condición
+      const items = document.querySelectorAll(REORDERABLE_SELECTORS);
+      items.forEach(el => {
+        el.classList.add('has-fluid-tools');
+        let tools = el.querySelector(':scope > .item-tools');
+        if (!tools) {
+          tools = document.createElement('div');
+          tools.className = 'item-tools no-print';
+          tools.setAttribute('contenteditable', 'false');
+          tools.innerHTML = `
+            <span class="drag-handle" title="Arrastrar para reordenar">⠿</span>
+            <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'up')" title="Subir">▲</button>
+            <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'down')" title="Bajar">▼</button>
+            <button type="button" class="btn-sec-tool" onclick="duplicateGenericItem(this)" title="Duplicar">⧉</button>
+            <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteGenericItem(this)" title="Eliminar">✕</button>
+          `;
+          el.appendChild(tools);
+        }
+
+        // Activar Drag & Drop cuando se toma desde el drag-handle
+        const handle = tools.querySelector('.drag-handle');
+        if (handle && !handle.dataset.boundDrag) {
+          handle.dataset.boundDrag = '1';
+          handle.addEventListener('mousedown', () => {
+            el.setAttribute('draggable', 'true');
+          });
+          handle.addEventListener('mouseup', () => {
+            el.removeAttribute('draggable');
+          });
+        }
+
+        if (!el.dataset.boundDnd) {
+          el.dataset.boundDnd = '1';
+          el.addEventListener('dragstart', (e) => {
+            draggedElement = el;
+            el.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+          });
+          el.addEventListener('dragend', () => {
+            el.classList.remove('dragging');
+            el.removeAttribute('draggable');
+            document.querySelectorAll('.drag-over-top, .drag-over-bottom').forEach(n => {
+              n.classList.remove('drag-over-top', 'drag-over-bottom');
+            });
+            draggedElement = null;
+          });
+          el.addEventListener('dragover', (e) => {
+            if (!draggedElement || draggedElement === el || draggedElement.parentNode !== el.parentNode) return;
+            e.preventDefault();
+            const rect = el.getBoundingClientRect();
+            const mid = rect.top + rect.height / 2;
+            el.classList.remove('drag-over-top', 'drag-over-bottom');
+            if (e.clientY < mid) {
+              el.classList.add('drag-over-top');
+            } else {
+              el.classList.add('drag-over-bottom');
+            }
+          });
+          el.addEventListener('dragleave', () => {
+            el.classList.remove('drag-over-top', 'drag-over-bottom');
+          });
+          el.addEventListener('drop', (e) => {
+            if (!draggedElement || draggedElement === el || draggedElement.parentNode !== el.parentNode) return;
+            e.preventDefault();
+            const rect = el.getBoundingClientRect();
+            const mid = rect.top + rect.height / 2;
+            el.classList.remove('drag-over-top', 'drag-over-bottom');
+            if (e.clientY < mid) {
+              el.parentNode.insertBefore(draggedElement, el);
+            } else {
+              el.parentNode.insertBefore(draggedElement, el.nextSibling);
+            }
+            recalcAfterItemChange(el.parentNode);
+            autoSave();
+          });
+        }
+      });
+
+      // 2. Asegurar botón de duplicar en encabezados de secciones de 2 páginas
+      document.querySelectorAll('#doc-analipsis .section-reorder-tools').forEach(toolBar => {
+        if (!toolBar.querySelector('[onclick*="duplicateSectionBlock"]')) {
+          const dupBtn = document.createElement('button');
+          dupBtn.type = 'button';
+          dupBtn.className = 'btn-sec-tool';
+          dupBtn.title = 'Duplicar sección';
+          dupBtn.textContent = '⧉';
+          dupBtn.setAttribute('onclick', 'duplicateSectionBlock(this)');
+          const delBtn = toolBar.querySelector('.btn-sec-del');
+          if (delBtn) {
+            toolBar.insertBefore(dupBtn, delBtn);
+          } else {
+            toolBar.appendChild(dupBtn);
+          }
+        }
+      });
+
+      // 3. Asegurar botón de duplicar y referencias dinámicas en columnas de Presupuesto Rápido
+      document.querySelectorAll('#doc-quick .option-column').forEach(col => {
+        const addBtn = col.querySelector('.add-item-trigger');
+        if (addBtn) {
+          addBtn.setAttribute('onclick', 'addNewItem(this)');
+        }
+        const toolBar = col.querySelector('.column-reorder-tools');
+        if (toolBar && !toolBar.querySelector('[onclick*="duplicateQuickColumn"]')) {
+          const dupBtn = document.createElement('button');
+          dupBtn.type = 'button';
+          dupBtn.className = 'btn-sec-tool';
+          dupBtn.title = 'Duplicar columna';
+          dupBtn.textContent = '⧉';
+          dupBtn.setAttribute('onclick', 'duplicateQuickColumn(this)');
+          const delBtn = toolBar.querySelector('.btn-sec-del');
+          if (delBtn) {
+            toolBar.insertBefore(dupBtn, delBtn);
+          } else {
+            toolBar.appendChild(dupBtn);
+          }
+        }
+      });
+
+      // 4. Sincronizar links de portfolio para que todos sean clickeables y apunten al portfolio real
+      syncPortfolioLinks(currentPortfolioUrl);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GUARDADO AUTOMÁTICO DE BORRADOR Y SISTEMA DE PRESETS (LOCAL + API + JSON)
+    // ═══════════════════════════════════════════════════════════════
+    function getRateCalcState() {
+      return {
+        horasRodaje: parseFloat(document.getElementById('calcHorasRodaje')?.value) || 4,
+        horasPre: parseFloat(document.getElementById('calcHorasPre')?.value) || 2,
+        horasPost: parseFloat(document.getElementById('calcHorasPost')?.value) || 5,
+        horasViaje: parseFloat(document.getElementById('calcHorasViaje')?.value) || 2,
+        tarifaHora: parseFloat(document.getElementById('calcTarifaHora')?.value) || 20000,
+        costoEquipo: parseFloat(document.getElementById('calcCostoEquipo')?.value) || 40000,
+        gastoTraslado: parseFloat(document.getElementById('calcGastoTraslado')?.value) || 22500,
+        cantJornadas: parseInt(document.getElementById('calcCantJornadas')?.value, 10) || 2
+      };
+    }
+
+    function applyRateCalcState(calc) {
+      if (!calc) return;
+      if (calc.horasRodaje !== undefined && document.getElementById('calcHorasRodaje')) document.getElementById('calcHorasRodaje').value = calc.horasRodaje;
+      if (calc.horasPre !== undefined && document.getElementById('calcHorasPre')) document.getElementById('calcHorasPre').value = calc.horasPre;
+      if (calc.horasPost !== undefined && document.getElementById('calcHorasPost')) document.getElementById('calcHorasPost').value = calc.horasPost;
+      if (calc.horasViaje !== undefined && document.getElementById('calcHorasViaje')) document.getElementById('calcHorasViaje').value = calc.horasViaje;
+      if (calc.tarifaHora !== undefined && document.getElementById('calcTarifaHora')) document.getElementById('calcTarifaHora').value = calc.tarifaHora;
+      if (calc.costoEquipo !== undefined && document.getElementById('calcCostoEquipo')) document.getElementById('calcCostoEquipo').value = calc.costoEquipo;
+      if (calc.gastoTraslado !== undefined && document.getElementById('calcGastoTraslado')) document.getElementById('calcGastoTraslado').value = calc.gastoTraslado;
+      if (calc.cantJornadas !== undefined && document.getElementById('calcCantJornadas')) document.getElementById('calcCantJornadas').value = calc.cantJornadas;
+      calcRates();
+    }
+
+    function captureFullState() {
+      return {
+        docType: document.getElementById('docTypeSelector')?.value || 'analipsis',
+        currency: currentCurrency || 'ARS',
+        spacing: document.getElementById('spacingSelector')?.value || currentSpacing || 'normal',
+        portfolioUrl: getTargetURL(),
+        analipsisHTML: document.getElementById('doc-analipsis')?.innerHTML || '',
+        quickHTML: document.getElementById('doc-quick')?.innerHTML || '',
+        quickPreset: document.getElementById('quickPresetSelector')?.value || 'quick-foto',
+        layout: document.getElementById('layoutSelector')?.value || 'layout-2cols',
+        theme: document.getElementById('themeSelector')?.value || 'original',
+        grandTotal: document.getElementById('grandTotalSelector')?.value || 'show',
+        qr: document.getElementById('qrSelector')?.value || 'show',
+        calculator: getRateCalcState()
+      };
+    }
+
+    function applyFullState(data) {
+      if (!data) return;
+      try {
+        if (data.analipsisHTML) document.getElementById('doc-analipsis').innerHTML = data.analipsisHTML;
+        if (data.quickHTML) document.getElementById('doc-quick').innerHTML = data.quickHTML;
+
+        if (data.portfolioUrl) {
+          currentPortfolioUrl = normalizePortfolioUrl(data.portfolioUrl);
+        }
+        if (data.currency) {
+          currentCurrency = data.currency;
+          const currSel = document.getElementById('currencySelector');
+          if (currSel) currSel.value = data.currency;
+        }
+        if (data.spacing) {
+          currentSpacing = data.spacing;
+          const spSel = document.getElementById('spacingSelector');
+          if (spSel) spSel.value = data.spacing;
+        }
+        if (data.theme) {
+          const thSel = document.getElementById('themeSelector');
+          if (thSel) thSel.value = data.theme;
+        }
+        applyBodyClasses();
+
+        if (data.layout) {
+          const laySel = document.getElementById('layoutSelector');
+          if (laySel) laySel.value = data.layout;
+        }
+        if (data.quickPreset) {
+          const qpSel = document.getElementById('quickPresetSelector');
+          if (qpSel) qpSel.value = data.quickPreset;
+        }
+        if (data.grandTotal) {
+          const gtSel = document.getElementById('grandTotalSelector');
+          if (gtSel) gtSel.value = data.grandTotal;
+        }
+        if (data.qr) {
+          const qrSel = document.getElementById('qrSelector');
+          if (qrSel) qrSel.value = data.qr;
+          toggleQR(data.qr);
+        }
+        if (data.calculator) {
+          applyRateCalcState(data.calculator);
+        }
+
+        const targetDocType = data.docType || 'analipsis';
+        const docSel = document.getElementById('docTypeSelector');
+        if (docSel) docSel.value = targetDocType;
+        // Importante: skipPresetOverwrite = true para NO pisar el HTML guardado
+        changeDocType(targetDocType, true);
+        upgradeDOMControls();
+      } catch (e) {
+        console.error('Error aplicando estado:', e);
+      }
+    }
+
+    function autoSave() {
+      try {
+        const state = captureFullState();
+        localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(state));
+      } catch (e) { }
+    }
+
+    function loadSaved() {
+      const saved = localStorage.getItem(DRAFT_STORAGE_KEY) || localStorage.getItem('leon_presupuesto_editorial_v7');
+      if (saved) {
+        try {
+          const data = JSON.parse(saved);
+          applyFullState(data);
+          return;
+        } catch (e) { }
+      }
+      changeDocType('analipsis', false);
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // GESTOR DE PRESETS HÍBRIDO (LOCALSTORAGE + API SERVIDOR + JSON)
+    // ═══════════════════════════════════════════════════════════════
+    function getLocalPresets() {
+      try {
+        const raw = localStorage.getItem(PRESETS_STORAGE_KEY);
+        const parsed = raw ? JSON.parse(raw) : [];
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function setLocalPresets(list) {
+      try {
+        localStorage.setItem(PRESETS_STORAGE_KEY, JSON.stringify(list));
+      } catch (e) { }
+    }
+
+    async function syncPresetsWithServer() {
+      const statusPill = document.getElementById('presetSyncStatus');
+      const localList = getLocalPresets();
+
+      try {
+        const res = await fetch('/api/presets', { method: 'GET' });
+        if (!res.ok) throw new Error('Server offline');
+        const serverList = await res.json();
+
+        // Combinar presets locales y del servidor sin perder ninguno
+        const map = new Map();
+        localList.forEach(p => { if (p && p.id) map.set(p.id, p); });
+        if (Array.isArray(serverList)) {
+          serverList.forEach(p => { if (p && p.id) map.set(p.id, p); });
+        }
+        const merged = Array.from(map.values()).sort((a, b) =>
+          new Date(b.updatedAt || b.createdAt || 0) - new Date(a.updatedAt || a.createdAt || 0)
+        );
+        setLocalPresets(merged);
+        if (statusPill) {
+          statusPill.textContent = '🟢 Guardado Local + Servidor Activo';
+          statusPill.style.borderColor = 'rgba(46, 125, 50, 0.6)';
+        }
+        return merged;
+      } catch (e) {
+        if (statusPill) {
+          statusPill.textContent = '🟡 Modo Local Autónomo (LocalStorage + JSON)';
+          statusPill.style.borderColor = 'rgba(212, 184, 122, 0.4)';
+        }
+        return localList;
+      }
+    }
+
+    async function openPresetsModal() {
+      const modal = document.getElementById('presetsModal');
+      if (modal) modal.classList.add('active');
+      await renderPresetsList();
+    }
+
+    function closePresetsModal() {
+      const modal = document.getElementById('presetsModal');
+      if (modal) modal.classList.remove('active');
+    }
+
+    async function renderPresetsList() {
+      const container = document.getElementById('presetsListContainer');
+      if (!container) return;
+
+      const presets = await syncPresetsWithServer();
+      if (presets.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding: 24px 12px; color:#888; font-size:12px; border:1px dashed rgba(255,255,255,0.12); border-radius:8px;">
+            No tenés presets guardados todavía. Escribí un nombre arriba y tocá <strong>"💾 Guardar Preset"</strong> para guardar tu primera configuración completa.
+          </div>
+        `;
+        return;
+      }
+
+      const docLabels = {
+        analipsis: '📅 Mensual (2 Págs)',
+        jornada: '🎬 Jornada (2 Págs)',
+        pieza: '📦 Por Pieza (2 Págs)',
+        quick: '⚡ Rápido (1 Pág)'
+      };
+
+      container.innerHTML = presets.map(p => {
+        const cfg = p.config || {};
+        const docLabel = docLabels[cfg.docType] || 'Presupuesto';
+        const curr = cfg.currency || 'ARS';
+        const dateStr = p.updatedAt || p.createdAt
+          ? new Date(p.updatedAt || p.createdAt).toLocaleDateString('es-AR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })
+          : '';
+        const desc = p.description ? ` · ${escapeHtmlText(p.description)}` : '';
+
+        return `
+          <div class="preset-item-card">
+            <div class="preset-item-info">
+              <div class="preset-item-name">⭐ ${escapeHtmlText(p.name || 'Preset sin nombre')}</div>
+              <div class="preset-item-meta">${docLabel} · ${curr} · ${dateStr}${desc}</div>
+            </div>
+            <div class="preset-item-actions">
+              <button class="preset-mini-btn primary" onclick="loadPresetById('${p.id}')" title="Cargar este preset en el editor">▶ Cargar</button>
+              <button class="preset-mini-btn" onclick="overwritePresetById('${p.id}')" title="Actualizar este preset con los datos actuales">🔄 Actualizar</button>
+              <button class="preset-mini-btn" onclick="exportSinglePresetJson('${p.id}')" title="Descargar este preset como archivo .json">⬇ JSON</button>
+              <button class="preset-mini-btn danger" onclick="deletePresetById('${p.id}')" title="Eliminar preset">✕</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtmlText(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    async function saveCurrentAsPreset() {
+      const nameInput = document.getElementById('newPresetNameInput');
+      const descInput = document.getElementById('newPresetDescInput');
+      let name = nameInput?.value.trim();
+
+      if (!name) {
+        const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
+        const projEl = docType === 'quick'
+          ? document.querySelector('#doc-quick .project-name')
+          : document.querySelector('#doc-analipsis .project-name');
+        name = prompt('Ingresá un nombre para este Preset:', projEl?.textContent.trim() || 'Mi Preset');
+        if (!name || !name.trim()) return;
+        name = name.trim();
+      }
+
+      const description = descInput?.value.trim() || '';
+      const config = captureFullState();
+      const now = new Date().toISOString();
+      const newPreset = {
+        id: 'preset-' + Date.now() + '-' + Math.floor(Math.random() * 10000),
+        name,
+        description,
+        config,
+        createdAt: now,
+        updatedAt: now
+      };
+
+      // 1. Guardar inmediatamente en LocalStorage
+      const list = getLocalPresets();
+      list.unshift(newPreset);
+      setLocalPresets(list);
+
+      // 2. Intentar sincronizar con el servidor Node/Express si está corriendo
+      try {
+        await fetch('/api/presets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newPreset)
+        });
+      } catch (e) { }
+
+      if (nameInput) nameInput.value = '';
+      if (descInput) descInput.value = '';
+      await renderPresetsList();
+      showToast(`Preset "${name}" guardado exitosamente`);
+    }
+
+    // Alias por si se invoca savePreset() directamente
+    const savePreset = saveCurrentAsPreset;
+
+    function loadPresetById(id) {
+      const list = getLocalPresets();
+      const found = list.find(p => p.id === id);
+      if (!found || !found.config) return;
+
+      // Si era un preset antiguo que solo tenía datos de calculadora, aplicamos calculadora; si es completo, aplicamos todo
+      if (found.config.analipsisHTML || found.config.quickHTML) {
+        applyFullState(found.config);
+      } else {
+        applyRateCalcState(found.config);
+      }
+      autoSave();
+      closePresetsModal();
+      showToast(`Preset "${found.name}" cargado`);
+    }
+
+    async function overwritePresetById(id) {
+      const list = getLocalPresets();
+      const idx = list.findIndex(p => p.id === id);
+      if (idx === -1) return;
+
+      if (!confirm(`¿Deseás actualizar el preset "${list[idx].name}" con el presupuesto actual?`)) return;
+
+      list[idx].config = captureFullState();
+      list[idx].updatedAt = new Date().toISOString();
+      setLocalPresets(list);
+
+      try {
+        await fetch('/api/presets', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(list[idx])
+        });
+      } catch (e) { }
+
+      await renderPresetsList();
+      showToast(`Preset "${list[idx].name}" actualizado`);
+    }
+
+    async function deletePresetById(id) {
+      const list = getLocalPresets();
+      const target = list.find(p => p.id === id);
+      if (!target) return;
+      if (!confirm(`¿Eliminar el preset "${target.name}"?`)) return;
+
+      const filtered = list.filter(p => p.id !== id);
+      setLocalPresets(filtered);
+
+      try {
+        await fetch(`/api/presets/${encodeURIComponent(id)}`, { method: 'DELETE' });
+      } catch (e) { }
+
+      await renderPresetsList();
+      showToast('Preset eliminado');
+    }
+
+    function exportSinglePresetJson(id) {
+      const list = getLocalPresets();
+      const target = list.find(p => p.id === id);
+      if (!target) return;
+      downloadJsonObject(target, `Preset_${target.name.replace(/[^a-zA-Z0-9_-]/g, '_')}.json`);
+      showToast('Archivo JSON del preset descargado');
+    }
+
+    function exportCurrentBudgetJson() {
+      const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
+      const projName = (docType === 'quick'
+        ? document.querySelector('#doc-quick .project-name')?.textContent
+        : document.querySelector('#doc-analipsis .project-name')?.textContent) || 'Presupuesto';
+      const presetObj = {
+        id: 'preset-' + Date.now(),
+        name: projName.trim(),
+        description: 'Exportado manualmente',
+        config: captureFullState(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+      downloadJsonObject(presetObj, `Preset_${projName.trim().replace(/[^a-zA-Z0-9_-]/g, '_')}.json`);
+      showToast('Presupuesto exportado en formato .json');
+    }
+
+    function downloadJsonObject(obj, filename) {
+      const blob = new Blob([JSON.stringify(obj, null, 2)], { type: 'application/json;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(a.href);
+    }
+
+    function triggerImportPresetJson() {
+      const input = document.getElementById('presetJsonInput');
+      if (input) input.click();
+    }
+
+    async function handleImportPresetFile(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+        const list = getLocalPresets();
+
+        if (Array.isArray(parsed)) {
+          // Biblioteca de múltiples presets
+          parsed.forEach(p => {
+            if (p && p.config) {
+              p.id = p.id || ('preset-' + Date.now() + '-' + Math.floor(Math.random() * 1000));
+              list.unshift(p);
+            }
+          });
+          setLocalPresets(list);
+          await renderPresetsList();
+          showToast('Biblioteca de presets importada');
+        } else if (parsed && typeof parsed === 'object') {
+          const presetToSave = parsed.config ? parsed : {
+            id: 'preset-' + Date.now(),
+            name: file.name.replace(/\.json$/i, ''),
+            description: 'Importado desde archivo',
+            config: parsed,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
+          };
+          list.unshift(presetToSave);
+          setLocalPresets(list);
+          try {
+            await fetch('/api/presets', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(presetToSave)
+            });
+          } catch (err) { }
+          loadPresetById(presetToSave.id);
+          await renderPresetsList();
+          showToast(`Preset "${presetToSave.name}" importado y aplicado`);
+        }
+      } catch (err) {
+        alert('El archivo seleccionado no es un JSON de preset válido.');
+      } finally {
+        e.target.value = '';
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════
+    // NOTIFICACIONES TOAST, BACKUP HTML, RESTAURACIÓN Y PDF
+    // ═══════════════════════════════════════════════════════════════
+    let toastTimer = null;
+    function showToast(msg) {
+      let toast = document.getElementById('appToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'appToast';
+        toast.className = 'app-toast no-print';
+        document.body.appendChild(toast);
+      }
+      toast.innerHTML = `<span style="color:#D4B87A;">✦</span> <span>${escapeHtmlText(msg)}</span>`;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2600);
+    }
+
     function restoreOriginalExample() {
-      if (!confirm('¿Deseas restaurar la plantilla con todos los datos y valores de referencia?')) return;
+      if (!confirm('¿Deseás restaurar la plantilla original con todos los valores de referencia? (Tus Presets guardados en ⭐ Presets se conservarán).')) return;
+      localStorage.removeItem(DRAFT_STORAGE_KEY);
       localStorage.removeItem('leon_presupuesto_editorial_v7');
       localStorage.removeItem('leon_presupuesto_editorial_v6');
       localStorage.removeItem('leon_presupuesto_editorial_v5');
@@ -4151,21 +5580,20 @@
       location.reload();
     }
 
-    // Guardar copia descargable HTML para archivar la cotización del cliente
     function saveHTMLBackup() {
       const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
       let proj = 'Presupuesto';
       let date = '2026';
 
-      if (docType === 'analipsis') {
-        proj = (document.querySelector('#doc-analipsis .project-name')?.textContent || 'Propuesta_Analipsis')
-          .trim().replace(/[^a-zA-Z0-9_\u00C0-\u017F\s-]/g, '').replace(/\s+/g, '_');
-        date = (document.querySelector('#doc-analipsis .header-date')?.textContent || '2026')
-          .trim().replace(/[^0-9.]/g, '');
-      } else {
+      if (docType === 'quick') {
         proj = (document.querySelector('#doc-quick .project-name')?.textContent || 'Presupuesto')
           .trim().replace(/[^a-zA-Z0-9_\u00C0-\u017F\s-]/g, '').replace(/\s+/g, '_');
         date = (document.querySelector('#doc-quick .header-date')?.textContent || '2026')
+          .trim().replace(/[^0-9.]/g, '');
+      } else {
+        proj = (document.querySelector('#doc-analipsis .project-name')?.textContent || 'Propuesta_Audiovisual')
+          .trim().replace(/[^a-zA-Z0-9_\u00C0-\u017F\s-]/g, '').replace(/\s+/g, '_');
+        date = (document.querySelector('#doc-analipsis .header-date')?.textContent || '2026')
           .trim().replace(/[^0-9.]/g, '');
       }
 
@@ -4179,273 +5607,76 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(a.href);
+      showToast('Copia HTML descargada');
     }
 
-    // Exportación limpia a PDF
     function exportPDF() {
       window.print();
     }
 
-    // Guardado continuo al editar texto
+    // Recálculo en vivo al editar montos y guardado automático continuo
     document.addEventListener('input', (e) => {
       if (e.target.isContentEditable) {
-        if (e.target.id === 'footerPortfolioLink' || e.target.id === 'footerPortfolioLinkAnalipsis' || e.target.id === 'brandPortfolioLink') {
-          updateQR();
+        if (e.target.classList.contains('item-amount')) {
+          const quickCol = e.target.closest('.option-column');
+          if (quickCol) {
+            recalcColumn(quickCol);
+          } else if (e.target.closest('#doc-analipsis')) {
+            recalcAnalipsisTotals();
+          }
         }
         autoSave();
       }
     });
 
     document.addEventListener('focusout', (e) => {
-      if (e.target.id === 'footerPortfolioLink' || e.target.id === 'footerPortfolioLinkAnalipsis' || e.target.id === 'brandPortfolioLink') {
-        updateQR();
+      if (e.target.isContentEditable && e.target.classList.contains('item-amount')) {
+        const txt = e.target.textContent.trim().toLowerCase();
+        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '' && txt !== 's/c' && txt !== 'bonificado') {
+          const num = parseMoney(txt);
+          e.target.textContent = formatMoney(num);
+        }
+        const quickCol = e.target.closest('.option-column');
+        if (quickCol) {
+          recalcColumn(quickCol);
+        } else if (e.target.closest('#doc-analipsis')) {
+          recalcAnalipsisTotals();
+        }
         autoSave();
       }
     });
 
-    // Atajos de teclado (Ctrl + P)
+    // Atajos de teclado (Ctrl + P para PDF, Ctrl + S para abrir Presets)
     window.addEventListener('keydown', (e) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
         e.preventDefault();
         exportPDF();
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        openPresetsModal();
       }
     });
 
     // Inicialización al cargar la página
     window.addEventListener('DOMContentLoaded', () => {
       loadSaved();
+      upgradeDOMControls();
       recalcAnalipsisTotals();
-      updateQR();
+      recalcAllQuickColumns();
+      recalcQuickGrandTotal();
+      updateQR(currentPortfolioUrl);
+      syncPresetsWithServer();
     });
+
     setTimeout(() => {
+      upgradeDOMControls();
       recalcAnalipsisTotals();
-      updateQR();
+      recalcAllQuickColumns();
+      recalcQuickGrandTotal();
+      updateQR(currentPortfolioUrl);
     }, 150);
-  
-            // Preset Save/Load System
-            // Save current cotizador configuration to server
-            async function savePreset() {
-                const name = prompt('Nombre para este preset:');
-                if (!name) return;
-                const config = {
-                    horasRodaje: parseFloat(document.getElementById('calcHorasRodaje').value),
-                    horasPre: parseFloat(document.getElementById('calcHorasPre').value),
-                    horasPost: parseFloat(document.getElementById('calcHorasPost').value),
-                    horasViaje: parseFloat(document.getElementById('calcHorasViaje').value),
-                    tarifaHora: parseFloat(document.getElementById('calcTarifaHora').value),
-                    costoEquipo: parseFloat(document.getElementById('calcCostoEquipo').value),
-                    gastoTraslado: parseFloat(document.getElementById('calcGastoTraslado').value),
-                    cantJornadas: parseInt(document.getElementById('calcCantJornadas').value),
-                    totalProyecto: parseFloat(document.getElementById('resTotalGeneral').textContent.replace('$', '').replace('.', ''))
-                };
-                try {
-                    const res = await fetch('/api/presets', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, config })
-                    });
-                    const data = await res.json();
-                    if (data.success) {
-                        showToast('Preset "' + name + '" guardado');
-                        loadPresetsList();
-                    } else {
-                        alert('Error: ' + (data.error || 'Unknown error'));
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert('Error de red al guardar preset');
-                }
-            }
-
-            // Load presets from server and populate list
-            async function loadPresetsList() {
-                try {
-                    const res = await fetch('/api/presets');
-                    const presets = await res.json();
-                    const list = document.getElementById('preset-list');
-                    if (!list) {
-                        // Create preset UI if not exists
-                        const presetUI = document.createElement('div');
-                        presetUI.style.position = 'fixed';
-                        presetUI.style.top = '2rem';
-                        presetUI.style.right = '2rem';
-                        presetUI.style.background = 'var(--bg-surface)';
-                        presetUI.style.border = '1px solid var(--border-subtle)';
-                        presetUI.style.padding = '1rem';
-                        presetUI.style.borderRadius = '6px';
-                        presetUI.style.zIndex = '10020';
-                        presetUI.innerHTML = '<h4 style="margin-top:0;font-size:0.7rem;color:var(--accent);">Presets Guardados</h4><ul id="preset-list" style="list-style:none;padding:0;margin:0;max-height:200px;overflow-y:auto;"></ul><input type="text" id="new-preset-name" style="width:100%;padding:0.5rem;margin:0.5rem 0;font-size:0.7rem;" placeholder="Nombre para nuevo preset"><button style="width:100%;padding:0.5rem;font-size:0.7rem;" onclick="savePreset()">Guardar Preset Actual</button>';
-                        document.body.appendChild(presetUI);
-                        presetList = document.getElementById('preset-list');
-                    } else {
-                        presetList.innerHTML = '';
-                    }
-                    presets.forEach(p => {
-                        const li = document.createElement('li');
-                        li.style.padding = '0.4rem 0.6rem';
-                        li.style.borderBottom = '1px solid var(--border-subtle)';
-                        li.style.cursor = 'pointer';
-                        li.textContent = p.name + ' (' + new Date(p.createdAt).toLocaleDateString() + ')';
-                        li.onclick = () => loadPreset(p);
-                        presetList.appendChild(li);
-                    });
-                } catch (err) {
-                    console.error('Error loading presets', err);
-                }
-            }
-
-            // Load a specific preset into the form
-            function loadPreset(preset) {
-                if (!preset.config) return;
-                const c = preset.config;
-                document.getElementById('calcHorasRodaje').value = c.horasRodaje || 4;
-                document.getElementById('calcHorasPre').value = c.horasPre || 2;
-                document.getElementById('calcHorasPost').value = c.horasPost || 5;
-                document.getElementById('calcHorasViaje').value = c.horasViaje || 2;
-                document.getElementById('calcTarifaHora').value = c.tarifaHora || 20000;
-                document.getElementById('calcCostoEquipo').value = c.costoEquipo || 40000;
-                document.getElementById('calcGastoTraslado').value = c.gastoTraslado || 22500;
-                document.getElementById('calcCantJornadas').value = c.cantJornadas || 2;
-                recalcRates();
-                showToast('Preset "' + preset.name + '" cargado');
-            }
-
-            // Show toast notification
-            function showToast(msg) {
-                const existing = document.getElementById('toast-msg');
-                if (existing) existing.textContent = msg;
-                const toast = document.querySelector('.toast') || document.createElement('div');
-                if (!toast.id) {
-                    toast.id = 'toast';
-                    toast.style = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--bg-surface);border:1px solid var(--accent);color:var(--text-main);padding:0.75rem 1.6rem;font-family:var(--font-mono);font-size:0.78rem;border-radius:30px;z-index:10020;';
-                    toast.innerHTML = '<span class="accent-text">✦</span> <span id="toast-msg">' + msg + '</span>';
-                    document.body.appendChild(toast);
-                } else {
-                    toast.querySelector('#toast-msg').textContent = msg;
-                    toast.style.display = 'block';
-                    setTimeout(() => toast.style.display = 'none', 3000);
-                }
-            }
-
-            // Auto-load presets when page starts
-            window.addEventListener('DOMContentLoaded', async () => {
-                await loadPresetsList();
-                // Inicializar datos locales
-
-
-
-            // Preset Save/Load System
-            // Save current cotizador configuration to server
-            async function savePreset() {
-                const name = prompt('Nombre para este preset:');
-                if (!name) return;
-                const config = {
-                    horasRodaje: parseFloat(document.getElementById('calcHorasRodaje').value),
-                    horasPre: parseFloat(document.getElementById('calcHorasPre').value),
-                    horasPost: parseFloat(document.getElementById('calcHorasPost').value),
-                    horasViaje: parseFloat(document.getElementById('calcHorasViaje').value),
-                    tarifaHora: parseFloat(document.getElementById('calcTarifaHora').value),
-                    costoEquipo: parseFloat(document.getElementById('calcCostoEquipo').value),
-                    gastoTraslado: parseFloat(document.getElementById('calcGastoTraslado').value),
-                    cantJornadas: parseInt(document.getElementById('calcCantJornadas').value),
-                    totalProyecto: parseFloat(document.getElementById('resTotalGeneral').textContent.replace('$', '').replace('.', ''))
-                };
-                try {
-                    const res = await fetch('/api/presets', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ name, config })
-                    });
-                    const data = await res.json();
-                    if (data.success) {
-                        showToast('Preset "' + name + '" guardado');
-                        loadPresetsList();
-                    } else {
-                        alert('Error: ' + (data.error || 'Unknown error'));
-                    }
-                } catch (err) {
-                    console.error(err);
-                    alert('Error de red al guardar preset');
-                }
-            }
-
-            // Load presets from server and populate list
-            async function loadPresetsList() {
-                try {
-                    const res = await fetch('/api/presets');
-                    const presets = await res.json();
-                    const list = document.getElementById('preset-list');
-                    if (!list) {
-                        // Create preset UI if not exists
-                        const presetUI = document.createElement('div');
-                        presetUI.style.position = 'fixed';
-                        presetUI.style.top = '2rem';
-                        presetUI.style.right = '2rem';
-                        presetUI.style.background = 'var(--bg-surface)';
-                        presetUI.style.border = '1px solid var(--border-subtle)';
-                        presetUI.style.padding = '1rem';
-                        presetUI.style.borderRadius = '6px';
-                        presetUI.style.zIndex = '10020';
-                        presetUI.innerHTML = '<h4 style="margin-top:0;font-size:0.7rem;color:var(--accent);">Presets Guardados</h4><ul id="preset-list" style="list-style:none;padding:0;margin:0;max-height:200px;overflow-y:auto;"></ul><input type="text" id="new-preset-name" style="width:100%;padding:0.5rem;margin:0.5rem 0;font-size:0.7rem;" placeholder="Nombre para nuevo preset"><button style="width:100%;padding:0.5rem;font-size:0.7rem;" onclick="savePreset()">Guardar Preset Actual</button>';
-                        document.body.appendChild(presetUI);
-                        presetList = document.getElementById('preset-list');
-                    } else {
-                        presetList.innerHTML = '';
-                    }
-                    presets.forEach(p => {
-                        const li = document.createElement('li');
-                        li.style.padding = '0.4rem 0.6rem';
-                        li.style.borderBottom = '1px solid var(--border-subtle)';
-                        li.style.cursor = 'pointer';
-                        li.textContent = p.name + ' (' + new Date(p.createdAt).toLocaleDateString() + ')';
-                        li.onclick = () => loadPreset(p);
-                        presetList.appendChild(li);
-                    });
-                } catch (err) {
-                    console.error('Error loading presets', err);
-                }
-            }
-
-            // Load a specific preset into the form
-            function loadPreset(preset) {
-                if (!preset.config) return;
-                const c = preset.config;
-                document.getElementById('calcHorasRodaje').value = c.horasRodaje || 4;
-                document.getElementById('calcHorasPre').value = c.horasPre || 2;
-                document.getElementById('calcHorasPost').value = c.horasPost || 5;
-                document.getElementById('calcHorasViaje').value = c.horasViaje || 2;
-                document.getElementById('calcTarifaHora').value = c.tarifaHora || 20000;
-                document.getElementById('calcCostoEquipo').value = c.costoEquipo || 40000;
-                document.getElementById('calcGastoTraslado').value = c.gastoTraslado || 22500;
-                document.getElementById('calcCantJornadas').value = c.cantJornadas || 2;
-                recalcRates();
-                showToast('Preset "' + preset.name + '" cargado');
-            }
-
-            // Show toast notification
-            function showToast(msg) {
-                const existing = document.getElementById('toast-msg');
-                if (existing) existing.textContent = msg;
-                const toast = document.querySelector('.toast') || document.createElement('div');
-                if (!toast.id) {
-                    toast.id = 'toast';
-                    toast.style = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--bg-surface);border:1px solid var(--accent);color:var(--text-main);padding:0.75rem 1.6rem;font-family:var(--font-mono);font-size:0.78rem;border-radius:30px;z-index:10020;';
-                    toast.innerHTML = '<span class="accent-text">✗</span> <span id="toast-msg">' + msg + '</span>';
-                    document.body.appendChild(toast);
-                } else {
-                    toast.querySelector('#toast-msg').textContent = msg;
-                    toast.style.display = 'block';
-                    setTimeout(() => toast.style.display = 'none', 3000);
-                }
-            }
-
-            // Auto-load presets when page starts
-            window.addEventListener('DOMContentLoaded', async () => {
-                await loadPresetsList();
-                // Inicializar datos locales
-
-
-</script>
+  </script>
 
 </body>
+
 </html>

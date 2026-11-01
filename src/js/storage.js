@@ -141,6 +141,26 @@ export function getCustomTemplates() {
   return Array.isArray(data) ? data : [];
 }
 
+export const getSavedTemplates = getCustomTemplates;
+
+export function saveCurrentBudget(budget) {
+  return saveBudget(budget);
+}
+
+export function loadCurrentBudget() {
+  const currentId = getCurrentBudgetId();
+  if (currentId) {
+    const found = getBudgetById(currentId);
+    if (found) return found;
+  }
+  const all = getSavedBudgets();
+  return all.length > 0 ? all[0] : null;
+}
+
+export function saveCustomTemplate(templateName, budget) {
+  return saveAsCustomTemplate(budget, templateName);
+}
+
 /**
  * Guarda un presupuesto como plantilla personalizada reutilizable.
  * @param {Object} budget
