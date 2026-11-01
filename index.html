@@ -4221,8 +4221,231 @@
       recalcAnalipsisTotals();
       updateQR();
     }, 150);
-  </script>
+  
+            // Preset Save/Load System
+            // Save current cotizador configuration to server
+            async function savePreset() {
+                const name = prompt('Nombre para este preset:');
+                if (!name) return;
+                const config = {
+                    horasRodaje: parseFloat(document.getElementById('calcHorasRodaje').value),
+                    horasPre: parseFloat(document.getElementById('calcHorasPre').value),
+                    horasPost: parseFloat(document.getElementById('calcHorasPost').value),
+                    horasViaje: parseFloat(document.getElementById('calcHorasViaje').value),
+                    tarifaHora: parseFloat(document.getElementById('calcTarifaHora').value),
+                    costoEquipo: parseFloat(document.getElementById('calcCostoEquipo').value),
+                    gastoTraslado: parseFloat(document.getElementById('calcGastoTraslado').value),
+                    cantJornadas: parseInt(document.getElementById('calcCantJornadas').value),
+                    totalProyecto: parseFloat(document.getElementById('resTotalGeneral').textContent.replace('$', '').replace('.', ''))
+                };
+                try {
+                    const res = await fetch('/api/presets', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, config })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        showToast('Preset "' + name + '" guardado');
+                        loadPresetsList();
+                    } else {
+                        alert('Error: ' + (data.error || 'Unknown error'));
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Error de red al guardar preset');
+                }
+            }
+
+            // Load presets from server and populate list
+            async function loadPresetsList() {
+                try {
+                    const res = await fetch('/api/presets');
+                    const presets = await res.json();
+                    const list = document.getElementById('preset-list');
+                    if (!list) {
+                        // Create preset UI if not exists
+                        const presetUI = document.createElement('div');
+                        presetUI.style.position = 'fixed';
+                        presetUI.style.top = '2rem';
+                        presetUI.style.right = '2rem';
+                        presetUI.style.background = 'var(--bg-surface)';
+                        presetUI.style.border = '1px solid var(--border-subtle)';
+                        presetUI.style.padding = '1rem';
+                        presetUI.style.borderRadius = '6px';
+                        presetUI.style.zIndex = '10020';
+                        presetUI.innerHTML = '<h4 style="margin-top:0;font-size:0.7rem;color:var(--accent);">Presets Guardados</h4><ul id="preset-list" style="list-style:none;padding:0;margin:0;max-height:200px;overflow-y:auto;"></ul><input type="text" id="new-preset-name" style="width:100%;padding:0.5rem;margin:0.5rem 0;font-size:0.7rem;" placeholder="Nombre para nuevo preset"><button style="width:100%;padding:0.5rem;font-size:0.7rem;" onclick="savePreset()">Guardar Preset Actual</button>';
+                        document.body.appendChild(presetUI);
+                        presetList = document.getElementById('preset-list');
+                    } else {
+                        presetList.innerHTML = '';
+                    }
+                    presets.forEach(p => {
+                        const li = document.createElement('li');
+                        li.style.padding = '0.4rem 0.6rem';
+                        li.style.borderBottom = '1px solid var(--border-subtle)';
+                        li.style.cursor = 'pointer';
+                        li.textContent = p.name + ' (' + new Date(p.createdAt).toLocaleDateString() + ')';
+                        li.onclick = () => loadPreset(p);
+                        presetList.appendChild(li);
+                    });
+                } catch (err) {
+                    console.error('Error loading presets', err);
+                }
+            }
+
+            // Load a specific preset into the form
+            function loadPreset(preset) {
+                if (!preset.config) return;
+                const c = preset.config;
+                document.getElementById('calcHorasRodaje').value = c.horasRodaje || 4;
+                document.getElementById('calcHorasPre').value = c.horasPre || 2;
+                document.getElementById('calcHorasPost').value = c.horasPost || 5;
+                document.getElementById('calcHorasViaje').value = c.horasViaje || 2;
+                document.getElementById('calcTarifaHora').value = c.tarifaHora || 20000;
+                document.getElementById('calcCostoEquipo').value = c.costoEquipo || 40000;
+                document.getElementById('calcGastoTraslado').value = c.gastoTraslado || 22500;
+                document.getElementById('calcCantJornadas').value = c.cantJornadas || 2;
+                recalcRates();
+                showToast('Preset "' + preset.name + '" cargado');
+            }
+
+            // Show toast notification
+            function showToast(msg) {
+                const existing = document.getElementById('toast-msg');
+                if (existing) existing.textContent = msg;
+                const toast = document.querySelector('.toast') || document.createElement('div');
+                if (!toast.id) {
+                    toast.id = 'toast';
+                    toast.style = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--bg-surface);border:1px solid var(--accent);color:var(--text-main);padding:0.75rem 1.6rem;font-family:var(--font-mono);font-size:0.78rem;border-radius:30px;z-index:10020;';
+                    toast.innerHTML = '<span class="accent-text">✦</span> <span id="toast-msg">' + msg + '</span>';
+                    document.body.appendChild(toast);
+                } else {
+                    toast.querySelector('#toast-msg').textContent = msg;
+                    toast.style.display = 'block';
+                    setTimeout(() => toast.style.display = 'none', 3000);
+                }
+            }
+
+            // Auto-load presets when page starts
+            window.addEventListener('DOMContentLoaded', async () => {
+                await loadPresetsList();
+                // Inicializar datos locales
+
+
+
+            // Preset Save/Load System
+            // Save current cotizador configuration to server
+            async function savePreset() {
+                const name = prompt('Nombre para este preset:');
+                if (!name) return;
+                const config = {
+                    horasRodaje: parseFloat(document.getElementById('calcHorasRodaje').value),
+                    horasPre: parseFloat(document.getElementById('calcHorasPre').value),
+                    horasPost: parseFloat(document.getElementById('calcHorasPost').value),
+                    horasViaje: parseFloat(document.getElementById('calcHorasViaje').value),
+                    tarifaHora: parseFloat(document.getElementById('calcTarifaHora').value),
+                    costoEquipo: parseFloat(document.getElementById('calcCostoEquipo').value),
+                    gastoTraslado: parseFloat(document.getElementById('calcGastoTraslado').value),
+                    cantJornadas: parseInt(document.getElementById('calcCantJornadas').value),
+                    totalProyecto: parseFloat(document.getElementById('resTotalGeneral').textContent.replace('$', '').replace('.', ''))
+                };
+                try {
+                    const res = await fetch('/api/presets', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, config })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        showToast('Preset "' + name + '" guardado');
+                        loadPresetsList();
+                    } else {
+                        alert('Error: ' + (data.error || 'Unknown error'));
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Error de red al guardar preset');
+                }
+            }
+
+            // Load presets from server and populate list
+            async function loadPresetsList() {
+                try {
+                    const res = await fetch('/api/presets');
+                    const presets = await res.json();
+                    const list = document.getElementById('preset-list');
+                    if (!list) {
+                        // Create preset UI if not exists
+                        const presetUI = document.createElement('div');
+                        presetUI.style.position = 'fixed';
+                        presetUI.style.top = '2rem';
+                        presetUI.style.right = '2rem';
+                        presetUI.style.background = 'var(--bg-surface)';
+                        presetUI.style.border = '1px solid var(--border-subtle)';
+                        presetUI.style.padding = '1rem';
+                        presetUI.style.borderRadius = '6px';
+                        presetUI.style.zIndex = '10020';
+                        presetUI.innerHTML = '<h4 style="margin-top:0;font-size:0.7rem;color:var(--accent);">Presets Guardados</h4><ul id="preset-list" style="list-style:none;padding:0;margin:0;max-height:200px;overflow-y:auto;"></ul><input type="text" id="new-preset-name" style="width:100%;padding:0.5rem;margin:0.5rem 0;font-size:0.7rem;" placeholder="Nombre para nuevo preset"><button style="width:100%;padding:0.5rem;font-size:0.7rem;" onclick="savePreset()">Guardar Preset Actual</button>';
+                        document.body.appendChild(presetUI);
+                        presetList = document.getElementById('preset-list');
+                    } else {
+                        presetList.innerHTML = '';
+                    }
+                    presets.forEach(p => {
+                        const li = document.createElement('li');
+                        li.style.padding = '0.4rem 0.6rem';
+                        li.style.borderBottom = '1px solid var(--border-subtle)';
+                        li.style.cursor = 'pointer';
+                        li.textContent = p.name + ' (' + new Date(p.createdAt).toLocaleDateString() + ')';
+                        li.onclick = () => loadPreset(p);
+                        presetList.appendChild(li);
+                    });
+                } catch (err) {
+                    console.error('Error loading presets', err);
+                }
+            }
+
+            // Load a specific preset into the form
+            function loadPreset(preset) {
+                if (!preset.config) return;
+                const c = preset.config;
+                document.getElementById('calcHorasRodaje').value = c.horasRodaje || 4;
+                document.getElementById('calcHorasPre').value = c.horasPre || 2;
+                document.getElementById('calcHorasPost').value = c.horasPost || 5;
+                document.getElementById('calcHorasViaje').value = c.horasViaje || 2;
+                document.getElementById('calcTarifaHora').value = c.tarifaHora || 20000;
+                document.getElementById('calcCostoEquipo').value = c.costoEquipo || 40000;
+                document.getElementById('calcGastoTraslado').value = c.gastoTraslado || 22500;
+                document.getElementById('calcCantJornadas').value = c.cantJornadas || 2;
+                recalcRates();
+                showToast('Preset "' + preset.name + '" cargado');
+            }
+
+            // Show toast notification
+            function showToast(msg) {
+                const existing = document.getElementById('toast-msg');
+                if (existing) existing.textContent = msg;
+                const toast = document.querySelector('.toast') || document.createElement('div');
+                if (!toast.id) {
+                    toast.id = 'toast';
+                    toast.style = 'position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);background:var(--bg-surface);border:1px solid var(--accent);color:var(--text-main);padding:0.75rem 1.6rem;font-family:var(--font-mono);font-size:0.78rem;border-radius:30px;z-index:10020;';
+                    toast.innerHTML = '<span class="accent-text">✗</span> <span id="toast-msg">' + msg + '</span>';
+                    document.body.appendChild(toast);
+                } else {
+                    toast.querySelector('#toast-msg').textContent = msg;
+                    toast.style.display = 'block';
+                    setTimeout(() => toast.style.display = 'none', 3000);
+                }
+            }
+
+            // Auto-load presets when page starts
+            window.addEventListener('DOMContentLoaded', async () => {
+                await loadPresetsList();
+                // Inicializar datos locales
+
+
+</script>
 
 </body>
-
 </html>
