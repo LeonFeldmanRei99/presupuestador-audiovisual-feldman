@@ -1566,6 +1566,257 @@
       border-top: 0.5px solid var(--line-subtle);
     }
 
+    /* Numeración de presupuesto y revisión en encabezado */
+    .header-doc-ref {
+      font-family: var(--font-sans);
+      font-size: 6.4pt;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 1px;
+    }
+
+    /* Leyenda de impuestos / facturación debajo de totales */
+    .option-tax-note {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 7.4pt;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 0.6mm;
+      line-height: 1.2;
+    }
+
+    .grand-total-tax {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 7.8pt;
+      color: var(--text-muted);
+      text-align: right;
+      margin-top: 0.5mm;
+    }
+
+    /* Contenedor de módulos editoriales en Presupuesto Rápido */
+    .quick-modules-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .quick-module-section,
+    .quick-conditions-section {
+      margin-top: 1.8mm;
+      padding-top: 1.5mm;
+      border-top: 0.65px solid var(--line-strong);
+      position: relative;
+    }
+
+    .quick-sec-actions {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* 1. Matriz de Entregables con Ficha de Formato en Presupuesto Rápido */
+    .quick-deliverables-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8mm 5mm;
+    }
+
+    .quick-deliverable-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6mm;
+      padding: 1.4mm 2mm;
+      background-color: var(--box-bg);
+      border-left: 1.5px solid var(--accent-bordeaux);
+      border-top: 0.5px solid var(--line-subtle);
+      border-right: 0.5px solid var(--line-subtle);
+      border-bottom: 0.5px solid var(--line-subtle);
+    }
+
+    .q-deliv-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 2mm;
+      flex-wrap: wrap;
+    }
+
+    .q-deliv-title {
+      font-family: var(--font-sans);
+      font-size: 6.4pt;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-main);
+    }
+
+    .q-deliv-badge {
+      font-family: var(--font-sans);
+      font-size: 5.8pt;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+      background: rgba(110, 43, 38, 0.07);
+      border: 0.5px solid var(--line-subtle);
+      padding: 0.3mm 1.4mm;
+      border-radius: 2px;
+      white-space: nowrap;
+    }
+
+    body.theme-white .q-deliv-badge {
+      background: rgba(0, 0, 0, 0.04);
+      color: var(--text-main);
+    }
+
+    .q-deliv-desc {
+      font-family: var(--font-serif);
+      font-size: 8.1pt;
+      color: var(--text-muted);
+      line-height: 1.26;
+    }
+
+    /* 2. Equipo Humano (Crew) & Paquete Técnico (Gear) */
+    .quick-crew-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2mm 6mm;
+    }
+
+    .quick-crew-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6mm;
+    }
+
+    .q-crew-label {
+      font-family: var(--font-sans);
+      font-size: 6.1pt;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+      border-bottom: 0.5px dotted var(--line-subtle);
+      padding-bottom: 0.4mm;
+    }
+
+    .q-crew-body {
+      font-family: var(--font-serif);
+      font-size: 8.1pt;
+      color: var(--text-muted);
+      line-height: 1.28;
+    }
+
+    /* 3. Línea de Tiempo / Flujo de Trabajo (Timeline Horizontal) */
+    .quick-timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5mm;
+    }
+
+    .quick-timeline-step {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4mm;
+      padding: 1.2mm 1.8mm;
+      border-top: 1px solid var(--accent-bordeaux);
+      background: var(--box-bg);
+    }
+
+    .q-step-num {
+      font-family: var(--font-sans);
+      font-size: 5.9pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+    }
+
+    .q-step-title {
+      font-family: var(--font-serif);
+      font-size: 8pt;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1.22;
+    }
+
+    .q-step-time {
+      font-family: var(--font-sans);
+      font-size: 5.8pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* 4. Adicionales Opcionales / Upselling (A la Carta) */
+    .quick-addons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.4mm 6mm;
+    }
+
+    .quick-addon-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .q-addon-price {
+      font-family: var(--font-sans);
+      font-size: 7.5pt;
+      font-weight: 600;
+      color: var(--accent-bordeaux);
+      white-space: nowrap;
+    }
+
+    /* 5. Barra de Alcance, Exclusiones y Congelamiento de Tarifa */
+    .quick-exclusions-bar {
+      margin-top: 1.6mm;
+      padding: 1.2mm 2mm;
+      background-color: var(--box-bg);
+      border: 0.5px solid var(--line-subtle);
+      font-family: var(--font-serif);
+      font-size: 7.7pt;
+      color: var(--text-muted);
+      line-height: 1.28;
+    }
+
+    .q-excl-label {
+      font-family: var(--font-sans);
+      font-size: 5.9pt;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+      margin-right: 1.5mm;
+    }
+
+    /* 6. Datos Bancarios & Reserva Directa */
+    .quick-payment-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3mm;
+      padding: 1.2mm 2mm;
+      background-color: var(--box-bg);
+      border: 0.5px solid var(--line-subtle);
+    }
+
+    .quick-payment-item,
+    .quick-meta-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6mm;
+    }
+
     /* Ocultar elementos */
     .is-hidden,
     .is-doc-hidden {
@@ -1644,7 +1895,13 @@
     .jornada-card > .item-tools,
     .deliverable-line > .item-tools,
     .condition-block > .item-tools,
-    .quick-condition-card > .item-tools {
+    .quick-condition-card > .item-tools,
+    .quick-deliverable-card > .item-tools,
+    .quick-crew-card > .item-tools,
+    .quick-timeline-step > .item-tools,
+    .quick-addon-item > .item-tools,
+    .quick-payment-item > .item-tools,
+    .quick-meta-item > .item-tools {
       position: absolute;
       top: -6px;
       right: 0;
@@ -1655,6 +1912,12 @@
     .deliverable-line:hover > .item-tools,
     .condition-block:hover > .item-tools,
     .quick-condition-card:hover > .item-tools,
+    .quick-deliverable-card:hover > .item-tools,
+    .quick-crew-card:hover > .item-tools,
+    .quick-timeline-step:hover > .item-tools,
+    .quick-addon-item:hover > .item-tools,
+    .quick-payment-item:hover > .item-tools,
+    .quick-meta-item:hover > .item-tools,
     .item-tools:focus-within {
       opacity: 1;
       pointer-events: auto;
@@ -1930,6 +2193,7 @@
       .edit-link-btn,
       .section-reorder-tools,
       .column-reorder-tools,
+      .quick-sec-actions,
       .app-toast,
       .no-print,
       .is-doc-hidden {
@@ -1945,12 +2209,11 @@
       .a4-page {
         box-shadow: none !important;
         width: 210mm !important;
-        height: 297mm !important;
         min-height: 297mm !important;
-        max-height: 297mm !important;
-        overflow: hidden !important;
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
         page-break-after: always !important;
-        page-break-inside: avoid !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
@@ -1960,9 +2223,9 @@
       }
 
       .editorial-frame {
-        height: 100% !important;
-        min-height: 0 !important;
-        overflow: hidden !important;
+        min-height: 278mm !important;
+        height: auto !important;
+        overflow: visible !important;
       }
 
       [contenteditable="true"] {
@@ -2025,18 +2288,38 @@
     <div class="panel-group" id="quickCustomizeGroup" style="display: none;">
       <select class="ui-select" id="quickCustomizeSelect"
         onchange="handleQuickCustomAction(this.value); this.value='';">
-        <option value="" disabled selected>⚙ Personalizar Simple...</option>
-        <option value="add-item-active">➕ Agregar Ítem a Propuesta Activa</option>
-        <option value="add-column">➕ Agregar Nueva Columna / Opción</option>
-        <option value="remove-last-col">➖ Quitar Última Columna</option>
-        <option value="toggle-meta">📋 Alternar Datos Cliente</option>
-        <option value="toggle-summary">📝 Alternar Resumen / Alcance</option>
-        <option value="toggle-conditions">⚖ Alternar Condiciones Comerciales</option>
-        <option value="toggle-signatures">✍ Alternar Bloque de Firmas</option>
-        <option value="add-item-col1">➕ Agregar Ítem a Columna I</option>
-        <option value="add-item-col2">➕ Agregar Ítem a Columna II</option>
-        <option value="add-item-col3">➕ Agregar Ítem a Columna III</option>
-        <option value="add-condition">➕ Agregar Término / Condición</option>
+        <option value="" disabled selected>⚙ Secciones &amp; Módulos...</option>
+        <optgroup label="Agregar Elementos Nuevos">
+          <option value="add-deliverable">➕ Agregar Entregable con Formato</option>
+          <option value="add-addon">➕ Agregar Adicional Opcional (A la Carta)</option>
+          <option value="add-crew">➕ Agregar Bloque Equipo / Gear</option>
+          <option value="add-timeline">➕ Agregar Etapa al Cronograma</option>
+          <option value="add-condition">➕ Agregar Término / Condición</option>
+          <option value="add-payment">➕ Agregar Dato Bancario / Reserva</option>
+          <option value="add-meta">➕ Agregar Campo de Cliente</option>
+          <option value="add-item-active">➕ Agregar Ítem a Propuesta Activa</option>
+          <option value="add-column">➕ Activar Nueva Columna / Opción</option>
+          <option value="remove-last-col">➖ Reducir Cantidad de Columnas</option>
+        </optgroup>
+        <optgroup label="Mostrar / Ocultar Secciones">
+          <option value="toggle-deliverables">🎬 Alternar Entregables &amp; Formatos</option>
+          <option value="toggle-crew">🎥 Alternar Equipo &amp; Paquete Técnico (Crew/Gear)</option>
+          <option value="toggle-timeline">⏱️ Alternar Línea de Tiempo / Plazos</option>
+          <option value="toggle-addons">✨ Alternar Adicionales Opcionales (A la Carta)</option>
+          <option value="toggle-conditions">⚖️ Alternar Términos &amp; Condiciones</option>
+          <option value="toggle-exclusions">🛡️ Alternar Alcance, Exclusiones &amp; Congelamiento</option>
+          <option value="toggle-payment">🏦 Alternar Datos de Pago / Reserva</option>
+          <option value="toggle-meta">📋 Alternar Datos del Cliente</option>
+          <option value="toggle-summary">📝 Alternar Resumen / Alcance</option>
+          <option value="toggle-signatures">✍️ Alternar Bloque de Firmas</option>
+          <option value="toggle-tax-notes">🧾 Alternar Leyendas de Impuestos / IVA</option>
+          <option value="show-all-quick-modules">👁️ Mostrar Todos los Módulos</option>
+        </optgroup>
+        <optgroup label="Leyenda Rápida de Impuestos">
+          <option value="tax-no-iva">🧾 "Valores netos · No incluyen IVA (21%)"</option>
+          <option value="tax-factura-c">🧾 "Valores finales · Factura C"</option>
+          <option value="tax-mas-iva">🧾 "Valores expresados + IVA (21%)"</option>
+        </optgroup>
       </select>
     </div>
 
@@ -2769,7 +3052,10 @@
               <button type="button" class="edit-link-btn no-print" onclick="promptEditPortfolioUrl(event)" title="Cambiar URL del Portfolio">✎</button>
             </div>
           </div>
-          <div class="header-date" contenteditable="true" spellcheck="false">14 · 10 · 2026</div>
+          <div class="header-meta-right">
+            <div class="header-date" contenteditable="true" spellcheck="false">14 · 10 · 2026</div>
+            <div class="header-doc-ref" id="quickDocRef" contenteditable="true" spellcheck="false">PRESUPUESTO Nº 2026-042 · REV. 01</div>
+          </div>
         </div>
 
         <!-- TÍTULO PRINCIPAL Y METADATOS -->
@@ -2878,6 +3164,7 @@
               <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
               <span class="total-figure" id="total-col-1" contenteditable="true" spellcheck="false">$310.000</span>
             </div>
+            <div class="option-tax-note" contenteditable="true" spellcheck="false">Valores netos · No incluyen IVA (21%)</div>
           </div>
 
           <!-- COLUMNA II -->
@@ -2886,7 +3173,7 @@
               <div class="option-header-top">
                 <span class="option-roman" contenteditable="true" spellcheck="false">II</span>
                 <div class="column-header-right">
-                  <span class="option-badge" contenteditable="true" spellcheck="false">RECOMENDADA</span>
+                  <span class="option-badge" contenteditable="true" spellcheck="false">OPCIÓN B</span>
                   <div class="column-reorder-tools no-print">
                     <button type="button" class="btn-sec-tool" onclick="moveColumnLeft('col-2')" title="Mover columna a la izquierda">◀</button>
                     <button type="button" class="btn-sec-tool" onclick="moveColumnRight('col-2')" title="Mover columna a la derecha">▶</button>
@@ -2948,6 +3235,7 @@
               <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
               <span class="total-figure" id="total-col-2" contenteditable="true" spellcheck="false">$465.000</span>
             </div>
+            <div class="option-tax-note" contenteditable="true" spellcheck="false">Valores netos · No incluyen IVA (21%)</div>
           </div>
 
           <!-- COLUMNA III (TERCER PRESUPUESTO / OPCIÓN) -->
@@ -3018,6 +3306,7 @@
               <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
               <span class="total-figure" id="total-col-3" contenteditable="true" spellcheck="false">$690.000</span>
             </div>
+            <div class="option-tax-note" contenteditable="true" spellcheck="false">Valores netos · No incluyen IVA (21%)</div>
           </div>
 
         </div>
@@ -3031,56 +3320,252 @@
               <span class="grand-total-sub" contenteditable="true" spellcheck="false">Propuestas I y II
                 combinadas</span>
             </div>
-            <div class="grand-total-figure" id="grandTotalAmount" contenteditable="true" spellcheck="false"
-              onblur="autoSave()">$779.000</div>
+            <div>
+              <div class="grand-total-figure" id="grandTotalAmount" contenteditable="true" spellcheck="false"
+                onblur="autoSave()">$775.000</div>
+              <div class="grand-total-tax option-tax-note" contenteditable="true" spellcheck="false">Valores netos · No incluyen IVA (21%)</div>
+            </div>
           </div>
         </div>
 
-        <!-- CONDICIONES COMERCIALES EN MODO RÁPIDO (PERSONALIZABLE / TOGGLEABLE) -->
-        <div class="quick-conditions-section" id="quickConditionsSection">
-          <div class="quick-conditions-header">
-            <span class="quick-conditions-title" contenteditable="true" spellcheck="false">TÉRMINOS &amp; CONDICIONES
-              DEL SERVICIO</span>
-            <button class="add-section-item-trigger no-print" onclick="addQuickCondition()"
-              title="Agregar nuevo término comercial">+ Agregar Término</button>
+        <!-- CONTENEDOR DE SECCIONES Y MÓDULOS EDITORIALES DEL PRESUPUESTO RÁPIDO -->
+        <div class="quick-modules-container" id="quickModulesContainer">
+
+          <!-- MÓDULO 1: ENTREGABLES & ESPECIFICACIONES DE FORMATO (MATRIZ DE ENTREGABLES) -->
+          <div class="quick-module-section" id="quickDeliverablesSection">
+            <div class="quick-conditions-header">
+              <span class="quick-conditions-title" contenteditable="true" spellcheck="false">ENTREGABLES &amp; ESPECIFICACIONES DE FORMATO</span>
+              <div class="quick-sec-actions no-print">
+                <button type="button" class="add-section-item-trigger" onclick="addQuickDeliverable()" title="Agregar entregable">+ Agregar Entregable</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+                <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickDeliverablesSection')" title="Ocultar sección">✕</button>
+              </div>
+            </div>
+            <div class="quick-deliverables-grid" id="quickDeliverablesGrid">
+              <div class="quick-deliverable-card">
+                <div class="q-deliv-top">
+                  <span class="q-deliv-title" contenteditable="true" spellcheck="false">01 · PIEZA PRINCIPAL / MASTER</span>
+                  <span class="q-deliv-badge" contenteditable="true" spellcheck="false">4K UHD · 16:9 · H.264 / ProRes</span>
+                </div>
+                <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Realización, montaje dinámico, corrección de color institucional y diseño sonoro masterizado.</div>
+              </div>
+              <div class="quick-deliverable-card">
+                <div class="q-deliv-top">
+                  <span class="q-deliv-title" contenteditable="true" spellcheck="false">02 · ADAPTACIONES VERTICALES (REELS)</span>
+                  <span class="q-deliv-badge" contenteditable="true" spellcheck="false">1080×1920 · 9:16 · 60fps</span>
+                </div>
+                <div class="q-deliv-desc" contenteditable="true" spellcheck="false">3 cápsulas rítmicas optimizadas para Instagram, TikTok y Shorts con gráfica y subtítulos.</div>
+              </div>
+              <div class="quick-deliverable-card">
+                <div class="q-deliv-top">
+                  <span class="q-deliv-title" contenteditable="true" spellcheck="false">03 · COBERTURA FOTOGRÁFICA HI-RES</span>
+                  <span class="q-deliv-badge" contenteditable="true" spellcheck="false">RAW Revelado · JPG 300dpi + Web</span>
+                </div>
+                <div class="q-deliv-desc" contenteditable="true" spellcheck="false">35 fotografías curadas y retocadas con estética editorial para prensa, catálogo y redes.</div>
+              </div>
+              <div class="quick-deliverable-card">
+                <div class="q-deliv-top">
+                  <span class="q-deliv-title" contenteditable="true" spellcheck="false">04 · ENTREGA &amp; BACKUP EN LA NUBE</span>
+                  <span class="q-deliv-badge" contenteditable="true" spellcheck="false">Cloud Link · Resguardo 60 días</span>
+                </div>
+                <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Enlace privado de descarga directa en máxima resolución y estructura organizada por formatos.</div>
+              </div>
+            </div>
           </div>
-          <div class="quick-conditions-grid" id="quickConditionsGrid">
-            <div class="quick-condition-card">
-              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
-                title="Eliminar término">✕</button>
-              <div class="condition-heading" contenteditable="true" spellcheck="false">FORMA DE PAGO</div>
-              <div class="condition-body" contenteditable="true" spellcheck="false">
-                50% anticipo al reservar fecha en agenda. Saldo restante del 50% contra entrega de los entregables
-                aprobados.
+
+          <!-- MÓDULO 2: DESGLOSE DE EQUIPO TÉCNICO & ROLES (CREW & GEAR) -->
+          <div class="quick-module-section" id="quickCrewSection">
+            <div class="quick-conditions-header">
+              <span class="quick-conditions-title" contenteditable="true" spellcheck="false">EQUIPO HUMANO (CREW) &amp; PAQUETE TÉCNICO (GEAR)</span>
+              <div class="quick-sec-actions no-print">
+                <button type="button" class="add-section-item-trigger" onclick="addQuickCrewCard()" title="Agregar bloque de equipo/gear">+ Agregar Bloque</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+                <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickCrewSection')" title="Ocultar sección">✕</button>
               </div>
             </div>
-            <div class="quick-condition-card">
-              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
-                title="Eliminar término">✕</button>
-              <div class="condition-heading" contenteditable="true" spellcheck="false">PLAZOS DE ENTREGA</div>
-              <div class="condition-body" contenteditable="true" spellcheck="false">
-                Tomas en crudo en 48 hs vía nube. Primer corte de edición final en 5 a 7 días hábiles a partir del
-                rodaje.
+            <div class="quick-crew-grid" id="quickCrewGrid">
+              <div class="quick-crew-card">
+                <div class="q-crew-label" contenteditable="true" spellcheck="false">EQUIPO TÉCNICO &amp; ROLES (CREW)</div>
+                <div class="q-crew-body" contenteditable="true" spellcheck="false">Dirección de Fotografía &amp; Operador de Cámara · Asistencia de Iluminación / Sonido en Set · Montaje, Edición &amp; Color Grading.</div>
               </div>
-            </div>
-            <div class="quick-condition-card">
-              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
-                title="Eliminar término">✕</button>
-              <div class="condition-heading" contenteditable="true" spellcheck="false">RONDAS DE REVISIÓN</div>
-              <div class="condition-body" contenteditable="true" spellcheck="false">
-                Incluye hasta 2 rondas de ajustes de edición y corrección de color sobre las piezas listadas.
-              </div>
-            </div>
-            <div class="quick-condition-card">
-              <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
-                title="Eliminar término">✕</button>
-              <div class="condition-heading" contenteditable="true" spellcheck="false">DERECHOS DE USO</div>
-              <div class="condition-body" contenteditable="true" spellcheck="false">
-                Licencia de uso publicitario y de difusión sin vencimiento para redes sociales y plataformas web del
-                cliente.
+              <div class="quick-crew-card">
+                <div class="q-crew-label" contenteditable="true" spellcheck="false">EQUIPAMIENTO DE RODAJE (GEAR)</div>
+                <div class="q-crew-body" contenteditable="true" spellcheck="false">Cámara Cinema Full Frame 4K 10-bit · Set de Ópticas Prime Luminosas · Estabilizador Gimbal 3 Ejes · Puesta de Iluminación LED Bicolor &amp; Microfonía Inalámbrica.</div>
               </div>
             </div>
           </div>
+
+          <!-- MÓDULO 3: LÍNEA DE TIEMPO DEL PROYECTO (TIMELINE) -->
+          <div class="quick-module-section" id="quickTimelineSection">
+            <div class="quick-conditions-header">
+              <span class="quick-conditions-title" contenteditable="true" spellcheck="false">FLUJO DE TRABAJO &amp; CRONOGRAMA ESTIMADO</span>
+              <div class="quick-sec-actions no-print">
+                <button type="button" class="add-section-item-trigger" onclick="addQuickTimelineStep()" title="Agregar etapa al cronograma">+ Agregar Etapa</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+                <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickTimelineSection')" title="Ocultar sección">✕</button>
+              </div>
+            </div>
+            <div class="quick-timeline-grid" id="quickTimelineGrid">
+              <div class="quick-timeline-step">
+                <div class="q-step-num" contenteditable="true" spellcheck="false">01 · PRE-PRODUCCIÓN</div>
+                <div class="q-step-title" contenteditable="true" spellcheck="false">Guion técnico, referencias estéticas y plan de rodaje</div>
+                <div class="q-step-time" contenteditable="true" spellcheck="false">Previo al rodaje</div>
+              </div>
+              <div class="quick-timeline-step">
+                <div class="q-step-num" contenteditable="true" spellcheck="false">02 · RODAJE / SESIÓN</div>
+                <div class="q-step-title" contenteditable="true" spellcheck="false">Registro en locación y backup doble de tarjetas</div>
+                <div class="q-step-time" contenteditable="true" spellcheck="false">Jornada acordada</div>
+              </div>
+              <div class="quick-timeline-step">
+                <div class="q-step-num" contenteditable="true" spellcheck="false">03 · CORTE OFFLINE</div>
+                <div class="q-step-title" contenteditable="true" spellcheck="false">Selección, montaje de estructura y pre-color</div>
+                <div class="q-step-time" contenteditable="true" spellcheck="false">4 a 6 días hábiles</div>
+              </div>
+              <div class="quick-timeline-step">
+                <div class="q-step-num" contenteditable="true" spellcheck="false">04 · ENTREGA MASTER</div>
+                <div class="q-step-title" contenteditable="true" spellcheck="false">Devoluciones, color grading final y exportación</div>
+                <div class="q-step-time" contenteditable="true" spellcheck="false">48 hs post-revisión</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MÓDULO 4: ADICIONALES OPCIONALES / A LA CARTA (UPSELLING) -->
+          <div class="quick-module-section" id="quickAddonsSection">
+            <div class="quick-conditions-header">
+              <span class="quick-conditions-title" contenteditable="true" spellcheck="false">ADICIONALES OPCIONALES · A LA CARTA (NO INCLUIDOS EN EL TOTAL)</span>
+              <div class="quick-sec-actions no-print">
+                <button type="button" class="add-section-item-trigger" onclick="addQuickAddonItem()" title="Agregar adicional opcional">+ Agregar Adicional</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+                <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickAddonsSection')" title="Ocultar sección">✕</button>
+              </div>
+            </div>
+            <div class="quick-addons-grid" id="quickAddonsGrid">
+              <div class="quick-addon-item">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Operador de Drone (Tomas Aéreas 4K D-Log)</span>
+                  <span class="item-dots"></span>
+                  <span class="q-addon-price" contenteditable="true" spellcheck="false">+$110.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Sujeto a factibilidad climática y permisos de vuelo</div>
+              </div>
+              <div class="quick-addon-item">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Entrega Express (24 a 48 hs post-rodaje)</span>
+                  <span class="item-dots"></span>
+                  <span class="q-addon-price" contenteditable="true" spellcheck="false">+$85.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Prioridad de edición para salida inmediata en prensa o redes</div>
+              </div>
+              <div class="quick-addon-item">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Segunda Cámara / Operador Simultáneo</span>
+                  <span class="item-dots"></span>
+                  <span class="q-addon-price" contenteditable="true" spellcheck="false">+$140.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Registro multicámara sincronizado para planos detalle y reacción</div>
+              </div>
+              <div class="quick-addon-item">
+                <div class="item-main-row">
+                  <span class="item-desc" contenteditable="true" spellcheck="false">Entrega de Crudos (RAW / Log sin procesar)</span>
+                  <span class="item-dots"></span>
+                  <span class="q-addon-price" contenteditable="true" spellcheck="false">+$95.000</span>
+                </div>
+                <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Copia íntegra del material en disco SSD provisto por el cliente</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MÓDULO 5: CONDICIONES COMERCIALES & EXCLUSIONES -->
+          <div class="quick-conditions-section quick-module-section" id="quickConditionsSection">
+            <div class="quick-conditions-header">
+              <span class="quick-conditions-title" contenteditable="true" spellcheck="false">TÉRMINOS &amp; CONDICIONES DEL SERVICIO</span>
+              <div class="quick-sec-actions no-print">
+                <button type="button" class="add-section-item-trigger" onclick="addQuickCondition()" title="Agregar nuevo término comercial">+ Agregar Término</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+                <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickConditionsSection')" title="Ocultar sección">✕</button>
+              </div>
+            </div>
+            <div class="quick-conditions-grid" id="quickConditionsGrid">
+              <div class="quick-condition-card">
+                <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                  title="Eliminar término">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">FORMA DE PAGO</div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  50% anticipo al reservar fecha en agenda. Saldo restante del 50% contra entrega de los entregables
+                  aprobados.
+                </div>
+              </div>
+              <div class="quick-condition-card">
+                <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                  title="Eliminar término">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">PLAZOS DE ENTREGA</div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  Tomas seleccionadas en 48 hs vía nube. Primer corte de edición final en 5 a 7 días hábiles a partir del
+                  rodaje.
+                </div>
+              </div>
+              <div class="quick-condition-card">
+                <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                  title="Eliminar término">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">RONDAS DE REVISIÓN</div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  Incluye hasta 2 rondas de ajustes de edición y corrección de color sobre las piezas listadas.
+                </div>
+              </div>
+              <div class="quick-condition-card">
+                <button class="del-btn-card no-print" onclick="deleteQuickCondition(this)"
+                  title="Eliminar término">✕</button>
+                <div class="condition-heading" contenteditable="true" spellcheck="false">DERECHOS DE USO</div>
+                <div class="condition-body" contenteditable="true" spellcheck="false">
+                  Licencia de uso publicitario y de difusión sin vencimiento para redes sociales y plataformas web del
+                  cliente.
+                </div>
+              </div>
+            </div>
+
+            <!-- Alcance, Exclusiones y Congelamiento de Tarifa -->
+            <div class="quick-exclusions-bar" id="quickExclusionsBlock">
+              <span class="q-excl-label" contenteditable="true" spellcheck="false">ALCANCE, EXCLUSIONES &amp; VALIDEZ DE TARIFA:</span>
+              <span class="q-excl-text" contenteditable="true" spellcheck="false">Los valores cotizados se congelan únicamente mediante el abono de la seña (50%) dentro del plazo de validez. No incluye alquiler de estudios/locaciones, permisos municipales, caché de talentos/modelos, derechos de música comercial con copyright ni horas extras de rodaje (cotizadas a $35.000 / hora adicional).</span>
+            </div>
+          </div>
+
+          <!-- MÓDULO 6: DATOS BANCARIOS & RESERVA DIRECTA -->
+          <div class="quick-module-section" id="quickPaymentSection">
+            <div class="quick-conditions-header">
+              <span class="quick-conditions-title" contenteditable="true" spellcheck="false">DATOS BANCARIOS &amp; RESERVA DE FECHA</span>
+              <div class="quick-sec-actions no-print">
+                <button type="button" class="add-section-item-trigger" onclick="addQuickPaymentItem()" title="Agregar dato de pago">+ Agregar Dato</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+                <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+                <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickPaymentSection')" title="Ocultar sección">✕</button>
+              </div>
+            </div>
+            <div class="quick-payment-grid" id="quickPaymentGrid">
+              <div class="quick-payment-item">
+                <span class="quick-meta-label" contenteditable="true" spellcheck="false">BANCO / ENTIDAD</span>
+                <span class="quick-meta-value" contenteditable="true" spellcheck="false">[Banco / Billetera]</span>
+              </div>
+              <div class="quick-payment-item">
+                <span class="quick-meta-label" contenteditable="true" spellcheck="false">TITULAR</span>
+                <span class="quick-meta-value" contenteditable="true" spellcheck="false">León Feldman Reinoso</span>
+              </div>
+              <div class="quick-payment-item">
+                <span class="quick-meta-label" contenteditable="true" spellcheck="false">ALIAS / CBU</span>
+                <span class="quick-meta-value" contenteditable="true" spellcheck="false">[ALIAS.BANCARIO]</span>
+              </div>
+              <div class="quick-payment-item">
+                <span class="quick-meta-label" contenteditable="true" spellcheck="false">CUIT &amp; FACTURACIÓN</span>
+                <span class="quick-meta-value" contenteditable="true" spellcheck="false">[XX-XXXXXXXX-X · Factura C]</span>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- FIRMAS DE CONFORMIDAD EN MODO RÁPIDO (EDITABLES / TOGGLEABLE) -->
@@ -3137,7 +3622,7 @@
   <script>
     const DEFAULT_PORTFOLIO_URL = 'https://leonfeldmanreino.myportfolio.com';
     const PRESETS_STORAGE_KEY = 'leon_presets_library_v1';
-    const DRAFT_STORAGE_KEY = 'leon_presupuesto_editorial_v8';
+    const DRAFT_STORAGE_KEY = 'leon_presupuesto_editorial_v9';
     let currentCurrency = 'ARS';
     let currentSpacing = 'normal';
     let currentPortfolioUrl = DEFAULT_PORTFOLIO_URL;
@@ -3400,20 +3885,122 @@
         }, 'col-3');
       }
 
+      // Actualizar también los Entregables y Equipo sugeridos según la especialidad elegida
+      ensureQuickModulesExist();
+      const delivGrid = document.getElementById('quickDeliverablesGrid');
+      const crewGrid = document.getElementById('quickCrewGrid');
+
+      if (delivGrid) {
+        if (presetKey === 'quick-foto') {
+          delivGrid.innerHTML = `
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">01 · SELECCIÓN MASTER ALTA RESOLUCIÓN</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">TIFF / JPG 300dpi · Adobe RGB</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Fotografías reveladas y retocadas con curaduría editorial para imprenta, vía pública y prensa.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">02 · VERSIONES OPTIMIZADAS DIGITAL / WEB</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">sRGB · 2048px · E-Commerce &amp; Redes</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Exportación paralela calibrada en perfil sRGB lista para publicación en catálogo web y redes sociales.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">03 · GALERÍA DE SELECCIÓN ONLINE</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">Contact Sheet · Link Privado</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Acceso previo a plataforma de pre-selección para marcación de tomas favoritas por parte del cliente.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">04 · ENTREGA &amp; RESGUARDO CLOUD</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">Cloud Link · Backup 60 días</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Descarga directa sin compresión y copia de seguridad física en doble disco durante 60 días.</div>
+            </div>
+          `;
+        } else if (presetKey === 'quick-video') {
+          delivGrid.innerHTML = `
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">01 · PIEZA PRINCIPAL / MASTER</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">4K UHD · 16:9 · H.264 / ProRes</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Montaje narrativo/rítmico, corrección de color en curva Log y mezcla de sonido masterizada.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">02 · ADAPTACIONES VERTICALES (REELS)</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">1080×1920 · 9:16 · 60fps</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">3 cápsulas verticales dinámicas con reencuadre dedicado y gráfica/subtítulos para pauta digital.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">03 · DISEÑO SONORO &amp; LICENCIA MUSICAL</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">WAV 48kHz / 24-bit · Libre Derechos</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Limpieza de voces, sonido directo, SFX y banda sonora licenciada apta para monetización y pauta.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">04 · ENTREGA &amp; BACKUP EN LA NUBE</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">Cloud Link · Resguardo 60 días</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Enlace privado de descarga directa con copias máster y versiones livianas listas para publicar.</div>
+            </div>
+          `;
+        } else if (presetKey === 'quick-hibrido') {
+          delivGrid.innerHTML = `
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">01 · PIEZA AUDIOVISUAL MASTER</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">4K UHD · 16:9 · H.264 / ProRes</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Realización, montaje dinámico, corrección de color institucional y diseño sonoro masterizado.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">02 · CÁPSULAS VERTICALES (REELS / TIKTOK)</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">1080×1920 · 9:16 · 60fps</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">3 cortes rítmicos optimizados para redes sociales con gráfica y subtítulos sincronizados.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">03 · BANCO FOTOGRÁFICO HI-RES</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">RAW Revelado · JPG 300dpi + Web</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">35 fotografías curadas y retocadas con estética editorial para prensa, catálogo y redes.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">04 · ENTREGA &amp; BACKUP EN LA NUBE</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">Cloud Link · Resguardo 60 días</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Enlace privado de descarga directa en máxima resolución y estructura organizada por formatos.</div>
+            </div>
+          `;
+        }
+      }
+
       recalcAllQuickColumns();
       recalcQuickGrandTotal();
       upgradeDOMControls();
       autoSave();
     }
 
-    // Garantiza que las 3 columnas base existan siempre en el DOM aunque hayan sido borradas en sesiones previas
+    // Garantiza que las 3 columnas base y todos los módulos del Presupuesto Rápido existan siempre en el DOM
     function ensureQuickColumnsExist() {
       const container = document.getElementById('bodyLayoutContainer');
       if (!container) return;
 
       const defaults = [
         { id: 'col-1', roman: 'I', badge: 'OPCIÓN A', name: 'COBERTURA ESENCIAL', sub: 'Plan base de producción y captura técnica', total: '$310.000' },
-        { id: 'col-2', roman: 'II', badge: 'RECOMENDADA', name: 'PRODUCCIÓN INTEGRAL', sub: 'Cobertura extendida con mayor nivel de detalle', total: '$465.000' },
+        { id: 'col-2', roman: 'II', badge: 'OPCIÓN B', name: 'PRODUCCIÓN INTEGRAL', sub: 'Cobertura extendida con mayor nivel de detalle', total: '$465.000' },
         { id: 'col-3', roman: 'III', badge: 'FULL SERVICE', name: 'PAQUETE PREMIUM', sub: 'Producción extendida con soporte técnico completo', total: '$690.000' }
       ];
 
@@ -3457,10 +4044,11 @@
               <span class="total-title" contenteditable="true" spellcheck="false">TOTAL</span>
               <span class="total-figure" id="total-${def.id}" contenteditable="true" spellcheck="false">${def.total}</span>
             </div>
+            <div class="option-tax-note" contenteditable="true" spellcheck="false">Valores netos · No incluyen IVA (21%)</div>
           `;
           container.appendChild(col);
         } else {
-          // Asegurar que tenga lista de ítems y botón de agregar ítem
+          // Asegurar que tenga lista de ítems, botón de agregar ítem y línea de impuestos editable
           if (!col.querySelector('.items-list')) {
             const list = document.createElement('div');
             list.className = 'items-list';
@@ -3474,8 +4062,289 @@
             btn.setAttribute('onclick', `addNewItem('${col.id}')`);
             col.insertBefore(btn, col.querySelector('.total-divider'));
           }
+          if (!col.querySelector('.option-tax-note')) {
+            const taxNote = document.createElement('div');
+            taxNote.className = 'option-tax-note';
+            taxNote.setAttribute('contenteditable', 'true');
+            taxNote.setAttribute('spellcheck', 'false');
+            taxNote.textContent = 'Valores netos · No incluyen IVA (21%)';
+            col.appendChild(taxNote);
+          }
         }
       });
+
+      ensureQuickModulesExist();
+    }
+
+    // Garantiza que si se carga un borrador/preset anterior, todos los nuevos módulos de Presupuesto Rápido estén disponibles y editables
+    function ensureQuickModulesExist() {
+      const docQuick = document.getElementById('doc-quick');
+      if (!docQuick) return;
+      const frame = docQuick.querySelector('.editorial-frame');
+      if (!frame) return;
+
+      // 1. Asegurar numeración de presupuesto y revisión en el header superior derecho
+      const headerTop = frame.querySelector('.header-top');
+      if (headerTop && !frame.querySelector('#quickDocRef')) {
+        const dateEl = headerTop.querySelector('.header-date');
+        if (dateEl && !dateEl.parentElement.classList.contains('header-meta-right')) {
+          const rightWrap = document.createElement('div');
+          rightWrap.className = 'header-meta-right';
+          dateEl.parentNode.insertBefore(rightWrap, dateEl);
+          rightWrap.appendChild(dateEl);
+          const refEl = document.createElement('div');
+          refEl.className = 'header-doc-ref';
+          refEl.id = 'quickDocRef';
+          refEl.setAttribute('contenteditable', 'true');
+          refEl.setAttribute('spellcheck', 'false');
+          refEl.textContent = 'PRESUPUESTO Nº 2026-042 · REV. 01';
+          rightWrap.appendChild(refEl);
+        }
+      }
+
+      // 2. Asegurar contenedor de módulos #quickModulesContainer
+      let modContainer = document.getElementById('quickModulesContainer');
+      const sigGrid = document.getElementById('quickSignatureGrid');
+      const existingCond = document.getElementById('quickConditionsSection');
+
+      if (!modContainer) {
+        modContainer = document.createElement('div');
+        modContainer.className = 'quick-modules-container';
+        modContainer.id = 'quickModulesContainer';
+        if (existingCond && existingCond.parentNode === frame) {
+          frame.insertBefore(modContainer, existingCond);
+          modContainer.appendChild(existingCond);
+        } else if (sigGrid && sigGrid.parentNode === frame) {
+          frame.insertBefore(modContainer, sigGrid);
+        } else {
+          frame.appendChild(modContainer);
+        }
+      }
+
+      // 3. Inyectar #quickDeliverablesSection si no existe
+      if (!document.getElementById('quickDeliverablesSection')) {
+        const delivSec = document.createElement('div');
+        delivSec.className = 'quick-module-section';
+        delivSec.id = 'quickDeliverablesSection';
+        delivSec.innerHTML = `
+          <div class="quick-conditions-header">
+            <span class="quick-conditions-title" contenteditable="true" spellcheck="false">ENTREGABLES &amp; ESPECIFICACIONES DE FORMATO</span>
+            <div class="quick-sec-actions no-print">
+              <button type="button" class="add-section-item-trigger" onclick="addQuickDeliverable()" title="Agregar entregable">+ Agregar Entregable</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+              <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickDeliverablesSection')" title="Ocultar sección">✕</button>
+            </div>
+          </div>
+          <div class="quick-deliverables-grid" id="quickDeliverablesGrid">
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">01 · PIEZA PRINCIPAL / MASTER</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">4K UHD · 16:9 · H.264 / ProRes</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Realización, montaje dinámico, corrección de color institucional y diseño sonoro masterizado.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">02 · ADAPTACIONES VERTICALES (REELS)</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">1080×1920 · 9:16 · 60fps</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">3 cápsulas rítmicas optimizadas para Instagram, TikTok y Shorts con gráfica y subtítulos.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">03 · COBERTURA FOTOGRÁFICA HI-RES</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">RAW Revelado · JPG 300dpi + Web</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">35 fotografías curadas y retocadas con estética editorial para prensa, catálogo y redes.</div>
+            </div>
+            <div class="quick-deliverable-card">
+              <div class="q-deliv-top">
+                <span class="q-deliv-title" contenteditable="true" spellcheck="false">04 · ENTREGA &amp; BACKUP EN LA NUBE</span>
+                <span class="q-deliv-badge" contenteditable="true" spellcheck="false">Cloud Link · Resguardo 60 días</span>
+              </div>
+              <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Enlace privado de descarga directa en máxima resolución y estructura organizada por formatos.</div>
+            </div>
+          </div>
+        `;
+        modContainer.insertBefore(delivSec, modContainer.firstChild);
+      }
+
+      // 4. Inyectar #quickCrewSection si no existe
+      if (!document.getElementById('quickCrewSection')) {
+        const crewSec = document.createElement('div');
+        crewSec.className = 'quick-module-section';
+        crewSec.id = 'quickCrewSection';
+        crewSec.innerHTML = `
+          <div class="quick-conditions-header">
+            <span class="quick-conditions-title" contenteditable="true" spellcheck="false">EQUIPO HUMANO (CREW) &amp; PAQUETE TÉCNICO (GEAR)</span>
+            <div class="quick-sec-actions no-print">
+              <button type="button" class="add-section-item-trigger" onclick="addQuickCrewCard()" title="Agregar bloque de equipo/gear">+ Agregar Bloque</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+              <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickCrewSection')" title="Ocultar sección">✕</button>
+            </div>
+          </div>
+          <div class="quick-crew-grid" id="quickCrewGrid">
+            <div class="quick-crew-card">
+              <div class="q-crew-label" contenteditable="true" spellcheck="false">EQUIPO TÉCNICO &amp; ROLES (CREW)</div>
+              <div class="q-crew-body" contenteditable="true" spellcheck="false">Dirección de Fotografía &amp; Operador de Cámara · Asistencia de Iluminación / Sonido en Set · Montaje, Edición &amp; Color Grading.</div>
+            </div>
+            <div class="quick-crew-card">
+              <div class="q-crew-label" contenteditable="true" spellcheck="false">EQUIPAMIENTO DE RODAJE (GEAR)</div>
+              <div class="q-crew-body" contenteditable="true" spellcheck="false">Cámara Cinema Full Frame 4K 10-bit · Set de Ópticas Prime Luminosas · Estabilizador Gimbal 3 Ejes · Puesta de Iluminación LED Bicolor &amp; Microfonía Inalámbrica.</div>
+            </div>
+          </div>
+        `;
+        modContainer.insertBefore(crewSec, document.getElementById('quickConditionsSection') || null);
+      }
+
+      // 5. Inyectar #quickTimelineSection si no existe
+      if (!document.getElementById('quickTimelineSection')) {
+        const timeSec = document.createElement('div');
+        timeSec.className = 'quick-module-section';
+        timeSec.id = 'quickTimelineSection';
+        timeSec.innerHTML = `
+          <div class="quick-conditions-header">
+            <span class="quick-conditions-title" contenteditable="true" spellcheck="false">FLUJO DE TRABAJO &amp; CRONOGRAMA ESTIMADO</span>
+            <div class="quick-sec-actions no-print">
+              <button type="button" class="add-section-item-trigger" onclick="addQuickTimelineStep()" title="Agregar etapa al cronograma">+ Agregar Etapa</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+              <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickTimelineSection')" title="Ocultar sección">✕</button>
+            </div>
+          </div>
+          <div class="quick-timeline-grid" id="quickTimelineGrid">
+            <div class="quick-timeline-step">
+              <div class="q-step-num" contenteditable="true" spellcheck="false">01 · PRE-PRODUCCIÓN</div>
+              <div class="q-step-title" contenteditable="true" spellcheck="false">Guion técnico, referencias estéticas y plan de rodaje</div>
+              <div class="q-step-time" contenteditable="true" spellcheck="false">Previo al rodaje</div>
+            </div>
+            <div class="quick-timeline-step">
+              <div class="q-step-num" contenteditable="true" spellcheck="false">02 · RODAJE / SESIÓN</div>
+              <div class="q-step-title" contenteditable="true" spellcheck="false">Registro en locación y backup doble de tarjetas</div>
+              <div class="q-step-time" contenteditable="true" spellcheck="false">Jornada acordada</div>
+            </div>
+            <div class="quick-timeline-step">
+              <div class="q-step-num" contenteditable="true" spellcheck="false">03 · CORTE OFFLINE</div>
+              <div class="q-step-title" contenteditable="true" spellcheck="false">Selección, montaje de estructura y pre-color</div>
+              <div class="q-step-time" contenteditable="true" spellcheck="false">4 a 6 días hábiles</div>
+            </div>
+            <div class="quick-timeline-step">
+              <div class="q-step-num" contenteditable="true" spellcheck="false">04 · ENTREGA MASTER</div>
+              <div class="q-step-title" contenteditable="true" spellcheck="false">Devoluciones, color grading final y exportación</div>
+              <div class="q-step-time" contenteditable="true" spellcheck="false">48 hs post-revisión</div>
+            </div>
+          </div>
+        `;
+        modContainer.insertBefore(timeSec, document.getElementById('quickConditionsSection') || null);
+      }
+
+      // 6. Inyectar #quickAddonsSection si no existe
+      if (!document.getElementById('quickAddonsSection')) {
+        const addonSec = document.createElement('div');
+        addonSec.className = 'quick-module-section';
+        addonSec.id = 'quickAddonsSection';
+        addonSec.innerHTML = `
+          <div class="quick-conditions-header">
+            <span class="quick-conditions-title" contenteditable="true" spellcheck="false">ADICIONALES OPCIONALES · A LA CARTA (NO INCLUIDOS EN EL TOTAL)</span>
+            <div class="quick-sec-actions no-print">
+              <button type="button" class="add-section-item-trigger" onclick="addQuickAddonItem()" title="Agregar adicional opcional">+ Agregar Adicional</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+              <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickAddonsSection')" title="Ocultar sección">✕</button>
+            </div>
+          </div>
+          <div class="quick-addons-grid" id="quickAddonsGrid">
+            <div class="quick-addon-item">
+              <div class="item-main-row">
+                <span class="item-desc" contenteditable="true" spellcheck="false">Operador de Drone (Tomas Aéreas 4K D-Log)</span>
+                <span class="item-dots"></span>
+                <span class="q-addon-price" contenteditable="true" spellcheck="false">+$110.000</span>
+              </div>
+              <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Sujeto a factibilidad climática y permisos de vuelo</div>
+            </div>
+            <div class="quick-addon-item">
+              <div class="item-main-row">
+                <span class="item-desc" contenteditable="true" spellcheck="false">Entrega Express (24 a 48 hs post-rodaje)</span>
+                <span class="item-dots"></span>
+                <span class="q-addon-price" contenteditable="true" spellcheck="false">+$85.000</span>
+              </div>
+              <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Prioridad de edición para salida inmediata en prensa o redes</div>
+            </div>
+            <div class="quick-addon-item">
+              <div class="item-main-row">
+                <span class="item-desc" contenteditable="true" spellcheck="false">Segunda Cámara / Operador Simultáneo</span>
+                <span class="item-dots"></span>
+                <span class="q-addon-price" contenteditable="true" spellcheck="false">+$140.000</span>
+              </div>
+              <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Registro multicámara sincronizado para planos detalle y reacción</div>
+            </div>
+            <div class="quick-addon-item">
+              <div class="item-main-row">
+                <span class="item-desc" contenteditable="true" spellcheck="false">Entrega de Crudos (RAW / Log sin procesar)</span>
+                <span class="item-dots"></span>
+                <span class="q-addon-price" contenteditable="true" spellcheck="false">+$95.000</span>
+              </div>
+              <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Copia íntegra del material en disco SSD provisto por el cliente</div>
+            </div>
+          </div>
+        `;
+        modContainer.insertBefore(addonSec, document.getElementById('quickConditionsSection') || null);
+      }
+
+      // 7. Asegurar #quickExclusionsBlock dentro de #quickConditionsSection
+      const condSec = document.getElementById('quickConditionsSection');
+      if (condSec) {
+        condSec.classList.add('quick-module-section');
+        if (!document.getElementById('quickExclusionsBlock')) {
+          const excl = document.createElement('div');
+          excl.className = 'quick-exclusions-bar';
+          excl.id = 'quickExclusionsBlock';
+          excl.innerHTML = `
+            <span class="q-excl-label" contenteditable="true" spellcheck="false">ALCANCE, EXCLUSIONES &amp; VALIDEZ DE TARIFA:</span>
+            <span class="q-excl-text" contenteditable="true" spellcheck="false">Los valores cotizados se congelan únicamente mediante el abono de la seña (50%) dentro del plazo de validez. No incluye alquiler de estudios/locaciones, permisos municipales, caché de talentos/modelos, derechos de música comercial con copyright ni horas extras de rodaje (cotizadas a $35.000 / hora adicional).</span>
+          `;
+          condSec.appendChild(excl);
+        }
+      }
+
+      // 8. Inyectar #quickPaymentSection si no existe
+      if (!document.getElementById('quickPaymentSection')) {
+        const paySec = document.createElement('div');
+        paySec.className = 'quick-module-section';
+        paySec.id = 'quickPaymentSection';
+        paySec.innerHTML = `
+          <div class="quick-conditions-header">
+            <span class="quick-conditions-title" contenteditable="true" spellcheck="false">DATOS BANCARIOS &amp; RESERVA DE FECHA</span>
+            <div class="quick-sec-actions no-print">
+              <button type="button" class="add-section-item-trigger" onclick="addQuickPaymentItem()" title="Agregar dato de pago">+ Agregar Dato</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'up')" title="Subir sección">▲</button>
+              <button type="button" class="btn-sec-tool" onclick="moveQuickModuleSection(this, 'down')" title="Bajar sección">▼</button>
+              <button type="button" class="btn-sec-tool btn-sec-del" onclick="toggleQuickModuleById('quickPaymentSection')" title="Ocultar sección">✕</button>
+            </div>
+          </div>
+          <div class="quick-payment-grid" id="quickPaymentGrid">
+            <div class="quick-payment-item">
+              <span class="quick-meta-label" contenteditable="true" spellcheck="false">BANCO / ENTIDAD</span>
+              <span class="quick-meta-value" contenteditable="true" spellcheck="false">[Banco / Billetera]</span>
+            </div>
+            <div class="quick-payment-item">
+              <span class="quick-meta-label" contenteditable="true" spellcheck="false">TITULAR</span>
+              <span class="quick-meta-value" contenteditable="true" spellcheck="false">León Feldman Reinoso</span>
+            </div>
+            <div class="quick-payment-item">
+              <span class="quick-meta-label" contenteditable="true" spellcheck="false">ALIAS / CBU</span>
+              <span class="quick-meta-value" contenteditable="true" spellcheck="false">[ALIAS.BANCARIO]</span>
+            </div>
+            <div class="quick-payment-item">
+              <span class="quick-meta-label" contenteditable="true" spellcheck="false">CUIT &amp; FACTURACIÓN</span>
+              <span class="quick-meta-value" contenteditable="true" spellcheck="false">[XX-XXXXXXXX-X · Factura C]</span>
+            </div>
+          </div>
+        `;
+        modContainer.appendChild(paySec);
+      }
     }
 
     function setQuickColumn(colEl, itemsEl, data, colId) {
@@ -3500,24 +4369,62 @@
       `).join('');
     }
 
-    // Acciones de personalización y reordenamiento para Presupuesto Rápido
+    // Acciones de personalización, secciones y módulos para Presupuesto Rápido
     function handleQuickCustomAction(val) {
       ensureQuickColumnsExist();
       const container = document.getElementById('bodyLayoutContainer');
       const cols = container ? Array.from(container.querySelectorAll('.option-column')) : [];
 
       if (val === 'toggle-meta') {
-        const meta = document.getElementById('quickMetaGrid');
-        if (meta) meta.classList.toggle('is-hidden');
+        toggleQuickModuleById('quickMetaGrid');
       } else if (val === 'toggle-summary') {
-        const sum = document.getElementById('quickSummaryBlock');
-        if (sum) sum.classList.toggle('is-hidden');
+        toggleQuickModuleById('quickSummaryBlock');
+      } else if (val === 'toggle-deliverables') {
+        toggleQuickModuleById('quickDeliverablesSection');
+      } else if (val === 'toggle-crew') {
+        toggleQuickModuleById('quickCrewSection');
+      } else if (val === 'toggle-timeline') {
+        toggleQuickModuleById('quickTimelineSection');
+      } else if (val === 'toggle-addons') {
+        toggleQuickModuleById('quickAddonsSection');
       } else if (val === 'toggle-conditions') {
-        const cond = document.getElementById('quickConditionsSection');
-        if (cond) cond.classList.toggle('is-hidden');
+        toggleQuickModuleById('quickConditionsSection');
+      } else if (val === 'toggle-exclusions') {
+        toggleQuickModuleById('quickExclusionsBlock');
+      } else if (val === 'toggle-payment') {
+        toggleQuickModuleById('quickPaymentSection');
       } else if (val === 'toggle-signatures') {
-        const sig = document.getElementById('quickSignatureGrid');
-        if (sig) sig.classList.toggle('is-hidden');
+        toggleQuickModuleById('quickSignatureGrid');
+      } else if (val === 'toggle-tax-notes') {
+        document.querySelectorAll('#doc-quick .option-tax-note').forEach(el => el.classList.toggle('is-hidden'));
+        showToast('Leyendas de impuestos alternadas');
+      } else if (val === 'show-all-quick-modules') {
+        ['quickMetaGrid', 'quickSummaryBlock', 'quickDeliverablesSection', 'quickCrewSection', 'quickTimelineSection', 'quickAddonsSection', 'quickConditionsSection', 'quickExclusionsBlock', 'quickPaymentSection', 'quickSignatureGrid'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.remove('is-hidden');
+        });
+        document.querySelectorAll('#doc-quick .option-tax-note').forEach(el => el.classList.remove('is-hidden'));
+        showToast('Todos los módulos del Presupuesto Rápido están visibles');
+      } else if (val === 'tax-no-iva') {
+        applyQuickTaxPreset('Valores netos · No incluyen IVA (21%)');
+      } else if (val === 'tax-factura-c') {
+        applyQuickTaxPreset('Valores finales · Factura C');
+      } else if (val === 'tax-mas-iva') {
+        applyQuickTaxPreset('Valores expresados más IVA (21%)');
+      } else if (val === 'add-deliverable') {
+        addQuickDeliverable();
+      } else if (val === 'add-addon') {
+        addQuickAddonItem();
+      } else if (val === 'add-crew') {
+        addQuickCrewCard();
+      } else if (val === 'add-timeline') {
+        addQuickTimelineStep();
+      } else if (val === 'add-condition') {
+        addQuickCondition();
+      } else if (val === 'add-payment') {
+        addQuickPaymentItem();
+      } else if (val === 'add-meta') {
+        addQuickMetaItem();
       } else if (val === 'add-column') {
         addNewQuickColumn();
       } else if (val === 'remove-last-col') {
@@ -3546,8 +4453,180 @@
           }
           addNewItem(target.id);
         }
-      } else if (val === 'add-condition') {
-        addQuickCondition();
+      }
+      autoSave();
+    }
+
+    function toggleQuickModuleById(sectionId) {
+      const el = document.getElementById(sectionId);
+      if (!el) return;
+      el.classList.toggle('is-hidden');
+      const isHidden = el.classList.contains('is-hidden');
+      showToast(isHidden ? 'Sección ocultada (podés reactivarla en ⚙ Secciones & Módulos)' : 'Sección activada');
+      autoSave();
+    }
+
+    function moveQuickModuleSection(btn, direction) {
+      const sec = btn.closest('.quick-module-section');
+      if (!sec || !sec.parentNode) return;
+      const parent = sec.parentNode;
+      if (direction === 'up') {
+        const prev = sec.previousElementSibling;
+        if (prev) parent.insertBefore(sec, prev);
+      } else {
+        const next = sec.nextElementSibling;
+        if (next) parent.insertBefore(next, sec);
+      }
+      autoSave();
+    }
+
+    function applyQuickTaxPreset(text) {
+      document.querySelectorAll('#doc-quick .option-tax-note').forEach(el => {
+        el.classList.remove('is-hidden');
+        el.textContent = text;
+      });
+      showToast(`Leyenda aplicada: "${text}"`);
+      autoSave();
+    }
+
+    function addQuickDeliverable() {
+      ensureQuickModulesExist();
+      const sec = document.getElementById('quickDeliverablesSection');
+      if (sec) sec.classList.remove('is-hidden');
+      const grid = document.getElementById('quickDeliverablesGrid');
+      if (!grid) return;
+      const idx = grid.querySelectorAll('.quick-deliverable-card').length + 1;
+      const numStr = String(idx).padStart(2, '0');
+      const card = document.createElement('div');
+      card.className = 'quick-deliverable-card';
+      card.innerHTML = `
+        <div class="q-deliv-top">
+          <span class="q-deliv-title" contenteditable="true" spellcheck="false">${numStr} · NUEVO ENTREGABLE</span>
+          <span class="q-deliv-badge" contenteditable="true" spellcheck="false">4K / 1080p · Formato</span>
+        </div>
+        <div class="q-deliv-desc" contenteditable="true" spellcheck="false">Especificación de cantidad, duración, resolución y acabado técnico de la pieza.</div>
+      `;
+      grid.appendChild(card);
+      upgradeDOMControls();
+      const titleEl = card.querySelector('.q-deliv-title');
+      if (titleEl) {
+        titleEl.focus();
+        selectElementText(titleEl);
+      }
+      autoSave();
+    }
+
+    function addQuickCrewCard() {
+      ensureQuickModulesExist();
+      const sec = document.getElementById('quickCrewSection');
+      if (sec) sec.classList.remove('is-hidden');
+      const grid = document.getElementById('quickCrewGrid');
+      if (!grid) return;
+      const card = document.createElement('div');
+      card.className = 'quick-crew-card';
+      card.innerHTML = `
+        <div class="q-crew-label" contenteditable="true" spellcheck="false">ÁREA TÉCNICA / EQUIPO</div>
+        <div class="q-crew-body" contenteditable="true" spellcheck="false">Detalle de roles profesionales o equipamiento asignado a la producción.</div>
+      `;
+      grid.appendChild(card);
+      upgradeDOMControls();
+      const labelEl = card.querySelector('.q-crew-label');
+      if (labelEl) {
+        labelEl.focus();
+        selectElementText(labelEl);
+      }
+      autoSave();
+    }
+
+    function addQuickTimelineStep() {
+      ensureQuickModulesExist();
+      const sec = document.getElementById('quickTimelineSection');
+      if (sec) sec.classList.remove('is-hidden');
+      const grid = document.getElementById('quickTimelineGrid');
+      if (!grid) return;
+      const idx = grid.querySelectorAll('.quick-timeline-step').length + 1;
+      const numStr = String(idx).padStart(2, '0');
+      const step = document.createElement('div');
+      step.className = 'quick-timeline-step';
+      step.innerHTML = `
+        <div class="q-step-num" contenteditable="true" spellcheck="false">${numStr} · NUEVA ETAPA</div>
+        <div class="q-step-title" contenteditable="true" spellcheck="false">Descripción de la instancia de trabajo</div>
+        <div class="q-step-time" contenteditable="true" spellcheck="false">Plazo estimado</div>
+      `;
+      grid.appendChild(step);
+      upgradeDOMControls();
+      const numEl = step.querySelector('.q-step-num');
+      if (numEl) {
+        numEl.focus();
+        selectElementText(numEl);
+      }
+      autoSave();
+    }
+
+    function addQuickAddonItem() {
+      ensureQuickModulesExist();
+      const sec = document.getElementById('quickAddonsSection');
+      if (sec) sec.classList.remove('is-hidden');
+      const grid = document.getElementById('quickAddonsGrid');
+      if (!grid) return;
+      const item = document.createElement('div');
+      item.className = 'quick-addon-item';
+      item.innerHTML = `
+        <div class="item-main-row">
+          <span class="item-desc" contenteditable="true" spellcheck="false">Servicio o entregable adicional</span>
+          <span class="item-dots"></span>
+          <span class="q-addon-price" contenteditable="true" spellcheck="false">+${formatMoney(0)}</span>
+        </div>
+        <div class="item-subtext" contenteditable="true" spellcheck="false" data-placeholder="+ detalle">Condición o alcance del adicional opcional</div>
+      `;
+      grid.appendChild(item);
+      upgradeDOMControls();
+      const descEl = item.querySelector('.item-desc');
+      if (descEl) {
+        descEl.focus();
+        selectElementText(descEl);
+      }
+      autoSave();
+    }
+
+    function addQuickPaymentItem() {
+      ensureQuickModulesExist();
+      const sec = document.getElementById('quickPaymentSection');
+      if (sec) sec.classList.remove('is-hidden');
+      const grid = document.getElementById('quickPaymentGrid');
+      if (!grid) return;
+      const item = document.createElement('div');
+      item.className = 'quick-payment-item';
+      item.innerHTML = `
+        <span class="quick-meta-label" contenteditable="true" spellcheck="false">DATO DE PAGO</span>
+        <span class="quick-meta-value" contenteditable="true" spellcheck="false">[Valor / Referencia]</span>
+      `;
+      grid.appendChild(item);
+      upgradeDOMControls();
+      const labelEl = item.querySelector('.quick-meta-label');
+      if (labelEl) {
+        labelEl.focus();
+        selectElementText(labelEl);
+      }
+      autoSave();
+    }
+
+    function addQuickMetaItem() {
+      const grid = document.getElementById('quickMetaGrid');
+      if (!grid) return;
+      grid.classList.remove('is-hidden');
+      const item = document.createElement('div');
+      item.className = 'quick-meta-item';
+      item.innerHTML = `
+        <span class="quick-meta-label" contenteditable="true" spellcheck="false">CAMPO</span>
+        <span class="quick-meta-value" contenteditable="true" spellcheck="false">[Detalle]</span>
+      `;
+      grid.appendChild(item);
+      upgradeDOMControls();
+      const labelEl = item.querySelector('.quick-meta-label');
+      if (labelEl) {
+        labelEl.focus();
+        selectElementText(labelEl);
       }
       autoSave();
     }
@@ -3691,6 +4770,9 @@
     }
 
     function addQuickCondition() {
+      ensureQuickModulesExist();
+      const sec = document.getElementById('quickConditionsSection');
+      if (sec) sec.classList.remove('is-hidden');
       const grid = document.getElementById('quickConditionsGrid');
       if (!grid) return;
       const card = document.createElement('div');
@@ -3703,6 +4785,7 @@
         </div>
       `;
       grid.appendChild(card);
+      upgradeDOMControls();
       const heading = card.querySelector('.condition-heading');
       if (heading) {
         heading.focus();
@@ -4946,7 +6029,7 @@
     // ═══════════════════════════════════════════════════════════════
     // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN Y DRAG & DROP
     // ═══════════════════════════════════════════════════════════════
-    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card';
+    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item';
     let draggedElement = null;
 
     function moveGenericItem(btn, direction) {
@@ -4999,6 +6082,7 @@
     }
 
     function upgradeDOMControls() {
+      ensureQuickModulesExist();
       // 1. Inyectar barra de herramientas fluida (.item-tools) en cada ítem, jornada, entregable y condición
       const items = document.querySelectorAll(REORDERABLE_SELECTORS);
       items.forEach(el => {
@@ -5233,7 +6317,9 @@
     }
 
     function loadSaved() {
-      const saved = localStorage.getItem(DRAFT_STORAGE_KEY) || localStorage.getItem('leon_presupuesto_editorial_v7');
+      const saved = localStorage.getItem(DRAFT_STORAGE_KEY)
+        || localStorage.getItem('leon_presupuesto_editorial_v8')
+        || localStorage.getItem('leon_presupuesto_editorial_v7');
       if (saved) {
         try {
           const data = JSON.parse(saved);
@@ -5580,6 +6666,7 @@
     function restoreOriginalExample() {
       if (!confirm('¿Deseás restaurar la plantilla original con todos los valores de referencia? (Tus Presets guardados en ⭐ Presets se conservarán).')) return;
       localStorage.removeItem(DRAFT_STORAGE_KEY);
+      localStorage.removeItem('leon_presupuesto_editorial_v8');
       localStorage.removeItem('leon_presupuesto_editorial_v7');
       localStorage.removeItem('leon_presupuesto_editorial_v6');
       localStorage.removeItem('leon_presupuesto_editorial_v5');
@@ -5620,7 +6707,36 @@
     }
 
     function exportPDF() {
+      const originalTitle = document.title;
+      try {
+        const docType = document.getElementById('docTypeSelector')?.value || 'analipsis';
+        let clientName = '';
+        let projName = '';
+        let dateStr = '';
+
+        if (docType === 'quick') {
+          clientName = document.querySelector('#doc-quick #quickMetaGrid .quick-meta-item:nth-child(1) .quick-meta-value')?.textContent || '';
+          projName = document.querySelector('#doc-quick .project-name')?.textContent || 'Presupuesto';
+          dateStr = document.querySelector('#doc-quick .header-date')?.textContent || '';
+        } else {
+          clientName = document.querySelector('#doc-analipsis .meta-box-item:nth-child(1) .meta-val')?.textContent || '';
+          projName = document.querySelector('#doc-analipsis .project-name')?.textContent || 'Propuesta';
+          dateStr = document.querySelector('#doc-analipsis .header-date')?.textContent || '';
+        }
+
+        const cleanClient = clientName.replace(/[\[\]]/g, '').trim();
+        const cleanProj = projName.trim();
+        const cleanDate = dateStr.replace(/\s+/g, '').replace(/·/g, '-').trim();
+        const hasRealClient = cleanClient && !/nombre del cliente|cliente \//i.test(cleanClient);
+        const subject = hasRealClient ? `${cleanClient} - ${cleanProj}` : cleanProj;
+
+        document.title = `Presupuesto - Leon Feldman - ${subject}${cleanDate ? ' - ' + cleanDate : ''}`;
+      } catch (e) { }
+
       window.print();
+      setTimeout(() => {
+        document.title = originalTitle;
+      }, 800);
     }
 
     // Recálculo en vivo al editar montos y guardado automático continuo
