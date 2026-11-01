@@ -2163,19 +2163,205 @@
       color: #BDBDBD;
     }
 
+    /* Barra rápida de activación de módulos sobre la hoja en Presupuesto Rápido */
+    .quick-modules-bar {
+      width: 210mm;
+      background: rgba(24, 24, 24, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 10px;
+      padding: 8px 12px;
+      margin-bottom: -18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      box-sizing: border-box;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .quick-modules-bar-label {
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #D4B87A;
+      margin-right: 4px;
+    }
+
+    .quick-modules-chips {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .q-mod-chip {
+      font-family: var(--font-sans);
+      font-size: 10.5px;
+      padding: 4px 9px;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.05);
+      color: #AAA;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+    }
+
+    .q-mod-chip:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #FFF;
+    }
+
+    .q-mod-chip.active {
+      background: rgba(110, 43, 38, 0.55);
+      border-color: #D4B87A;
+      color: #FFF;
+      font-weight: 500;
+    }
+
+    /* Niveles automáticos de compactación para encaje perfecto en 1 hoja A4 al imprimir */
+    .a4-page.print-fit-1 {
+      padding: 7.5mm !important;
+    }
+    .a4-page.print-fit-1 .editorial-frame {
+      padding: 6mm 8.5mm 5.5mm !important;
+    }
+    .a4-page.print-fit-1 .header-top {
+      margin-bottom: 2.2mm !important;
+    }
+    .a4-page.print-fit-1 .title-block {
+      margin-bottom: 1.8mm !important;
+    }
+    .a4-page.print-fit-1 .doc-title {
+      font-size: 25pt !important;
+    }
+    .a4-page.print-fit-1 .quick-meta-grid,
+    .a4-page.print-fit-1 .meta-box-grid {
+      margin: 1mm 0 !important;
+      padding: 1mm 0 !important;
+    }
+    .a4-page.print-fit-1 .quick-summary-block {
+      margin: 1mm 0 1.4mm !important;
+    }
+    .a4-page.print-fit-1 .body-content {
+      margin-top: 1.5mm !important;
+      margin-bottom: 1.2mm !important;
+    }
+    .a4-page.print-fit-1 .items-list,
+    .a4-page.print-fit-1 .financial-table {
+      gap: 1.4mm !important;
+    }
+    .a4-page.print-fit-1 .quick-module-section,
+    .a4-page.print-fit-1 .quick-conditions-section {
+      margin-top: 1.2mm !important;
+      padding-top: 1.1mm !important;
+    }
+    .a4-page.print-fit-1 .quick-conditions-header {
+      margin-bottom: 1mm !important;
+    }
+    .a4-page.print-fit-1 .quick-deliverables-grid,
+    .a4-page.print-fit-1 .quick-conditions-grid,
+    .a4-page.print-fit-1 .quick-crew-grid,
+    .a4-page.print-fit-1 .quick-addons-grid {
+      gap: 1.2mm 4mm !important;
+    }
+    .a4-page.print-fit-1 .quick-signature-grid {
+      margin: 1.4mm 0 0.8mm !important;
+      padding-top: 1.2mm !important;
+    }
+
+    .a4-page.print-fit-2 {
+      padding: 6.5mm !important;
+    }
+    .a4-page.print-fit-2 .editorial-frame {
+      padding: 4.8mm 7.5mm 4.5mm !important;
+    }
+    .a4-page.print-fit-2 .doc-title {
+      font-size: 22pt !important;
+    }
+    .a4-page.print-fit-2 .option-roman {
+      font-size: 19pt !important;
+    }
+    .a4-page.print-fit-2 .total-figure {
+      font-size: 16.5pt !important;
+    }
+    .a4-page.print-fit-2 .grand-total-figure {
+      font-size: 18pt !important;
+    }
+    .a4-page.print-fit-2 .quick-deliverable-card {
+      padding: 0.9mm 1.5mm !important;
+    }
+    .a4-page.print-fit-2 .quick-timeline-step {
+      padding: 0.8mm 1.4mm !important;
+    }
+    .a4-page.print-fit-2 .quick-exclusions-bar {
+      margin-top: 1mm !important;
+      padding: 0.8mm 1.5mm !important;
+    }
+    .a4-page.print-fit-2 .sig-line {
+      margin-top: 4mm !important;
+    }
+
+    /* Clase temporal de medición pre-impresión (idéntica a @media print) */
+    body.is-measuring-print .control-panel,
+    body.is-measuring-print .editor-hint,
+    body.is-measuring-print .quick-modules-bar,
+    body.is-measuring-print .add-item-trigger,
+    body.is-measuring-print .add-section-item-trigger,
+    body.is-measuring-print .item-delete-btn,
+    body.is-measuring-print .del-btn-card,
+    body.is-measuring-print .item-tools,
+    body.is-measuring-print .edit-link-btn,
+    body.is-measuring-print .section-reorder-tools,
+    body.is-measuring-print .column-reorder-tools,
+    body.is-measuring-print .quick-sec-actions,
+    body.is-measuring-print .app-toast,
+    body.is-measuring-print .no-print,
+    body.is-measuring-print .is-doc-hidden {
+      display: none !important;
+    }
+
+    body.is-measuring-print .a4-page {
+      width: 210mm !important;
+      height: 297mm !important;
+      min-height: 297mm !important;
+      max-height: 297mm !important;
+      padding: 9mm !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+    }
+
+    body.is-measuring-print .editorial-frame {
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 0 !important;
+      max-height: 100% !important;
+      padding: 7.5mm 9.5mm 6.5mm !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
     /* ═══════════════════════════════════════════════════════════════
        9. REGLAS ESTRICTAS DE IMPRESIÓN Y EXPORTACIÓN A PDF
        ═══════════════════════════════════════════════════════════════ */
     @media print {
       @page {
         size: A4 portrait;
-        margin: 0;
+        margin: 0mm;
       }
 
       html,
       body {
         background: none !important;
-        background-color: #FFFFFF !important;
+        background-color: var(--page-bg) !important;
         padding: 0 !important;
         margin: 0 !important;
         width: 210mm !important;
@@ -2185,6 +2371,7 @@
 
       .control-panel,
       .editor-hint,
+      .quick-modules-bar,
       .add-item-trigger,
       .add-section-item-trigger,
       .item-delete-btn,
@@ -2201,31 +2388,51 @@
       }
 
       .a4-wrapper {
+        display: block !important;
         margin: 0 !important;
         padding: 0 !important;
         gap: 0 !important;
+        width: 210mm !important;
+      }
+
+      .a4-wrapper.is-doc-hidden {
+        display: none !important;
       }
 
       .a4-page {
         box-shadow: none !important;
+        margin: 0 !important;
         width: 210mm !important;
+        height: 297mm !important;
         min-height: 297mm !important;
-        height: auto !important;
-        max-height: none !important;
-        overflow: visible !important;
+        max-height: 297mm !important;
+        padding: 9mm !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
         page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        background-color: var(--page-bg) !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
 
       .a4-page:last-child {
         page-break-after: auto !important;
+        break-after: auto !important;
       }
 
       .editorial-frame {
-        min-height: 278mm !important;
-        height: auto !important;
-        overflow: visible !important;
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: 100% !important;
+        padding: 7.5mm 9.5mm 6.5mm !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
       }
 
       [contenteditable="true"] {
@@ -3035,6 +3242,24 @@
        DOCUMENTO 2: PRESUPUESTO RÁPIDO (1 PÁGINA / ESTILO FELI COLINA)
        ═══════════════════════════════════════════════════════════════ -->
   <main class="a4-wrapper is-doc-hidden" id="doc-quick">
+
+    <!-- Barra rápida interactiva para encender/apagar módulos de la hoja con 1 clic (invisible al imprimir) -->
+    <div class="quick-modules-bar no-print" id="quickModulesToggleBar">
+      <span class="quick-modules-bar-label">🧩 Módulos de Hoja:</span>
+      <div class="quick-modules-chips">
+        <button type="button" class="q-mod-chip active" data-target="quickMetaGrid" onclick="toggleQuickModuleById('quickMetaGrid')">📋 Cliente</button>
+        <button type="button" class="q-mod-chip active" data-target="quickSummaryBlock" onclick="toggleQuickModuleById('quickSummaryBlock')">📝 Resumen</button>
+        <button type="button" class="q-mod-chip active" data-target="quickDeliverablesSection" onclick="toggleQuickModuleById('quickDeliverablesSection')">🎬 Entregables</button>
+        <button type="button" class="q-mod-chip" data-target="quickCrewSection" onclick="toggleQuickModuleById('quickCrewSection')">🎥 Crew &amp; Gear</button>
+        <button type="button" class="q-mod-chip" data-target="quickTimelineSection" onclick="toggleQuickModuleById('quickTimelineSection')">⏱️ Cronograma</button>
+        <button type="button" class="q-mod-chip" data-target="quickAddonsSection" onclick="toggleQuickModuleById('quickAddonsSection')">✨ Adicionales</button>
+        <button type="button" class="q-mod-chip active" data-target="quickConditionsSection" onclick="toggleQuickModuleById('quickConditionsSection')">⚖️ Condiciones</button>
+        <button type="button" class="q-mod-chip active" data-target="quickExclusionsBlock" onclick="toggleQuickModuleById('quickExclusionsBlock')">🛡️ Exclusiones</button>
+        <button type="button" class="q-mod-chip" data-target="quickPaymentSection" onclick="toggleQuickModuleById('quickPaymentSection')">🏦 Datos de Pago</button>
+        <button type="button" class="q-mod-chip active" data-target="quickSignatureGrid" onclick="toggleQuickModuleById('quickSignatureGrid')">✍️ Firmas</button>
+      </div>
+    </div>
+
     <div class="a4-page" id="printablePage">
 
       <!-- Marco fino perimetral (0.5pt) a 10mm del borde -->
@@ -3375,7 +3600,7 @@
           </div>
 
           <!-- MÓDULO 2: DESGLOSE DE EQUIPO TÉCNICO & ROLES (CREW & GEAR) -->
-          <div class="quick-module-section" id="quickCrewSection">
+          <div class="quick-module-section is-hidden" id="quickCrewSection">
             <div class="quick-conditions-header">
               <span class="quick-conditions-title" contenteditable="true" spellcheck="false">EQUIPO HUMANO (CREW) &amp; PAQUETE TÉCNICO (GEAR)</span>
               <div class="quick-sec-actions no-print">
@@ -3398,7 +3623,7 @@
           </div>
 
           <!-- MÓDULO 3: LÍNEA DE TIEMPO DEL PROYECTO (TIMELINE) -->
-          <div class="quick-module-section" id="quickTimelineSection">
+          <div class="quick-module-section is-hidden" id="quickTimelineSection">
             <div class="quick-conditions-header">
               <span class="quick-conditions-title" contenteditable="true" spellcheck="false">FLUJO DE TRABAJO &amp; CRONOGRAMA ESTIMADO</span>
               <div class="quick-sec-actions no-print">
@@ -3433,7 +3658,7 @@
           </div>
 
           <!-- MÓDULO 4: ADICIONALES OPCIONALES / A LA CARTA (UPSELLING) -->
-          <div class="quick-module-section" id="quickAddonsSection">
+          <div class="quick-module-section is-hidden" id="quickAddonsSection">
             <div class="quick-conditions-header">
               <span class="quick-conditions-title" contenteditable="true" spellcheck="false">ADICIONALES OPCIONALES · A LA CARTA (NO INCLUIDOS EN EL TOTAL)</span>
               <div class="quick-sec-actions no-print">
@@ -3536,7 +3761,7 @@
           </div>
 
           <!-- MÓDULO 6: DATOS BANCARIOS & RESERVA DIRECTA -->
-          <div class="quick-module-section" id="quickPaymentSection">
+          <div class="quick-module-section is-hidden" id="quickPaymentSection">
             <div class="quick-conditions-header">
               <span class="quick-conditions-title" contenteditable="true" spellcheck="false">DATOS BANCARIOS &amp; RESERVA DE FECHA</span>
               <div class="quick-sec-actions no-print">
@@ -3607,7 +3832,7 @@
         </div>
 
         <!-- Pager Hoja Simple -->
-        <div class="page-footer-editorial" style="margin-top: 1.8mm; padding-top: 1.5mm;">
+        <div class="page-footer-editorial">
           <span class="page-footer-tag" contenteditable="true" spellcheck="false">LEÓN FELDMAN · PRODUCCIÓN AUDIOVISUAL
             &amp; FOTOGRAFÍA</span>
           <span class="page-footer-pager" contenteditable="true" spellcheck="false">PRESUPUESTO RESUMIDO · HOJA
@@ -3622,7 +3847,7 @@
   <script>
     const DEFAULT_PORTFOLIO_URL = 'https://leonfeldmanreino.myportfolio.com';
     const PRESETS_STORAGE_KEY = 'leon_presets_library_v1';
-    const DRAFT_STORAGE_KEY = 'leon_presupuesto_editorial_v9';
+    const DRAFT_STORAGE_KEY = 'leon_presupuesto_editorial_v10';
     let currentCurrency = 'ARS';
     let currentSpacing = 'normal';
     let currentPortfolioUrl = DEFAULT_PORTFOLIO_URL;
@@ -4170,10 +4395,10 @@
         modContainer.insertBefore(delivSec, modContainer.firstChild);
       }
 
-      // 4. Inyectar #quickCrewSection si no existe
+      // 4. Inyectar #quickCrewSection si no existe (oculto por defecto para mantener 1 hoja A4 limpia)
       if (!document.getElementById('quickCrewSection')) {
         const crewSec = document.createElement('div');
-        crewSec.className = 'quick-module-section';
+        crewSec.className = 'quick-module-section is-hidden';
         crewSec.id = 'quickCrewSection';
         crewSec.innerHTML = `
           <div class="quick-conditions-header">
@@ -4199,10 +4424,10 @@
         modContainer.insertBefore(crewSec, document.getElementById('quickConditionsSection') || null);
       }
 
-      // 5. Inyectar #quickTimelineSection si no existe
+      // 5. Inyectar #quickTimelineSection si no existe (oculto por defecto)
       if (!document.getElementById('quickTimelineSection')) {
         const timeSec = document.createElement('div');
-        timeSec.className = 'quick-module-section';
+        timeSec.className = 'quick-module-section is-hidden';
         timeSec.id = 'quickTimelineSection';
         timeSec.innerHTML = `
           <div class="quick-conditions-header">
@@ -4240,10 +4465,10 @@
         modContainer.insertBefore(timeSec, document.getElementById('quickConditionsSection') || null);
       }
 
-      // 6. Inyectar #quickAddonsSection si no existe
+      // 6. Inyectar #quickAddonsSection si no existe (oculto por defecto)
       if (!document.getElementById('quickAddonsSection')) {
         const addonSec = document.createElement('div');
-        addonSec.className = 'quick-module-section';
+        addonSec.className = 'quick-module-section is-hidden';
         addonSec.id = 'quickAddonsSection';
         addonSec.innerHTML = `
           <div class="quick-conditions-header">
@@ -4309,10 +4534,10 @@
         }
       }
 
-      // 8. Inyectar #quickPaymentSection si no existe
+      // 8. Inyectar #quickPaymentSection si no existe (oculto por defecto)
       if (!document.getElementById('quickPaymentSection')) {
         const paySec = document.createElement('div');
-        paySec.className = 'quick-module-section';
+        paySec.className = 'quick-module-section is-hidden';
         paySec.id = 'quickPaymentSection';
         paySec.innerHTML = `
           <div class="quick-conditions-header">
@@ -4345,6 +4570,51 @@
         `;
         modContainer.appendChild(paySec);
       }
+
+      // 9. Asegurar barra de botones rápidos #quickModulesToggleBar arriba de la hoja #printablePage
+      if (!document.getElementById('quickModulesToggleBar')) {
+        const printablePage = document.getElementById('printablePage');
+        if (printablePage && printablePage.parentNode === docQuick) {
+          const bar = document.createElement('div');
+          bar.className = 'quick-modules-bar no-print';
+          bar.id = 'quickModulesToggleBar';
+          bar.innerHTML = `
+            <span class="quick-modules-bar-label">Módulos en Hoja A4:</span>
+            <button type="button" class="q-mod-chip" data-target="quickMetaGrid" onclick="toggleQuickModuleById('quickMetaGrid')">Ficha Cliente</button>
+            <button type="button" class="q-mod-chip" data-target="quickSummaryBlock" onclick="toggleQuickModuleById('quickSummaryBlock')">Resumen</button>
+            <button type="button" class="q-mod-chip" data-target="quickDeliverablesSection" onclick="toggleQuickModuleById('quickDeliverablesSection')">📦 Entregables</button>
+            <button type="button" class="q-mod-chip" data-target="quickCrewSection" onclick="toggleQuickModuleById('quickCrewSection')">🎥 Crew &amp; Gear</button>
+            <button type="button" class="q-mod-chip" data-target="quickTimelineSection" onclick="toggleQuickModuleById('quickTimelineSection')">⏱ Cronograma</button>
+            <button type="button" class="q-mod-chip" data-target="quickAddonsSection" onclick="toggleQuickModuleById('quickAddonsSection')">➕ Adicionales</button>
+            <button type="button" class="q-mod-chip" data-target="quickConditionsSection" onclick="toggleQuickModuleById('quickConditionsSection')">📋 Condiciones</button>
+            <button type="button" class="q-mod-chip" data-target="quickExclusionsBlock" onclick="toggleQuickModuleById('quickExclusionsBlock')">🛡 Alcance/Validez</button>
+            <button type="button" class="q-mod-chip" data-target="quickPaymentSection" onclick="toggleQuickModuleById('quickPaymentSection')">🏦 Datos Bancarios</button>
+            <button type="button" class="q-mod-chip" data-target="quickSignatureGrid" onclick="toggleQuickModuleById('quickSignatureGrid')">✍ Firmas</button>
+          `;
+          docQuick.insertBefore(bar, printablePage);
+        }
+      }
+
+      // 10. Limpiar estilo inline antiguo del pie de página para que margin-top: auto funcione siempre
+      const quickFooter = frame.querySelector('.page-footer-editorial');
+      if (quickFooter && quickFooter.style.marginTop) {
+        quickFooter.style.removeProperty('margin-top');
+      }
+
+      syncQuickModuleChips();
+    }
+
+    function syncQuickModuleChips() {
+      const chips = document.querySelectorAll('#quickModulesToggleBar .q-mod-chip');
+      chips.forEach(chip => {
+        const targetId = chip.getAttribute('data-target');
+        const targetEl = targetId ? document.getElementById(targetId) : null;
+        if (targetEl && !targetEl.classList.contains('is-hidden')) {
+          chip.classList.add('active');
+        } else {
+          chip.classList.remove('active');
+        }
+      });
     }
 
     function setQuickColumn(colEl, itemsEl, data, colId) {
@@ -4404,7 +4674,8 @@
           if (el) el.classList.remove('is-hidden');
         });
         document.querySelectorAll('#doc-quick .option-tax-note').forEach(el => el.classList.remove('is-hidden'));
-        showToast('Todos los módulos del Presupuesto Rápido están visibles');
+        syncQuickModuleChips();
+        showToast('Todos los módulos visibles (el PDF se auto-ajustará en 1 hoja A4)');
       } else if (val === 'tax-no-iva') {
         applyQuickTaxPreset('Valores netos · No incluyen IVA (21%)');
       } else if (val === 'tax-factura-c') {
@@ -4454,6 +4725,7 @@
           addNewItem(target.id);
         }
       }
+      syncQuickModuleChips();
       autoSave();
     }
 
@@ -4462,7 +4734,8 @@
       if (!el) return;
       el.classList.toggle('is-hidden');
       const isHidden = el.classList.contains('is-hidden');
-      showToast(isHidden ? 'Sección ocultada (podés reactivarla en ⚙ Secciones & Módulos)' : 'Sección activada');
+      syncQuickModuleChips();
+      showToast(isHidden ? 'Módulo ocultado de la hoja A4' : 'Módulo activado en la hoja A4');
       autoSave();
     }
 
@@ -4493,6 +4766,7 @@
       ensureQuickModulesExist();
       const sec = document.getElementById('quickDeliverablesSection');
       if (sec) sec.classList.remove('is-hidden');
+      syncQuickModuleChips();
       const grid = document.getElementById('quickDeliverablesGrid');
       if (!grid) return;
       const idx = grid.querySelectorAll('.quick-deliverable-card').length + 1;
@@ -4520,6 +4794,7 @@
       ensureQuickModulesExist();
       const sec = document.getElementById('quickCrewSection');
       if (sec) sec.classList.remove('is-hidden');
+      syncQuickModuleChips();
       const grid = document.getElementById('quickCrewGrid');
       if (!grid) return;
       const card = document.createElement('div');
@@ -4542,6 +4817,7 @@
       ensureQuickModulesExist();
       const sec = document.getElementById('quickTimelineSection');
       if (sec) sec.classList.remove('is-hidden');
+      syncQuickModuleChips();
       const grid = document.getElementById('quickTimelineGrid');
       if (!grid) return;
       const idx = grid.querySelectorAll('.quick-timeline-step').length + 1;
@@ -4567,6 +4843,7 @@
       ensureQuickModulesExist();
       const sec = document.getElementById('quickAddonsSection');
       if (sec) sec.classList.remove('is-hidden');
+      syncQuickModuleChips();
       const grid = document.getElementById('quickAddonsGrid');
       if (!grid) return;
       const item = document.createElement('div');
@@ -4593,6 +4870,7 @@
       ensureQuickModulesExist();
       const sec = document.getElementById('quickPaymentSection');
       if (sec) sec.classList.remove('is-hidden');
+      syncQuickModuleChips();
       const grid = document.getElementById('quickPaymentGrid');
       if (!grid) return;
       const item = document.createElement('div');
@@ -4615,6 +4893,7 @@
       const grid = document.getElementById('quickMetaGrid');
       if (!grid) return;
       grid.classList.remove('is-hidden');
+      syncQuickModuleChips();
       const item = document.createElement('div');
       item.className = 'quick-meta-item';
       item.innerHTML = `
@@ -6202,8 +6481,9 @@
         }
       });
 
-      // 4. Sincronizar links de portfolio para que todos sean clickeables y apunten al portfolio real
+      // 4. Sincronizar links de portfolio y estado de los chips de módulos rápidos
       syncPortfolioLinks(currentPortfolioUrl);
+      syncQuickModuleChips();
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -6317,9 +6597,7 @@
     }
 
     function loadSaved() {
-      const saved = localStorage.getItem(DRAFT_STORAGE_KEY)
-        || localStorage.getItem('leon_presupuesto_editorial_v8')
-        || localStorage.getItem('leon_presupuesto_editorial_v7');
+      const saved = localStorage.getItem(DRAFT_STORAGE_KEY);
       if (saved) {
         try {
           const data = JSON.parse(saved);
@@ -6666,6 +6944,7 @@
     function restoreOriginalExample() {
       if (!confirm('¿Deseás restaurar la plantilla original con todos los valores de referencia? (Tus Presets guardados en ⭐ Presets se conservarán).')) return;
       localStorage.removeItem(DRAFT_STORAGE_KEY);
+      localStorage.removeItem('leon_presupuesto_editorial_v9');
       localStorage.removeItem('leon_presupuesto_editorial_v8');
       localStorage.removeItem('leon_presupuesto_editorial_v7');
       localStorage.removeItem('leon_presupuesto_editorial_v6');
@@ -6706,6 +6985,73 @@
       showToast('Copia HTML descargada');
     }
 
+    // Motor de auto-encuadre pre-impresión A4: garantiza que cada hoja .a4-page entre íntegra en 297mm con su borde editorial completo
+    function preparePagesForPrint() {
+      try {
+        cleanupAfterPrint();
+        document.body.classList.add('is-measuring-print');
+
+        const activeDoc = document.querySelector('#doc-analipsis:not([style*="display: none"]), #doc-quick:not([style*="display: none"])');
+        const pages = activeDoc
+          ? Array.from(activeDoc.querySelectorAll('.a4-page'))
+          : Array.from(document.querySelectorAll('.a4-page'));
+
+        pages.forEach(page => {
+          if (page.offsetParent === null) return;
+          const frame = page.querySelector('.editorial-frame');
+          if (!frame) return;
+
+          // Nivel 1: Compactación tipográfica y de paddings suave
+          if (frame.scrollHeight > frame.clientHeight + 1) {
+            page.classList.add('print-fit-1');
+          }
+
+          // Nivel 2: Compactación media
+          if (frame.scrollHeight > frame.clientHeight + 1) {
+            page.classList.add('print-fit-2');
+          }
+
+          // Nivel 3: Si el usuario activó todos los módulos simultáneamente, escalamos proporcionalmente los hijos internos sin encoger el recuadro .editorial-frame
+          if (frame.scrollHeight > frame.clientHeight + 1) {
+            const children = Array.from(frame.children);
+            const availableH = frame.clientHeight;
+            const currentH = frame.scrollHeight;
+            let ratio = Math.max(0.68, Math.min(0.98, (availableH / currentH) * 0.985));
+            children.forEach(ch => {
+              ch.dataset.printZoomed = '1';
+              ch.style.zoom = ratio.toFixed(3);
+            });
+
+            // Segunda pasada fina por si tras el primer zoom todavía sobra algún píxel
+            if (frame.scrollHeight > frame.clientHeight + 1) {
+              ratio = Math.max(0.62, ratio * (frame.clientHeight / frame.scrollHeight) * 0.985);
+              children.forEach(ch => {
+                ch.style.zoom = ratio.toFixed(3);
+              });
+            }
+          }
+        });
+      } catch (err) {
+        console.error('Error en auto-ajuste de impresión:', err);
+      } finally {
+        document.body.classList.remove('is-measuring-print');
+      }
+    }
+
+    function cleanupAfterPrint() {
+      document.body.classList.remove('is-measuring-print');
+      document.querySelectorAll('.a4-page.print-fit-1, .a4-page.print-fit-2').forEach(page => {
+        page.classList.remove('print-fit-1', 'print-fit-2');
+      });
+      document.querySelectorAll('[data-print-zoomed="1"]').forEach(el => {
+        el.style.removeProperty('zoom');
+        delete el.dataset.printZoomed;
+      });
+    }
+
+    window.addEventListener('beforeprint', preparePagesForPrint);
+    window.addEventListener('afterprint', cleanupAfterPrint);
+
     function exportPDF() {
       const originalTitle = document.title;
       try {
@@ -6733,8 +7079,10 @@
         document.title = `Presupuesto - Leon Feldman - ${subject}${cleanDate ? ' - ' + cleanDate : ''}`;
       } catch (e) { }
 
+      preparePagesForPrint();
       window.print();
       setTimeout(() => {
+        cleanupAfterPrint();
         document.title = originalTitle;
       }, 800);
     }
