@@ -4358,8 +4358,8 @@
       let total = 0;
       const amounts = container.querySelectorAll('.item-amount');
       amounts.forEach(el => {
-        const txt = el.textContent.trim().toLowerCase();
-        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '' && txt !== 's/c' && txt !== 'bonificado') {
+        const txt = el.textContent.trim();
+        if (!isTextualAmount(txt)) {
           total += parseMoney(txt);
         }
       });
@@ -4819,8 +4819,17 @@
       autoSave();
     }
 
+    // Detección de montos no numéricos / descriptivos (ej: "incluido", "a convenir", "bonificado", "s/c", etc.)
+    function isTextualAmount(text) {
+      if (!text) return true;
+      const t = String(text).trim();
+      if (!t || t === '-') return true;
+      // Si contiene letras (a-z, á, é, í, ó, ú, ñ), se considera texto descriptivo
+      return /[a-záéíóúüñ]/i.test(t);
+    }
+
     function parseMoney(text) {
-      if (!text) return 0;
+      if (!text || isTextualAmount(text)) return 0;
       const clean = String(text).replace(/[^0-9]/g, '');
       const val = parseInt(clean, 10);
       return isNaN(val) ? 0 : val;
@@ -4847,8 +4856,8 @@
       let sum = 0;
 
       amounts.forEach(el => {
-        const txt = el.textContent.trim().toLowerCase();
-        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '' && txt !== 's/c' && txt !== 'bonificado') {
+        const txt = el.textContent.trim();
+        if (!isTextualAmount(txt)) {
           const num = parseMoney(txt);
           if (num > 0) {
             sum += num;
@@ -5631,8 +5640,9 @@
 
     document.addEventListener('focusout', (e) => {
       if (e.target.isContentEditable && e.target.classList.contains('item-amount')) {
-        const txt = e.target.textContent.trim().toLowerCase();
-        if (txt !== 'incluido' && txt !== 'inc' && txt !== '-' && txt !== '' && txt !== 's/c' && txt !== 'bonificado') {
+        const txt = e.target.textContent.trim();
+        // Si el usuario escribió un texto descriptivo (ej: "incluido", "bonificado", "a convenir"), lo respetamos intacto
+        if (!isTextualAmount(txt) && txt !== '') {
           const num = parseMoney(txt);
           e.target.textContent = formatMoney(num);
         }
