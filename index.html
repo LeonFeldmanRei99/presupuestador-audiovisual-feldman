@@ -30,6 +30,9 @@
       --line-strong: #1C1A17;
       --line-subtle: #C9C2B5;
       --dot-color: #B9B1A3;
+      --divider-color: rgba(201, 194, 181, 0.85);
+      --divider-style: solid;
+      --divider-width: 0.5px;
 
       /* Tipografías */
       --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
@@ -51,6 +54,7 @@
       --line-strong: #111111;
       --line-subtle: #DDDDDD;
       --dot-color: #CCCCCC;
+      --divider-color: #DCDCDC;
     }
 
     /* Tema Burdeos sobre Blanco */
@@ -62,6 +66,39 @@
       --line-strong: #1A1816;
       --line-subtle: #E0DDD8;
       --dot-color: #CBC6BE;
+      --divider-color: #DFDBD4;
+    }
+
+    /* Modos Personalizables de Líneas Divisorias */
+    body.dividers-bordeaux {
+      --divider-color: rgba(110, 43, 38, 0.42);
+      --divider-style: solid;
+    }
+    body.dividers-dotted {
+      --divider-color: var(--dot-color);
+      --divider-style: dotted;
+      --divider-width: 1px;
+    }
+    body.dividers-dark {
+      --divider-color: rgba(28, 26, 23, 0.55);
+      --divider-style: solid;
+    }
+    body.dividers-none .rule-line,
+    body.dividers-none .total-divider {
+      border-top-color: transparent !important;
+      background: transparent !important;
+    }
+    body.dividers-none .rule-line::after,
+    body.dividers-none .total-divider::after {
+      display: none !important;
+    }
+    body.dividers-none .quick-module-section,
+    body.dividers-none .quick-conditions-section,
+    body.dividers-none .subtotal-row,
+    body.dividers-none .grand-total-section,
+    body.dividers-none .page-footer-editorial {
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
     }
 
     /* ═══════════════════════════════════════════════════════════════
@@ -220,16 +257,18 @@
     .a4-page {
       width: 210mm;
       height: 297mm;
+      min-height: 297mm;
       max-height: 297mm;
       background-color: var(--page-bg);
       color: var(--text-main);
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
       position: relative;
-      padding: 9.5mm;
-      /* Margen exterior fino de 9.5mm al filete */
+      padding: 9mm;
+      /* Margen exterior fino de 9mm idéntico a la exportación PDF */
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      box-sizing: border-box;
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -238,7 +277,7 @@
       width: 100%;
       height: 100%;
       border: 0.65px solid var(--line-strong);
-      padding: 8.5mm 10.5mm 7.5mm;
+      padding: 7.5mm 9.5mm 6.5mm;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -364,20 +403,23 @@
       color: var(--text-muted);
     }
 
-    /* Filete horizontal editorial (0.65px) */
+    /* Filete horizontal editorial personalizable */
     .rule-line {
       width: 100%;
-      height: 0.65px;
-      background-color: var(--line-strong);
+      height: 0;
+      background: transparent;
       border: none;
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
       margin: 0;
+      position: relative;
     }
 
     .rule-subtle {
       width: 100%;
-      height: 0.5px;
-      background-color: var(--line-subtle);
+      height: 0;
+      background: transparent;
       border: none;
+      border-top: 0.5px solid var(--line-subtle);
       margin: 0;
     }
 
@@ -641,16 +683,32 @@
       margin-top: 2.5mm;
       padding-top: 2mm;
       border-top: 0.5px dotted var(--line-subtle);
+      position: relative;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 1mm;
+      position: relative;
+    }
+
+    .project-summary-block,
+    .quick-summary-block,
+    .quick-exclusions-bar,
+    .deliverables-box {
+      position: relative;
     }
 
     /* Pie de página editorial con número de página */
     .page-footer-editorial {
       margin-top: auto;
-      padding-top: 4mm;
+      padding-top: 1.5mm;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-top: 0.65px solid var(--line-strong);
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
+      width: 100%;
     }
 
     .page-footer-tag {
@@ -730,22 +788,34 @@
       line-height: 1.25;
       margin-top: 0.8mm;
       padding-right: 8mm;
-      min-height: 1.1em;
+      min-height: 0;
       transition: all 0.2s ease;
     }
 
-    .item-subtext:empty::before {
-      content: attr(data-placeholder);
-      color: var(--text-muted);
-      opacity: 0.35;
-      font-size: 7.5pt;
-      font-style: italic;
-      cursor: text;
+    .item-subtext:empty {
+      margin-top: 0;
     }
 
-    .item-subtext:hover:empty::before {
-      opacity: 0.8;
+    .item-entry:hover .item-subtext:empty,
+    .quick-addon-item:hover .item-subtext:empty,
+    .item-subtext:focus {
+      margin-top: 0.6mm;
+      min-height: 1.1em;
+    }
+
+    .item-subtext:empty::before {
+      content: "";
+    }
+
+    .item-entry:hover .item-subtext:empty::before,
+    .quick-addon-item:hover .item-subtext:empty::before,
+    .item-subtext:focus:empty::before {
+      content: attr(data-placeholder);
       color: var(--accent-bordeaux);
+      opacity: 0.7;
+      font-size: 7.2pt;
+      font-style: italic;
+      cursor: text;
     }
 
     .item-entry {
@@ -775,40 +845,83 @@
       opacity: 1 !important;
     }
 
-    .add-item-trigger {
+    /* Botón de agregar ítem en columna o sección financiera: flotante para NO deformar la altura real A4 respecto al PDF */
+    .option-column > .add-item-trigger {
+      position: absolute;
+      right: 0;
+      bottom: 13.5mm;
+      margin: 0;
+      padding: 1px 6px;
       font-family: var(--font-sans);
-      font-size: 6.4pt;
-      letter-spacing: 0.14em;
+      font-size: 5.8pt;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      background: none;
-      border: 0.5px dashed var(--line-subtle);
-      border-radius: 3px;
-      padding: 1.5px 6px;
+      color: var(--accent-bordeaux);
+      background: var(--page-bg);
+      border: 0.5px dashed var(--accent-bordeaux);
+      border-radius: 8px;
       cursor: pointer;
-      margin-top: 1.2mm;
-      text-align: center;
-      transition: all 0.2s;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease;
+      z-index: 20;
     }
 
-    .add-item-trigger:hover {
+    .option-column:hover > .add-item-trigger,
+    .option-column > .add-item-trigger:focus {
+      opacity: 0.92;
+      pointer-events: auto;
+    }
+
+    #doc-analipsis .proposal-section-block div:has(> .add-item-trigger),
+    #doc-analipsis .proposal-section-block div:has(> .add-section-item-trigger) {
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      overflow: visible !important;
+      position: relative;
+      z-index: 20;
+    }
+
+    #doc-analipsis .add-item-trigger,
+    #doc-analipsis .add-section-item-trigger {
+      position: absolute;
+      right: 0;
+      top: -4.5mm;
+      margin: 0 !important;
+      font-family: var(--font-sans);
+      font-size: 5.8pt;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--accent-bordeaux);
-      border-color: var(--accent-bordeaux);
-      background: rgba(110, 43, 38, 0.04);
+      background: var(--page-bg);
+      border: 0.5px dashed var(--accent-bordeaux);
+      border-radius: 8px;
+      padding: 1px 7px;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.18s ease;
+    }
+
+    #doc-analipsis .proposal-section-block:hover .add-item-trigger,
+    #doc-analipsis .proposal-section-block:hover .add-section-item-trigger {
+      opacity: 0.92;
+      pointer-events: auto;
     }
 
     .add-section-item-trigger {
       font-family: var(--font-sans);
-      font-size: 6.2pt;
-      letter-spacing: 0.12em;
+      font-size: 6pt;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-muted);
       background: none;
       border: 0.5px dashed var(--line-subtle);
       border-radius: 3px;
-      padding: 1.5px 7px;
+      padding: 1px 6px;
       cursor: pointer;
-      margin-top: 1mm;
+      margin: 0;
       text-align: center;
       transition: all 0.2s;
     }
@@ -851,8 +964,9 @@
       justify-content: space-between;
       align-items: baseline;
       padding: 2mm 0;
-      border-top: 0.5px solid var(--line-strong);
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
       margin-top: 2.5mm;
+      position: relative;
     }
 
     .subtotal-label {
@@ -1060,13 +1174,13 @@
     }
 
     /* 7. CIERRE, TOTAL CONSOLIDADO Y FIRMAS */
-    /* 7. CIERRE, TOTAL CONSOLIDADO Y FIRMAS */
     .grand-total-section {
       width: 100%;
       margin: 2mm 0 2mm;
       padding: 1.8mm 0;
-      border-top: 0.65px solid var(--line-strong);
-      border-bottom: 0.65px solid var(--line-strong);
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
+      border-bottom: var(--divider-width) var(--divider-style) var(--divider-color);
+      position: relative;
     }
 
     .grand-total-row {
@@ -1237,7 +1351,7 @@
     .page-footer-editorial {
       margin-top: auto;
       padding-top: 1.5mm;
-      border-top: 0.5px solid var(--line-subtle);
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -1483,8 +1597,9 @@
 
     .total-divider {
       width: 100%;
-      height: 0.65px;
-      background-color: var(--line-strong);
+      height: 0;
+      background: transparent;
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
       margin-top: 2.5mm;
       margin-bottom: 1.8mm;
     }
@@ -1519,7 +1634,7 @@
     .quick-conditions-section {
       margin-top: 2mm;
       padding-top: 1.8mm;
-      border-top: 0.65px solid var(--line-strong);
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
     }
 
     .quick-conditions-header {
@@ -1626,7 +1741,7 @@
     .quick-conditions-section {
       margin-top: 1.8mm;
       padding-top: 1.5mm;
-      border-top: 0.65px solid var(--line-strong);
+      border-top: var(--divider-width) var(--divider-style) var(--divider-color);
       position: relative;
     }
 
@@ -1918,7 +2033,14 @@
     .quick-timeline-step > .item-tools,
     .quick-addon-item > .item-tools,
     .quick-payment-item > .item-tools,
-    .quick-meta-item > .item-tools {
+    .quick-meta-item > .item-tools,
+    .meta-item > .item-tools,
+    .project-summary-block > .item-tools,
+    .quick-summary-block > .item-tools,
+    .quick-exclusions-bar > .item-tools,
+    .scope-clause-warning > .item-tools,
+    .subtotal-row > .item-tools,
+    .deliverables-box > .item-tools {
       position: absolute;
       top: -6px;
       right: 0;
@@ -1935,9 +2057,50 @@
     .quick-addon-item:hover > .item-tools,
     .quick-payment-item:hover > .item-tools,
     .quick-meta-item:hover > .item-tools,
+    .meta-item:hover > .item-tools,
+    .project-summary-block:hover > .item-tools,
+    .quick-summary-block:hover > .item-tools,
+    .quick-exclusions-bar:hover > .item-tools,
+    .scope-clause-warning:hover > .item-tools,
+    .subtotal-row:hover > .item-tools,
+    .deliverables-box:hover > .item-tools,
     .item-tools:focus-within {
       opacity: 1;
       pointer-events: auto;
+    }
+
+    /* Líneas divisorias interactivas: permiten ocultarse individualmente con 1 clic en modo edición */
+    hr.rule-line {
+      cursor: pointer;
+      transition: border-color 0.18s ease, opacity 0.18s ease;
+    }
+
+    hr.rule-line:hover {
+      border-top-color: var(--accent-bordeaux);
+    }
+
+    hr.rule-line:hover::before {
+      content: "✕ ocultar línea";
+      position: absolute;
+      right: 0;
+      top: -11px;
+      font-family: var(--font-sans);
+      font-size: 5.5pt;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--page-bg);
+      color: #C0392B;
+      border: 0.5px solid rgba(192, 57, 43, 0.45);
+      border-radius: 6px;
+      padding: 1px 5px;
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    /* Si un recuadro o tarjeta queda completamente vacío de texto, colapsa automáticamente en PDF y muestra aviso sutil en edición */
+    .is-empty-box {
+      outline: 0.5px dashed rgba(192, 57, 43, 0.35);
+      opacity: 0.45;
     }
 
     /* Ocultar botones sueltos heredados cuando existe .item-tools */
@@ -1987,28 +2150,31 @@
       flex: 1;
     }
 
-    /* Permitir que la hoja crezca visualmente si se agregan muchos ítems sin cortar botones */
+    /* Hoja A4 con geometría idéntica 1:1 en edición en vivo y en exportación PDF */
     .a4-page {
+      width: 210mm;
+      height: 297mm;
       min-height: 297mm;
-      height: auto;
-      max-height: none;
-      overflow: visible;
+      max-height: 297mm;
+      overflow: hidden;
     }
 
     .editorial-frame {
-      min-height: 278mm;
-      height: auto;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
+      max-height: 100%;
       flex: 1;
-      overflow: visible;
+      overflow: hidden;
     }
 
-    /* Modos de Densidad / Espaciado A4 */
+    /* Modos de Densidad / Espaciado A4 (aplicados idénticos en pantalla y en impresión) */
     body.spacing-compact .a4-page {
-      padding: 7.5mm;
+      padding: 7.5mm !important;
     }
     body.spacing-compact .editorial-frame {
-      padding: 6.5mm 8.5mm 6mm;
-      min-height: 282mm;
+      padding: 6.5mm 8.5mm 6mm !important;
+      min-height: 0 !important;
     }
     body.spacing-compact .doc-title {
       font-size: 26pt;
@@ -2266,6 +2432,12 @@
       content: none !important;
     }
 
+    body.dividers-none .rule-line::after,
+    body.dividers-none .total-divider::after {
+      display: none !important;
+      content: none !important;
+    }
+
     /* 1. Esquineros geométricos-tribales en las 4 esquinas interiores del marco A4 */
     .editorial-frame::before,
     .editorial-frame::after {
@@ -2495,7 +2667,8 @@
     body.is-measuring-print .quick-sec-actions,
     body.is-measuring-print .app-toast,
     body.is-measuring-print .no-print,
-    body.is-measuring-print .is-doc-hidden {
+    body.is-measuring-print .is-doc-hidden,
+    body.is-measuring-print .is-empty-box {
       display: none !important;
     }
 
@@ -2504,7 +2677,7 @@
       height: 297mm !important;
       min-height: 297mm !important;
       max-height: 297mm !important;
-      padding: 9mm !important;
+      padding: 9mm;
       box-sizing: border-box !important;
       overflow: hidden !important;
     }
@@ -2514,7 +2687,7 @@
       height: 100% !important;
       min-height: 0 !important;
       max-height: 100% !important;
-      padding: 7.5mm 9.5mm 6.5mm !important;
+      padding: 7.5mm 9.5mm 6.5mm;
       box-sizing: border-box !important;
       overflow: hidden !important;
       display: flex !important;
@@ -2555,7 +2728,8 @@
       .quick-sec-actions,
       .app-toast,
       .no-print,
-      .is-doc-hidden {
+      .is-doc-hidden,
+      .is-empty-box {
         display: none !important;
       }
 
@@ -2578,7 +2752,7 @@
         height: 297mm !important;
         min-height: 297mm !important;
         max-height: 297mm !important;
-        padding: 9mm !important;
+        padding: 9mm;
         box-sizing: border-box !important;
         overflow: hidden !important;
         page-break-after: always !important;
@@ -2600,7 +2774,7 @@
         height: 100% !important;
         min-height: 0 !important;
         max-height: 100% !important;
-        padding: 7.5mm 9.5mm 6.5mm !important;
+        padding: 7.5mm 9.5mm 6.5mm;
         box-sizing: border-box !important;
         overflow: hidden !important;
         display: flex !important;
@@ -2716,6 +2890,17 @@
       <select class="ui-select" id="ornamentsSelector" onchange="changeOrnaments(this.value)" title="Activar o desactivar los detalles tribales y geométricos sutiles en la hoja A4">
         <option value="on">❖ Sutiles Activos</option>
         <option value="off">Minimalista (Sin ornamentos)</option>
+      </select>
+    </div>
+
+    <div class="panel-group">
+      <span class="panel-label">Líneas:</span>
+      <select class="ui-select" id="dividersSelector" onchange="changeDividers(this.value)" title="Personalizar las líneas horizontales divisorias de secciones">
+        <option value="subtle">Arena Sutil (Editorial)</option>
+        <option value="bordeaux">Burdeos Fino</option>
+        <option value="dotted">Punteadas Delicadas</option>
+        <option value="dark">Grafito Clásico</option>
+        <option value="none">Sin Líneas Divisorias</option>
       </select>
     </div>
 
@@ -3405,7 +3590,7 @@
         </div>
 
         <!-- Pager Pág 2 -->
-        <div class="page-footer-editorial" style="margin-top: 2.5mm; padding-top: 2.5mm;">
+        <div class="page-footer-editorial">
           <span class="page-footer-tag" contenteditable="true" spellcheck="false">LEÓN FELDMAN · PRODUCCIÓN AUDIOVISUAL
             &amp; FOTOGRAFÍA</span>
           <span class="page-footer-pager" contenteditable="true" spellcheck="false">PÁG. 02 / 02 · CIERRE DE
@@ -6343,6 +6528,7 @@
       const themeName = document.getElementById('themeSelector')?.value || 'original';
       const spacingName = document.getElementById('spacingSelector')?.value || currentSpacing || 'normal';
       const ornamentsVal = document.getElementById('ornamentsSelector')?.value || 'on';
+      const dividersVal = document.getElementById('dividersSelector')?.value || 'subtle';
       document.body.className = '';
       if (themeName && themeName !== 'original') {
         document.body.classList.add(themeName);
@@ -6352,6 +6538,9 @@
       }
       if (ornamentsVal === 'off') {
         document.body.classList.add('ornaments-off');
+      }
+      if (dividersVal && dividersVal !== 'subtle') {
+        document.body.classList.add('dividers-' + dividersVal);
       }
       scheduleLiveA4Fit();
     }
@@ -6364,6 +6553,23 @@
     function changeOrnaments(val) {
       applyBodyClasses();
       showToast(val === 'off' ? 'Modo minimalista (sin ornamentos)' : 'Ornamentos tribales sutiles activados');
+      autoSave();
+    }
+
+    function changeDividers(val) {
+      applyBodyClasses();
+      if (val !== 'none') {
+        // Si el usuario ocultó alguna línea individualmente antes, volver a mostrarla al elegir un estilo de líneas
+        document.querySelectorAll('hr.rule-line.is-hidden').forEach(hr => hr.classList.remove('is-hidden'));
+      }
+      const labels = {
+        subtle: 'Líneas Arena Sutil (Editorial)',
+        bordeaux: 'Líneas Burdeos Fino',
+        dotted: 'Líneas Punteadas Delicadas',
+        dark: 'Líneas Grafito Clásico',
+        none: 'Sin líneas divisorias'
+      };
+      showToast(labels[val] || 'Estilo de líneas actualizado');
       autoSave();
     }
 
@@ -6498,10 +6704,42 @@
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN Y DRAG & DROP
+    // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN, DRAG & DROP Y CAJAS ELIMINABLES
     // ═══════════════════════════════════════════════════════════════
-    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item';
+    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .quick-exclusions-bar, .scope-clause-warning, .subtotal-row, .deliverables-box';
+    const BOX_COLLAPSE_SELECTORS = '.jornada-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-exclusions-bar, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .condition-block, .quick-condition-card, .deliverable-line, .scope-clause-warning';
     let draggedElement = null;
+
+    function getCleanBoxText(el) {
+      if (!el) return '';
+      const clone = el.cloneNode(true);
+      clone.querySelectorAll('.item-tools, .del-btn-card, .item-delete-btn, .add-section-item-trigger, .add-item-trigger, .no-print, .deliv-dot').forEach(n => n.remove());
+      return (clone.textContent || '').replace(/\s+/g, '');
+    }
+
+    function refreshEmptyBoxStates() {
+      document.querySelectorAll(BOX_COLLAPSE_SELECTORS).forEach(box => {
+        const hasText = getCleanBoxText(box).length > 0;
+        const hasFocusedChild = box.contains(document.activeElement);
+        if (!hasText && !hasFocusedChild) {
+          box.classList.add('is-empty-box');
+        } else {
+          box.classList.remove('is-empty-box');
+        }
+      });
+
+      // Si una caja contenedora mayor (.deliverables-box) se quedó sin líneas y sin cláusula con texto, marcarla también
+      document.querySelectorAll('.deliverables-box').forEach(dbox => {
+        const lines = Array.from(dbox.querySelectorAll('.deliverable-line')).filter(l => !l.classList.contains('is-empty-box'));
+        const clause = dbox.querySelector('.scope-clause-warning');
+        const clauseHasText = clause && !clause.classList.contains('is-empty-box') && !clause.classList.contains('is-hidden');
+        if (lines.length === 0 && !clauseHasText && !dbox.contains(document.activeElement)) {
+          dbox.classList.add('is-empty-box');
+        } else {
+          dbox.classList.remove('is-empty-box');
+        }
+      });
+    }
 
     function moveGenericItem(btn, direction) {
       const item = btn.closest(REORDERABLE_SELECTORS);
@@ -6524,21 +6762,69 @@
       if (!item || !item.parentNode) return;
       const parent = item.parentNode;
       const clone = item.cloneNode(true);
-      clone.classList.remove('dragging', 'drag-over-top', 'drag-over-bottom');
+      clone.classList.remove('dragging', 'drag-over-top', 'drag-over-bottom', 'is-empty-box');
       parent.insertBefore(clone, item.nextSibling);
       upgradeDOMControls();
       recalcAfterItemChange(parent);
       autoSave();
-      showToast('Ítem duplicado');
+      showToast('Elemento duplicado');
     }
 
     function deleteGenericItem(btn) {
       const item = btn.closest(REORDERABLE_SELECTORS);
       if (!item || !item.parentNode) return;
       const parent = item.parentNode;
+
+      // Si es un módulo único con ID de toggle en Presupuesto Rápido, lo ocultamos limpiamente y sincronizamos el chip
+      if (item.id === 'quickSummaryBlock' || item.id === 'quickExclusionsBlock') {
+        item.classList.add('is-hidden');
+        syncQuickModuleChips();
+        autoSave();
+        showToast('Bloque ocultado');
+        return;
+      }
+
       item.remove();
+
+      // Si al borrar este elemento su contenedor o grilla quedó sin hijos visibles, ocultar/limpiar el contenedor vacío para que no queden cajas vacías
+      if (parent.id === 'quickMetaGrid' && parent.querySelectorAll('.quick-meta-item').length === 0) {
+        parent.classList.add('is-hidden');
+      } else if (parent.classList.contains('meta-box-grid') && parent.querySelectorAll('.meta-item').length === 0) {
+        parent.classList.add('is-hidden');
+      } else if (parent.classList.contains('deliverables-list') && parent.querySelectorAll('.deliverable-line').length === 0) {
+        const dbox = parent.closest('.deliverables-box');
+        if (dbox && (!dbox.querySelector('.scope-clause-warning') || getCleanBoxText(dbox.querySelector('.scope-clause-warning')).length === 0)) {
+          const sec = dbox.closest('.proposal-section-block');
+          if (sec) sec.remove();
+          else dbox.remove();
+          renumberAllSections();
+        }
+      } else if ((parent.classList.contains('jornadas-grid') || parent.classList.contains('conditions-grid')) && parent.children.length === 0) {
+        const sec = parent.closest('.proposal-section-block');
+        if (sec) {
+          sec.remove();
+          renumberAllSections();
+        }
+      } else if (
+        parent.id === 'quickDeliverablesGrid' ||
+        parent.id === 'quickCrewGrid' ||
+        parent.id === 'quickTimelineGrid' ||
+        parent.id === 'quickAddonsGrid' ||
+        parent.id === 'quickPaymentGrid' ||
+        parent.id === 'quickConditionsGrid'
+      ) {
+        const childCards = parent.querySelectorAll(REORDERABLE_SELECTORS);
+        if (childCards.length === 0) {
+          const quickSec = parent.closest('.quick-module-section, .quick-conditions-section');
+          if (quickSec) quickSec.classList.add('is-hidden');
+        }
+      }
+
+      syncQuickModuleChips();
+      refreshEmptyBoxStates();
       recalcAfterItemChange(parent);
       autoSave();
+      showToast('Recuadro eliminado');
     }
 
     function recalcAfterItemChange(container) {
@@ -6673,7 +6959,21 @@
         }
       });
 
-      // 4. Sincronizar links de portfolio, estado de chips y encuadre A4 en vivo
+      // 4. Hacer cada línea horizontal (<hr class="rule-line">) ocultable individualmente con 1 clic
+      document.querySelectorAll('hr.rule-line').forEach(hr => {
+        if (!hr.dataset.boundRuleClick) {
+          hr.dataset.boundRuleClick = '1';
+          hr.title = 'Clic para ocultar esta línea divisoria (podés restaurarlas desde el menú Líneas)';
+          hr.addEventListener('click', () => {
+            hr.classList.add('is-hidden');
+            showToast('Línea divisoria ocultada (restaurable desde el menú Líneas)');
+            autoSave();
+          });
+        }
+      });
+
+      // 5. Sincronizar links de portfolio, estado de chips, detección de cajas vacías y encuadre A4 en vivo
+      refreshEmptyBoxStates();
       syncPortfolioLinks(currentPortfolioUrl);
       syncQuickModuleChips();
       scheduleLiveA4Fit();
@@ -6714,6 +7014,7 @@
         currency: currentCurrency || 'ARS',
         spacing: document.getElementById('spacingSelector')?.value || currentSpacing || 'normal',
         ornaments: document.getElementById('ornamentsSelector')?.value || 'on',
+        dividers: document.getElementById('dividersSelector')?.value || 'subtle',
         portfolioUrl: getTargetURL(),
         analipsisHTML: document.getElementById('doc-analipsis')?.innerHTML || '',
         quickHTML: document.getElementById('doc-quick')?.innerHTML || '',
@@ -6752,6 +7053,10 @@
         if (data.ornaments) {
           const ornSel = document.getElementById('ornamentsSelector');
           if (ornSel) ornSel.value = data.ornaments;
+        }
+        if (data.dividers) {
+          const divSel = document.getElementById('dividersSelector');
+          if (divSel) divSel.value = data.dividers;
         }
         applyBodyClasses();
 
@@ -7312,7 +7617,7 @@
       }, 800);
     }
 
-    // Recálculo en vivo al editar montos y guardado automático continuo
+    // Recálculo en vivo al editar montos, detección de recuadros vacíos y guardado automático continuo
     document.addEventListener('input', (e) => {
       if (e.target.isContentEditable) {
         if (e.target.classList.contains('item-amount')) {
@@ -7323,24 +7628,28 @@
             recalcAnalipsisTotals();
           }
         }
+        refreshEmptyBoxStates();
         autoSave();
       }
     });
 
     document.addEventListener('focusout', (e) => {
-      if (e.target.isContentEditable && e.target.classList.contains('item-amount')) {
-        const txt = e.target.textContent.trim();
-        // Si el usuario escribió un texto descriptivo (ej: "incluido", "bonificado", "a convenir"), lo respetamos intacto
-        if (!isTextualAmount(txt) && txt !== '') {
-          const num = parseMoney(txt);
-          e.target.textContent = formatMoney(num);
+      if (e.target.isContentEditable) {
+        if (e.target.classList.contains('item-amount')) {
+          const txt = e.target.textContent.trim();
+          // Si el usuario escribió un texto descriptivo (ej: "incluido", "bonificado", "a convenir"), lo respetamos intacto
+          if (!isTextualAmount(txt) && txt !== '') {
+            const num = parseMoney(txt);
+            e.target.textContent = formatMoney(num);
+          }
+          const quickCol = e.target.closest('.option-column');
+          if (quickCol) {
+            recalcColumn(quickCol);
+          } else if (e.target.closest('#doc-analipsis')) {
+            recalcAnalipsisTotals();
+          }
         }
-        const quickCol = e.target.closest('.option-column');
-        if (quickCol) {
-          recalcColumn(quickCol);
-        } else if (e.target.closest('#doc-analipsis')) {
-          recalcAnalipsisTotals();
-        }
+        refreshEmptyBoxStates();
         autoSave();
       }
     });
