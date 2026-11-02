@@ -2050,6 +2050,13 @@
     }
 
     .item-entry > .item-tools,
+    .quick-addon-item > .item-tools {
+      position: absolute;
+      top: -8px;
+      left: -2px;
+      right: auto;
+    }
+
     .jornada-card > .item-tools,
     .deliverable-line > .item-tools,
     .condition-block > .item-tools,
@@ -2057,13 +2064,9 @@
     .quick-deliverable-card > .item-tools,
     .quick-crew-card > .item-tools,
     .quick-timeline-step > .item-tools,
-    .quick-addon-item > .item-tools,
     .quick-payment-item > .item-tools,
     .quick-meta-item > .item-tools,
     .meta-item > .item-tools,
-    .meta-box-grid > .item-tools,
-    .quick-meta-grid > .item-tools,
-    .body-content > .item-tools,
     .project-summary-block > .item-tools,
     .quick-summary-block > .item-tools,
     .quick-exclusions-bar > .item-tools,
@@ -7087,15 +7090,25 @@
     function updateTextPopoverPosition(el) {
       const pop = document.getElementById('textScalePopover');
       if (!pop || !el) return;
+
+      // Si el elemento activo es un monto/número (precio), no superponer el popover directamente encima del número
+      const isAmountOrFigure = el.classList.contains('item-amount') ||
+                               el.classList.contains('total-figure') ||
+                               el.classList.contains('grand-total-figure') ||
+                               el.classList.contains('q-addon-price') ||
+                               el.classList.contains('subtotal-value');
+
       const rect = el.getBoundingClientRect();
       const computedPx = parseFloat(window.getComputedStyle(el).fontSize) || 13.33;
       const pt = (computedPx * 0.75).toFixed(1).replace(/\.0$/, '');
       const valEl = document.getElementById('tspSizeVal');
       if (valEl) valEl.textContent = pt + 'pt';
 
-      let top = rect.top - 34;
-      if (top < 64) top = rect.bottom + 6;
-      let left = Math.max(12, Math.min(window.innerWidth - 260, rect.left));
+      let top = rect.top - 36;
+      if (top < 64 || isAmountOrFigure) {
+        top = rect.bottom + 6;
+      }
+      let left = Math.max(12, Math.min(window.innerWidth - 320, isAmountOrFigure ? (rect.right - 260) : rect.left));
       pop.style.top = top + 'px';
       pop.style.left = left + 'px';
       pop.classList.add('visible');
