@@ -162,6 +162,23 @@ body {
   outline: none;
 }
 
+.select-ui option,
+.select-ui optgroup {
+  background-color: #1A1A1A;
+  color: #F0F0F0;
+}
+
+.select-ui optgroup {
+  font-weight: 700;
+  color: #D4B87A;
+  background-color: #141414;
+}
+
+.select-ui option:checked {
+  background-color: #6E2B26;
+  color: #FFFFFF;
+}
+
 .select-ui:focus {
   border-color: var(--ui-accent);
 }
