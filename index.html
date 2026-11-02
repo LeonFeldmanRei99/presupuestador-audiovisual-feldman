@@ -1441,7 +1441,7 @@
     }
 
     .body-content {
-      flex: 1;
+      flex: 0 0 auto;
       display: flex;
       margin-top: 2.5mm;
       margin-bottom: 2mm;
@@ -2069,6 +2069,7 @@
     .quick-exclusions-bar > .item-tools,
     .scope-clause-warning > .item-tools,
     .subtotal-row > .item-tools,
+    .option-total-row > .item-tools,
     .deliverables-box > .item-tools,
     .title-block > .item-tools,
     .header-top > .item-tools,
@@ -2094,6 +2095,7 @@
     .meta-box-grid,
     .quick-meta-grid,
     .body-content,
+    .option-total-row,
     .signature-grid,
     .quick-signature-grid,
     .footer-portfolio-row {
@@ -2120,6 +2122,7 @@
     .quick-exclusions-bar:hover > .item-tools,
     .scope-clause-warning:hover > .item-tools,
     .subtotal-row:hover > .item-tools,
+    .option-total-row:hover > .item-tools,
     .deliverables-box:hover > .item-tools,
     .title-block:hover > .item-tools,
     .header-top:hover > .item-tools,
@@ -2210,7 +2213,144 @@
     .body-content.layout-1col .option-column {
       width: 100%;
       height: auto;
-      flex: 1;
+      flex: 0 0 auto;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       MODO MOVIMIENTO LIBRE EN EJE X / Y & SELECCIÓN MÚLTIPLE DE BLOQUES
+       ═══════════════════════════════════════════════════════════════ */
+    .xy-move-handle {
+      cursor: move;
+      user-select: none;
+      color: var(--accent-bordeaux);
+      font-size: 9px;
+      padding: 0 3px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+
+    .xy-move-handle:hover {
+      background: rgba(110, 43, 38, 0.14);
+      transform: scale(1.1);
+    }
+
+    body.free-move-mode .a4-page {
+      user-select: none;
+    }
+
+    body.free-move-mode .xy-selectable-target:hover {
+      outline: 1px dashed rgba(110, 43, 38, 0.55);
+      outline-offset: 2px;
+      cursor: move;
+    }
+
+    .xy-selected {
+      outline: 1.5px solid var(--accent-bordeaux) !important;
+      outline-offset: 2px !important;
+      background-color: rgba(110, 43, 38, 0.04) !important;
+    }
+
+    body.is-measuring-print .xy-selected {
+      outline: none !important;
+      background-color: transparent !important;
+    }
+
+    @media print {
+      .xy-selected {
+        outline: none !important;
+        background-color: transparent !important;
+      }
+      .free-move-hud,
+      .marquee-selection-box {
+        display: none !important;
+      }
+    }
+
+    .ui-btn.active-mode {
+      background: var(--accent-bordeaux) !important;
+      border-color: #D4B87A !important;
+      color: #FFFFFF !important;
+      box-shadow: 0 0 12px rgba(212, 184, 122, 0.35);
+    }
+
+    .free-move-hud {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9998;
+      background: rgba(18, 18, 18, 0.96);
+      border: 1px solid var(--ui-accent);
+      border-radius: 999px;
+      padding: 6px 14px;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(10px);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      color: #F2EFE9;
+    }
+
+    .free-move-hud.visible {
+      display: inline-flex;
+    }
+
+    .fm-hud-badge {
+      font-weight: 600;
+      color: #D4B87A;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    .fm-hud-coords {
+      font-family: monospace;
+      font-size: 10.5px;
+      color: #BDB8B0;
+      background: rgba(255, 255, 255, 0.06);
+      padding: 2px 7px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    .fm-hud-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #F2EFE9;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-family: var(--font-sans);
+      font-size: 10.5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .fm-hud-btn:hover {
+      background: rgba(212, 184, 122, 0.22);
+      border-color: var(--ui-accent);
+      color: #FFFFFF;
+    }
+
+    .fm-hud-btn.fm-hud-done {
+      background: var(--accent-bordeaux);
+      border-color: var(--ui-accent);
+      color: #FFFFFF;
+    }
+
+    .marquee-selection-box {
+      position: fixed;
+      border: 1.5px dashed var(--accent-bordeaux);
+      background: rgba(110, 43, 38, 0.10);
+      pointer-events: none;
+      z-index: 9997;
+      display: none;
     }
 
     /* Hoja A4 con geometría idéntica 1:1 en edición en vivo y en exportación PDF */
@@ -3141,6 +3281,8 @@
     </div>
 
     <div class="panel-group">
+      <button class="ui-btn" id="freeMoveToggleBtn" onclick="toggleFreeMoveMode()"
+        title="Seleccionar uno o varios bloques con el cursor y moverlos libremente en el eje X e Y">✥ Mover X/Y</button>
       <button class="ui-btn" onclick="openPresetsModal()"
         title="Guardar y cargar Presets completos (Local, Servidor y Archivo JSON)">⭐ Presets</button>
       <button class="ui-btn" onclick="openRateCalculator()"
@@ -4423,6 +4565,22 @@
     <button type="button" class="tsp-btn" onclick="resetActiveEditableScale()" title="Restaurar tamaño y posición original de este texto">↺</button>
     <button type="button" class="tsp-btn" onclick="hideActiveEditableElement()" title="Ocultar / borrar este texto" style="color:#E74C3C;">✕</button>
   </div>
+
+  <!-- Barra flotante del Modo Movimiento Libre X/Y y Selección Múltiple -->
+  <div class="free-move-hud no-print" id="freeMoveHud">
+    <span class="fm-hud-badge" id="fmHudCount">✥ Modo Mover X/Y</span>
+    <span class="fm-hud-coords" id="fmHudCoords">X: 0px · Y: 0px</span>
+    <button type="button" class="fm-hud-btn" onclick="nudgeSelectedBlocks(-4, 0)" title="Mover seleccionados a la izquierda (-4px · Flecha ←)">←</button>
+    <button type="button" class="fm-hud-btn" onclick="nudgeSelectedBlocks(0, -4)" title="Subir seleccionados (-4px · Flecha ↑)">↑</button>
+    <button type="button" class="fm-hud-btn" onclick="nudgeSelectedBlocks(0, 4)" title="Bajar seleccionados (+4px · Flecha ↓)">↓</button>
+    <button type="button" class="fm-hud-btn" onclick="nudgeSelectedBlocks(4, 0)" title="Mover seleccionados a la derecha (+4px · Flecha →)">→</button>
+    <button type="button" class="fm-hud-btn" onclick="selectCurrentAndBelow()" title="Seleccionar el bloque actual y todos los que están debajo en la hoja para subirlos o bajarlos juntos">⬇ + Abajo</button>
+    <button type="button" class="fm-hud-btn" onclick="resetSelectedBlocksXY()" title="Restaurar posición original (X:0, Y:0) de los bloques seleccionados o de toda la hoja">↺ Reset X/Y</button>
+    <button type="button" class="fm-hud-btn fm-hud-done" onclick="toggleFreeMoveMode(false)" title="Salir del modo de selección y fijar posiciones (Esc)">✓ Listo</button>
+  </div>
+
+  <!-- Rectángulo de selección múltiple con el cursor (Marquee / Lasso) -->
+  <div class="marquee-selection-box no-print" id="marqueeSelectionBox"></div>
 
   <!-- ══════════ LÓGICA DE CÁLCULO, FORMATO Y EXPORTACIÓN ══════════ -->
   <script>
@@ -6866,6 +7024,9 @@
       if (dividersVal && dividersVal !== 'subtle') {
         document.body.classList.add('dividers-' + dividersVal);
       }
+      if (typeof isFreeMoveMode !== 'undefined' && isFreeMoveMode) {
+        document.body.classList.add('free-move-mode');
+      }
       scheduleLiveA4Fit();
     }
 
@@ -6987,6 +7148,8 @@
       activeEditableEl.style.removeProperty('transform');
       delete activeEditableEl.dataset.customAccent;
       delete activeEditableEl.dataset.nudgeY;
+      delete activeEditableEl.dataset.moveX;
+      delete activeEditableEl.dataset.moveY;
       updateTextPopoverPosition(activeEditableEl);
       scheduleLiveA4Fit();
       autoSave();
@@ -7003,26 +7166,43 @@
       showToast('Elemento vaciado / ocultado');
     }
 
-    // Desplazamiento vertical fino (↑ / ↓) para cualquier texto editable activo
-    function nudgeActiveEditable(deltaPx) {
-      if (!activeEditableEl) return;
-      let curr = parseFloat(activeEditableEl.dataset.nudgeY || '0');
-      if (isNaN(curr)) curr = 0;
-      let next = Math.round(Math.max(-80, Math.min(80, curr + deltaPx)));
-      if (Math.abs(next) < 1) {
-        activeEditableEl.style.removeProperty('transform');
-        delete activeEditableEl.dataset.nudgeY;
-        showToast('Posición vertical: 0px (original)');
+    // Lectura y aplicación unificada de posición 2D (Eje X y Eje Y) en píxeles
+    function getElementXY(el) {
+      if (!el) return { x: 0, y: 0 };
+      const x = parseFloat(el.dataset.moveX || '0') || 0;
+      const y = parseFloat(el.dataset.moveY !== undefined ? el.dataset.moveY : (el.dataset.nudgeY || '0')) || 0;
+      return { x, y };
+    }
+
+    function setElementXY(el, x, y) {
+      if (!el) return { x: 0, y: 0 };
+      const rx = Math.round(Math.max(-350, Math.min(350, x)));
+      const ry = Math.round(Math.max(-450, Math.min(450, y)));
+      if (Math.abs(rx) < 1 && Math.abs(ry) < 1) {
+        el.style.removeProperty('transform');
+        delete el.dataset.moveX;
+        delete el.dataset.moveY;
+        delete el.dataset.nudgeY;
+        return { x: 0, y: 0 };
       } else {
-        activeEditableEl.dataset.nudgeY = String(next);
-        // Asegurar que elementos inline puedan recibir translateY sin alterar su flujo de línea
-        const disp = window.getComputedStyle(activeEditableEl).display;
+        el.dataset.moveX = String(rx);
+        el.dataset.moveY = String(ry);
+        el.dataset.nudgeY = String(ry);
+        const disp = window.getComputedStyle(el).display;
         if (disp === 'inline') {
-          activeEditableEl.style.display = 'inline-block';
+          el.style.display = 'inline-block';
         }
-        activeEditableEl.style.transform = `translateY(${next}px)`;
-        showToast(`Desplazamiento vertical: ${next > 0 ? '+' : ''}${next}px`);
+        el.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+        return { x: rx, y: ry };
       }
+    }
+
+    // Desplazamiento vertical/horizontal fino para cualquier texto editable activo
+    function nudgeActiveEditable(deltaY, deltaX = 0) {
+      if (!activeEditableEl) return;
+      const pos = getElementXY(activeEditableEl);
+      const next = setElementXY(activeEditableEl, pos.x + deltaX, pos.y + deltaY);
+      showToast(`Posición: X ${next.x > 0 ? '+' : ''}${next.x}px · Y ${next.y > 0 ? '+' : ''}${next.y}px`);
       updateTextPopoverPosition(activeEditableEl);
       scheduleLiveA4Fit();
       autoSave();
@@ -7051,22 +7231,19 @@
       }
     }
 
-    // Desplazamiento vertical fino (↑ / ↓) para cualquier bloque, tarjeta, columna o sección
-    function nudgeBlockElement(btn, deltaPx) {
-      const target = btn.closest('.proposal-section-block, .quick-module-section, .quick-conditions-section, .option-column, ' + REORDERABLE_SELECTORS);
+    // Desplazamiento fino en Eje Y / X para cualquier bloque (si forma parte de una selección múltiple, mueve todos juntos)
+    function nudgeBlockElement(btn, deltaY, deltaX = 0) {
+      const target = btn.closest('.proposal-section-block, .quick-module-section, .quick-conditions-section, .option-column, .option-total-row, ' + REORDERABLE_SELECTORS);
       if (!target) return;
-      let curr = parseFloat(target.dataset.nudgeY || '0');
-      if (isNaN(curr)) curr = 0;
-      let next = Math.round(Math.max(-90, Math.min(90, curr + deltaPx)));
-      if (Math.abs(next) < 1) {
-        target.style.removeProperty('transform');
-        delete target.dataset.nudgeY;
-        showToast('Posición vertical del bloque: 0px (original)');
-      } else {
-        target.dataset.nudgeY = String(next);
-        target.style.transform = `translateY(${next}px)`;
-        showToast(`Posición vertical del bloque: ${next > 0 ? '+' : ''}${next}px`);
+      const selected = getSelectedXYBlocks();
+      if (target.classList.contains('xy-selected') && selected.length > 1) {
+        nudgeSelectedBlocks(deltaX, deltaY);
+        return;
       }
+      const pos = getElementXY(target);
+      const next = setElementXY(target, pos.x + deltaX, pos.y + deltaY);
+      showToast(`Posición del bloque: X ${next.x > 0 ? '+' : ''}${next.x}px · Y ${next.y > 0 ? '+' : ''}${next.y}px`);
+      updateFreeMoveHud();
       scheduleLiveA4Fit();
       autoSave();
     }
@@ -7216,11 +7393,184 @@
     }
 
     // ═══════════════════════════════════════════════════════════════
-    // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN, DRAG & DROP Y CAJAS ELIMINABLES
+    // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN, DRAG & DROP, CAJAS ELIMINABLES Y MOVIMIENTO LIBRE X/Y
     // ═══════════════════════════════════════════════════════════════
-    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item, .meta-item, .meta-box-grid, .quick-meta-grid, .body-content, .project-summary-block, .quick-summary-block, .quick-exclusions-bar, .scope-clause-warning, .subtotal-row, .deliverables-box, .title-block, .header-top, .grand-total-section, .signature-grid, .quick-signature-grid, .footer-portfolio-row';
+    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item, .meta-item, .meta-box-grid, .quick-meta-grid, .body-content, .option-total-row, .project-summary-block, .quick-summary-block, .quick-exclusions-bar, .scope-clause-warning, .subtotal-row, .deliverables-box, .title-block, .header-top, .grand-total-section, .signature-grid, .quick-signature-grid, .footer-portfolio-row';
+    const MOVABLE_XY_SELECTORS = '.proposal-section-block, .quick-module-section, .quick-conditions-section, .option-column, .page-footer-editorial, ' + REORDERABLE_SELECTORS;
+    const MARQUEE_BLOCK_SELECTORS = '.header-top, .title-block, .meta-box-grid, .quick-meta-grid, .project-summary-block, .quick-summary-block, .option-column, .option-total-row, .grand-total-section, .quick-module-section, .quick-conditions-section, .proposal-section-block, .subtotal-row, .signature-grid, .quick-signature-grid, .footer-portfolio-row, .page-footer-editorial';
     const BOX_COLLAPSE_SELECTORS = '.jornada-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-exclusions-bar, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .condition-block, .quick-condition-card, .deliverable-line, .scope-clause-warning';
     let draggedElement = null;
+    let isFreeMoveMode = false;
+    let xyDragState = null;
+    let marqueeState = null;
+
+    function getSelectedXYBlocks() {
+      return Array.from(document.querySelectorAll('.a4-page .xy-selected'));
+    }
+
+    // Evita que un contenedor padre y su propio hijo estén seleccionados a la vez (para que no se mueva el doble el hijo)
+    function dedupeNestedSelection() {
+      const selected = getSelectedXYBlocks();
+      selected.forEach(el => {
+        const hasSelectedAncestor = selected.some(other => other !== el && other.contains(el));
+        if (hasSelectedAncestor) {
+          el.classList.remove('xy-selected');
+        }
+      });
+    }
+
+    function updateFreeMoveHud() {
+      const hud = document.getElementById('freeMoveHud');
+      const countEl = document.getElementById('fmHudCount');
+      const coordsEl = document.getElementById('fmHudCoords');
+      const btn = document.getElementById('freeMoveToggleBtn');
+      const selected = getSelectedXYBlocks();
+
+      if (btn) {
+        btn.classList.toggle('active-mode', isFreeMoveMode);
+      }
+      if (!hud) return;
+
+      if (isFreeMoveMode || selected.length > 0) {
+        hud.classList.add('visible');
+        if (countEl) {
+          countEl.textContent = selected.length > 0
+            ? `✥ ${selected.length} bloque${selected.length === 1 ? '' : 's'} seleccionado${selected.length === 1 ? '' : 's'}`
+            : '✥ Modo Mover X/Y (Clic o arrastrá recuadro)';
+        }
+        if (coordsEl) {
+          if (selected.length > 0) {
+            const pos = getElementXY(selected[0]);
+            coordsEl.textContent = `X: ${pos.x > 0 ? '+' : ''}${pos.x}px · Y: ${pos.y > 0 ? '+' : ''}${pos.y}px`;
+          } else {
+            coordsEl.textContent = 'X: 0px · Y: 0px';
+          }
+        }
+      } else {
+        hud.classList.remove('visible');
+      }
+    }
+
+    function clearXYSelection() {
+      document.querySelectorAll('.xy-selected').forEach(el => el.classList.remove('xy-selected'));
+      updateFreeMoveHud();
+    }
+
+    function toggleFreeMoveMode(forceVal) {
+      isFreeMoveMode = typeof forceVal === 'boolean' ? forceVal : !isFreeMoveMode;
+      document.body.classList.toggle('free-move-mode', isFreeMoveMode);
+      if (isFreeMoveMode) {
+        hideTextPopover();
+        if (document.activeElement && document.activeElement.isContentEditable) {
+          document.activeElement.blur();
+        }
+        showToast('Modo Mover Libre X/Y: Clic o arrastrá un recuadro para seleccionar bloques y moverlos juntos');
+      } else {
+        clearXYSelection();
+        showToast('Posiciones X/Y fijadas');
+      }
+      updateFreeMoveHud();
+    }
+
+    function nudgeSelectedBlocks(dx, dy) {
+      dedupeNestedSelection();
+      let targets = getSelectedXYBlocks();
+      if (targets.length === 0 && activeEditableEl) {
+        const fallback = activeEditableEl.closest(MOVABLE_XY_SELECTORS);
+        if (fallback) {
+          fallback.classList.add('xy-selected');
+          targets = [fallback];
+        }
+      }
+      if (targets.length === 0) {
+        showToast('Seleccioná primero uno o más bloques con el cursor');
+        return;
+      }
+      targets.forEach(el => {
+        const pos = getElementXY(el);
+        setElementXY(el, pos.x + dx, pos.y + dy);
+      });
+      updateFreeMoveHud();
+      scheduleLiveA4Fit();
+      autoSave();
+    }
+
+    // Selecciona el bloque actual y todos los bloques que están por debajo en esa misma hoja A4 para subirlos o bajarlos juntos
+    function selectCurrentAndBelow() {
+      let anchor = getSelectedXYBlocks()[0];
+      if (!anchor && activeEditableEl) {
+        anchor = activeEditableEl.closest(MARQUEE_BLOCK_SELECTORS) || activeEditableEl.closest(MOVABLE_XY_SELECTORS);
+      }
+      if (!anchor) {
+        showToast('Hacé clic primero en el bloque desde donde querés seleccionar hacia abajo (ej. TOTAL o Entregables)');
+        return;
+      }
+      const page = anchor.closest('.a4-page');
+      if (!page) return;
+      const anchorRect = anchor.getBoundingClientRect();
+      const candidates = Array.from(page.querySelectorAll(MARQUEE_BLOCK_SELECTORS)).filter(el => {
+        if (el.classList.contains('is-hidden') || el.offsetParent === null) return false;
+        // Evitar seleccionar el pie de página editorial salvo que el ancla sea el propio pie
+        if (el.classList.contains('page-footer-editorial') && anchor !== el) return false;
+        const r = el.getBoundingClientRect();
+        return r.top >= anchorRect.top - 6;
+      });
+      anchor.classList.add('xy-selected');
+      candidates.forEach(c => c.classList.add('xy-selected'));
+      dedupeNestedSelection();
+      updateFreeMoveHud();
+      const totalSel = getSelectedXYBlocks().length;
+      showToast(`${totalSel} bloques seleccionados juntos (arrastralos o usá ↑ / ↓)`);
+    }
+
+    function resetSelectedBlocksXY() {
+      const selected = getSelectedXYBlocks();
+      if (selected.length > 0) {
+        selected.forEach(el => setElementXY(el, 0, 0));
+        updateFreeMoveHud();
+        scheduleLiveA4Fit();
+        autoSave();
+        showToast('Posición X/Y restaurada en los bloques seleccionados');
+      } else {
+        const allMoved = document.querySelectorAll('[data-move-x], [data-move-y], [data-nudge-y]');
+        allMoved.forEach(el => setElementXY(el, 0, 0));
+        updateFreeMoveHud();
+        scheduleLiveA4Fit();
+        autoSave();
+        showToast('Todas las posiciones X/Y restauradas a 0px');
+      }
+    }
+
+    function startXYDrag(e, targetBlock) {
+      if (!targetBlock) return;
+      e.preventDefault();
+      e.stopPropagation();
+
+      if (e.shiftKey || e.ctrlKey || e.metaKey) {
+        targetBlock.classList.toggle('xy-selected');
+        dedupeNestedSelection();
+        updateFreeMoveHud();
+        if (!targetBlock.classList.contains('xy-selected')) return;
+      } else if (!targetBlock.classList.contains('xy-selected')) {
+        clearXYSelection();
+        targetBlock.classList.add('xy-selected');
+      }
+
+      dedupeNestedSelection();
+      const blocks = getSelectedXYBlocks();
+      if (blocks.length === 0) return;
+
+      xyDragState = {
+        startX: e.clientX,
+        startY: e.clientY,
+        moved: false,
+        items: blocks.map(el => ({
+          el,
+          init: getElementXY(el)
+        }))
+      };
+      updateFreeMoveHud();
+    }
 
     function getCleanBoxText(el) {
       if (!el) return '';
@@ -7416,7 +7766,12 @@
 
     function upgradeDOMControls() {
       ensureQuickModulesExist();
-      // 1. Inyectar barra de herramientas fluida (.item-tools) con controles de escala (− / +), desplazamiento fino (↑ / ↓) y orden (▲ / ▼) en cada ítem, tarjeta y bloque
+      // Marcar todos los bloques movibles en X/Y
+      document.querySelectorAll(MOVABLE_XY_SELECTORS).forEach(el => {
+        el.classList.add('xy-selectable-target');
+      });
+
+      // 1. Inyectar barra de herramientas fluida (.item-tools) con manija X/Y (✥), escala (− / +), desplazamiento fino (↑ / ↓) y orden (▲ / ▼)
       const items = document.querySelectorAll(REORDERABLE_SELECTORS);
       items.forEach(el => {
         el.classList.add('has-fluid-tools');
@@ -7426,7 +7781,8 @@
           tools.className = 'item-tools no-print';
           tools.setAttribute('contenteditable', 'false');
           tools.innerHTML = `
-            <span class="drag-handle" title="Arrastrar para reordenar">⠿</span>
+            <span class="xy-move-handle" title="Arrastrar libremente en Eje X / Y (Shift+Clic para seleccionar varios bloques)">✥</span>
+            <span class="drag-handle" title="Arrastrar para reordenar posición">⠿</span>
             <button type="button" class="btn-sec-tool" onclick="scaleBlockElement(this, -0.06)" title="Achicar este bloque / tarjeta (-6%)">−</button>
             <button type="button" class="btn-sec-tool" onclick="scaleBlockElement(this, 0.06)" title="Agrandar este bloque / tarjeta (+6%)">+</button>
             <button type="button" class="btn-sec-tool" onclick="nudgeBlockElement(this, -4)" title="Desplazar visualmente hacia arriba (-4px)">↑</button>
@@ -7438,6 +7794,13 @@
           `;
           el.appendChild(tools);
         } else {
+          if (!tools.querySelector('.xy-move-handle')) {
+            const xySpan = document.createElement('span');
+            xySpan.className = 'xy-move-handle';
+            xySpan.title = 'Arrastrar libremente en Eje X / Y (Shift+Clic para seleccionar varios bloques)';
+            xySpan.textContent = '✥';
+            tools.insertBefore(xySpan, tools.firstChild);
+          }
           if (!tools.querySelector('[onclick*="scaleBlockElement"]')) {
             const minusBtn = document.createElement('button');
             minusBtn.type = 'button';
@@ -7543,8 +7906,15 @@
         }
       });
 
-      // 2. Asegurar botones de escalar (− / +), desplazar fino (↑ / ↓) y duplicar en encabezados de secciones de 2 páginas
+      // 2. Asegurar manija X/Y (✥), botones de escalar (− / +), desplazar fino (↑ / ↓) y duplicar en encabezados de secciones de 2 páginas
       document.querySelectorAll('#doc-analipsis .section-reorder-tools').forEach(toolBar => {
+        if (!toolBar.querySelector('.xy-move-handle')) {
+          const xySpan = document.createElement('span');
+          xySpan.className = 'xy-move-handle';
+          xySpan.title = 'Arrastrar sección libremente en Eje X / Y (Shift+Clic para seleccionar varias secciones)';
+          xySpan.textContent = '✥';
+          toolBar.insertBefore(xySpan, toolBar.firstChild);
+        }
         if (!toolBar.querySelector('[onclick*="scaleBlockElement"]')) {
           const minusBtn = document.createElement('button');
           minusBtn.type = 'button';
@@ -7607,6 +7977,13 @@
         }
         const toolBar = col.querySelector('.column-reorder-tools');
         if (toolBar) {
+          if (!toolBar.querySelector('.xy-move-handle')) {
+            const xySpan = document.createElement('span');
+            xySpan.className = 'xy-move-handle';
+            xySpan.title = 'Arrastrar columna libremente en Eje X / Y';
+            xySpan.textContent = '✥';
+            toolBar.insertBefore(xySpan, toolBar.firstChild);
+          }
           if (!toolBar.querySelector('[onclick*="scaleBlockElement"]')) {
             const minusBtn = document.createElement('button');
             minusBtn.type = 'button';
@@ -7663,6 +8040,13 @@
       });
 
       document.querySelectorAll('#doc-quick .quick-sec-actions').forEach(secBar => {
+        if (!secBar.querySelector('.xy-move-handle')) {
+          const xySpan = document.createElement('span');
+          xySpan.className = 'xy-move-handle';
+          xySpan.title = 'Arrastrar este módulo libremente en Eje X / Y (Shift+Clic para seleccionar varios bloques)';
+          xySpan.textContent = '✥';
+          secBar.insertBefore(xySpan, secBar.firstChild);
+        }
         if (!secBar.querySelector('[onclick*="scaleBlockElement"]')) {
           const minusBtn = document.createElement('button');
           minusBtn.type = 'button';
@@ -8409,6 +8793,131 @@
       if (!e.target.closest('#textScalePopover') && !(e.target.isContentEditable && e.target.closest('.a4-page'))) {
         hideTextPopover();
       }
+
+      // 1. Si el usuario hace clic o arrastra sobre la manija ✥ (.xy-move-handle) en cualquier barra de herramientas
+      const xyHandle = e.target.closest('.xy-move-handle');
+      if (xyHandle && e.button === 0) {
+        const block = xyHandle.closest(MOVABLE_XY_SELECTORS);
+        if (block) {
+          startXYDrag(e, block);
+          return;
+        }
+      }
+
+      // 2. Si está activo el Modo Mover Libre X/Y (o el usuario mantiene Alt + clic izquierdo dentro de la hoja A4)
+      if ((isFreeMoveMode || e.altKey) && e.button === 0 && e.target.closest('.a4-page') && !e.target.closest('.item-tools, .section-reorder-tools, .column-reorder-tools, .quick-sec-actions, #freeMoveHud, #textScalePopover')) {
+        // Determinar si tocó un bloque específico o el fondo/margen para iniciar un recuadro de selección (Marquee)
+        const clickedBlock = e.target.closest(MARQUEE_BLOCK_SELECTORS) || e.target.closest(MOVABLE_XY_SELECTORS);
+        const isBackgroundMargin = e.target.classList.contains('a4-page') || e.target.classList.contains('editorial-frame') || e.target.classList.contains('page-sections-container') || e.target.classList.contains('quick-modules-container');
+
+        if (clickedBlock && !isBackgroundMargin) {
+          startXYDrag(e, clickedBlock);
+          return;
+        } else if (isFreeMoveMode) {
+          // Iniciar recuadro de selección múltiple con el cursor (Marquee / Lasso)
+          e.preventDefault();
+          if (!e.shiftKey && !e.ctrlKey && !e.metaKey) {
+            clearXYSelection();
+          }
+          const page = e.target.closest('.a4-page');
+          marqueeState = {
+            startX: e.clientX,
+            startY: e.clientY,
+            page: page,
+            additive: e.shiftKey || e.ctrlKey || e.metaKey,
+            initialSelected: new Set(getSelectedXYBlocks())
+          };
+          const box = document.getElementById('marqueeSelectionBox');
+          if (box) {
+            box.style.left = e.clientX + 'px';
+            box.style.top = e.clientY + 'px';
+            box.style.width = '0px';
+            box.style.height = '0px';
+            box.style.display = 'block';
+          }
+          return;
+        }
+      }
+
+      // 3. Si hace clic fuera de la hoja A4 y fuera del HUD mientras hay bloques seleccionados (y no está en modo fijo), limpiar selección
+      if (!isFreeMoveMode && !e.target.closest('.a4-page, #freeMoveHud, #freeMoveToggleBtn, .xy-move-handle')) {
+        if (getSelectedXYBlocks().length > 0) {
+          clearXYSelection();
+        }
+      }
+    });
+
+    window.addEventListener('mousemove', (e) => {
+      if (xyDragState) {
+        let dx = e.clientX - xyDragState.startX;
+        let dy = e.clientY - xyDragState.startY;
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) {
+          xyDragState.moved = true;
+        }
+        // Si mantiene Shift mientras arrastra, bloquea en el eje predominante (solo vertical Y o solo horizontal X)
+        if (e.shiftKey && xyDragState.moved) {
+          if (Math.abs(dy) >= Math.abs(dx)) {
+            dx = 0;
+          } else {
+            dy = 0;
+          }
+        }
+        xyDragState.items.forEach(item => {
+          setElementXY(item.el, item.init.x + dx, item.init.y + dy);
+        });
+        updateFreeMoveHud();
+      } else if (marqueeState) {
+        const x1 = Math.min(marqueeState.startX, e.clientX);
+        const y1 = Math.min(marqueeState.startY, e.clientY);
+        const x2 = Math.max(marqueeState.startX, e.clientX);
+        const y2 = Math.max(marqueeState.startY, e.clientY);
+        const box = document.getElementById('marqueeSelectionBox');
+        if (box) {
+          box.style.left = x1 + 'px';
+          box.style.top = y1 + 'px';
+          box.style.width = (x2 - x1) + 'px';
+          box.style.height = (y2 - y1) + 'px';
+        }
+        if (marqueeState.page && (x2 - x1 > 4 || y2 - y1 > 4)) {
+          const candidates = Array.from(marqueeState.page.querySelectorAll(MARQUEE_BLOCK_SELECTORS)).filter(el => {
+            if (el.classList.contains('is-hidden') || el.offsetParent === null) return false;
+            if (el.classList.contains('page-footer-editorial')) return false;
+            return true;
+          });
+          candidates.forEach(el => {
+            const r = el.getBoundingClientRect();
+            const intersects = !(r.right < x1 || r.left > x2 || r.bottom < y1 || r.top > y2);
+            if (intersects || (marqueeState.additive && marqueeState.initialSelected.has(el))) {
+              el.classList.add('xy-selected');
+            } else {
+              el.classList.remove('xy-selected');
+            }
+          });
+          dedupeNestedSelection();
+          updateFreeMoveHud();
+        }
+      }
+    });
+
+    window.addEventListener('mouseup', () => {
+      if (xyDragState) {
+        const hadMoved = xyDragState.moved;
+        xyDragState = null;
+        if (hadMoved) {
+          scheduleLiveA4Fit();
+          autoSave();
+        }
+        updateFreeMoveHud();
+      }
+      if (marqueeState) {
+        marqueeState = null;
+        const box = document.getElementById('marqueeSelectionBox');
+        if (box) {
+          box.style.display = 'none';
+        }
+        dedupeNestedSelection();
+        updateFreeMoveHud();
+      }
     });
 
     document.addEventListener('input', (e) => {
@@ -8447,7 +8956,7 @@
       }
     });
 
-    // Atajos de teclado (Ctrl + P para PDF, Ctrl + S para abrir Presets, Alt + ↑/↓ para desplazar elementos, Alt + Shift + ↑/↓ para reordenar bloques)
+    // Atajos de teclado (Ctrl + P para PDF, Ctrl + S para abrir Presets, Flechas en modo X/Y, Alt + ↑/↓ para desplazar elementos, Escape para salir)
     window.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
         e.preventDefault();
@@ -8455,13 +8964,24 @@
       } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
         e.preventDefault();
         openPresetsModal();
-      } else if (e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown') && activeEditableEl) {
+      } else if (e.key === 'Escape' && (isFreeMoveMode || getSelectedXYBlocks().length > 0)) {
         e.preventDefault();
-        const isUp = e.key === 'ArrowUp';
-        if (e.shiftKey) {
-          moveActiveEditableParentBlock(isUp ? 'up' : 'down');
+        if (isFreeMoveMode) toggleFreeMoveMode(false);
+        else clearXYSelection();
+      } else if ((isFreeMoveMode || getSelectedXYBlocks().length > 0) && !activeEditableEl && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
+        const step = e.shiftKey ? 10 : 2;
+        const dx = e.key === 'ArrowLeft' ? -step : (e.key === 'ArrowRight' ? step : 0);
+        const dy = e.key === 'ArrowUp' ? -step : (e.key === 'ArrowDown' ? step : 0);
+        nudgeSelectedBlocks(dx, dy);
+      } else if (e.altKey && ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key) && activeEditableEl) {
+        e.preventDefault();
+        if (e.shiftKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) {
+          moveActiveEditableParentBlock(e.key === 'ArrowUp' ? 'up' : 'down');
         } else {
-          nudgeActiveEditable(isUp ? -3 : 3);
+          const dx = e.key === 'ArrowLeft' ? -3 : (e.key === 'ArrowRight' ? 3 : 0);
+          const dy = e.key === 'ArrowUp' ? -3 : (e.key === 'ArrowDown' ? 3 : 0);
+          nudgeActiveEditable(dy, dx);
         }
       }
     });
