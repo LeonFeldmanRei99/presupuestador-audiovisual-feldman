@@ -767,6 +767,34 @@
       border-bottom: 1px dotted var(--dot-color);
       margin-bottom: 3px;
       min-width: 12px;
+      transition: opacity 0.15s ease;
+    }
+
+    /* Si el usuario deja el precio/monto de un ítem vacío (ej. "Hora extra post 4hs - $50.000 la hora"), ocultar la línea punteada para que no quede colgada al vacío */
+    .item-main-row.has-empty-amount .item-dots {
+      opacity: 0;
+      border-bottom-color: transparent !important;
+    }
+
+    .item-main-row.has-empty-amount .item-amount:not(:focus) {
+      min-width: 14px;
+    }
+
+    .item-entry:hover .item-main-row.has-empty-amount .item-amount:empty::before,
+    .quick-addon-item:hover .item-main-row.has-empty-amount .q-addon-price:empty::before {
+      content: "+ monto";
+      font-family: var(--font-sans);
+      font-size: 6pt;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent-bordeaux);
+      opacity: 0.55;
+    }
+
+    /* Si se borra el número romano ("I") o el badge ("OPCIÓN A") de una columna, colapsar su borde/espacio automáticamente */
+    .option-roman.is-empty-inline:not(:focus),
+    .option-badge.is-empty-inline:not(:focus) {
+      display: none !important;
     }
 
     .item-amount {
@@ -3025,6 +3053,7 @@
           <option value="toggle-meta">📋 Alternar Datos del Cliente</option>
           <option value="toggle-summary">📝 Alternar Resumen / Alcance</option>
           <option value="toggle-signatures">✍️ Alternar Bloque de Firmas</option>
+          <option value="toggle-roman-badges">🏛️ Alternar Números Romanos (I, II) &amp; Badges</option>
           <option value="toggle-tax-notes">🧾 Alternar Leyendas de Impuestos / IVA</option>
           <option value="show-all-quick-modules">👁️ Mostrar Todos los Módulos</option>
         </optgroup>
@@ -4392,6 +4421,7 @@
     <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('italic')" title="Alternar Cursiva"><i>I</i></button>
     <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('bordeaux')" title="Alternar Color Acento Burdeos / Principal">❖</button>
     <button type="button" class="tsp-btn" onclick="resetActiveEditableScale()" title="Restaurar tamaño y posición original de este texto">↺</button>
+    <button type="button" class="tsp-btn" onclick="hideActiveEditableElement()" title="Ocultar / borrar este texto" style="color:#E74C3C;">✕</button>
   </div>
 
   <!-- ══════════ LÓGICA DE CÁLCULO, FORMATO Y EXPORTACIÓN ══════════ -->
@@ -5218,6 +5248,11 @@
         toggleQuickModuleById('quickPaymentSection');
       } else if (val === 'toggle-signatures') {
         toggleQuickModuleById('quickSignatureGrid');
+      } else if (val === 'toggle-roman-badges') {
+        const romans = document.querySelectorAll('#doc-quick .option-roman');
+        const anyVisible = Array.from(romans).some(el => !el.classList.contains('is-hidden'));
+        romans.forEach(el => el.classList.toggle('is-hidden', anyVisible));
+        showToast(anyVisible ? 'Números romanos (I, II) ocultados' : 'Números romanos (I, II) visibles');
       } else if (val === 'toggle-tax-notes') {
         document.querySelectorAll('#doc-quick .option-tax-note').forEach(el => el.classList.toggle('is-hidden'));
         showToast('Leyendas de impuestos alternadas');
@@ -6958,6 +6993,16 @@
       showToast('Estilo y posición original restaurados');
     }
 
+    function hideActiveEditableElement() {
+      if (!activeEditableEl) return;
+      activeEditableEl.textContent = '';
+      refreshEmptyBoxStates();
+      hideTextPopover();
+      scheduleLiveA4Fit();
+      autoSave();
+      showToast('Elemento vaciado / ocultado');
+    }
+
     // Desplazamiento vertical fino (↑ / ↓) para cualquier texto editable activo
     function nudgeActiveEditable(deltaPx) {
       if (!activeEditableEl) return;
@@ -7204,6 +7249,28 @@
           dbox.classList.add('is-empty-box');
         } else {
           dbox.classList.remove('is-empty-box');
+        }
+      });
+
+      // Ocultar automáticamente la línea de puntos (.item-dots) si el monto/precio del ítem está vacío
+      document.querySelectorAll('.item-main-row').forEach(row => {
+        const amtEl = row.querySelector('.item-amount, .q-addon-price');
+        if (!amtEl) return;
+        const txt = (amtEl.textContent || '').replace(/\s+/g, '');
+        if (txt.length === 0) {
+          row.classList.add('has-empty-amount');
+        } else {
+          row.classList.remove('has-empty-amount');
+        }
+      });
+
+      // Ocultar bordes o espacio de números romanos ("I") y badges ("OPCIÓN A") cuando el usuario borra su texto
+      document.querySelectorAll('.option-roman, .option-badge').forEach(el => {
+        const txt = (el.textContent || '').replace(/\s+/g, '');
+        if (txt.length === 0) {
+          el.classList.add('is-empty-inline');
+        } else {
+          el.classList.remove('is-empty-inline');
         }
       });
     }
