@@ -3281,6 +3281,8 @@
     </div>
 
     <div class="panel-group">
+      <button class="ui-btn" id="undoBtn" onclick="undoAction()" title="Deshacer último cambio (Ctrl + Z)" disabled>↶ Deshacer</button>
+      <button class="ui-btn" id="redoBtn" onclick="redoAction()" title="Rehacer cambio (Ctrl + Y / Ctrl + Shift + Z)" disabled>↷ Rehacer</button>
       <button class="ui-btn" id="freeMoveToggleBtn" onclick="toggleFreeMoveMode()"
         title="Seleccionar uno o varios bloques con el cursor y moverlos libremente en el eje X e Y">✥ Mover X/Y</button>
       <button class="ui-btn" onclick="openPresetsModal()"
@@ -7404,6 +7406,99 @@
     let xyDragState = null;
     let marqueeState = null;
 
+    // ═══════════════════════════════════════════════════════════════
+    // HISTORIAL DESHACER / REHACER (CTRL + Z / CTRL + Y)
+    // ═══════════════════════════════════════════════════════════════
+    const historyStack = [];
+    let historyIndex = -1;
+    let isApplyingHistory = false;
+    let historyDebounceTimer = null;
+
+    function pushHistoryState(immediate = false) {
+      if (isApplyingHistory) return;
+      if (immediate) {
+        if (historyDebounceTimer) clearTimeout(historyDebounceTimer);
+        recordHistorySnapshot();
+      } else {
+        if (historyDebounceTimer) clearTimeout(historyDebounceTimer);
+        historyDebounceTimer = setTimeout(recordHistorySnapshot, 250);
+      }
+    }
+
+    function recordHistorySnapshot() {
+      if (isApplyingHistory) return;
+      try {
+        const state = captureFullState();
+        const json = JSON.stringify(state);
+        // Evitar duplicar snapshots idénticos
+        if (historyIndex >= 0 && historyIndex < historyStack.length && historyStack[historyIndex] === json) {
+          return;
+        }
+        // Si el usuario hizo cambios después de desarmar hacia atrás, cortar el árbol futuro
+        if (historyIndex < historyStack.length - 1) {
+          historyStack.splice(historyIndex + 1);
+        }
+        historyStack.push(json);
+        // Limitar tamaño de memoria a 40 estados
+        if (historyStack.length > 40) {
+          historyStack.shift();
+        }
+        historyIndex = historyStack.length - 1;
+        updateUndoRedoButtons();
+      } catch (e) { }
+    }
+
+    function updateUndoRedoButtons() {
+      const uBtn = document.getElementById('undoBtn');
+      const rBtn = document.getElementById('redoBtn');
+      if (uBtn) {
+        uBtn.disabled = historyIndex <= 0;
+        uBtn.style.opacity = historyIndex <= 0 ? '0.45' : '1';
+      }
+      if (rBtn) {
+        rBtn.disabled = historyIndex >= historyStack.length - 1;
+        rBtn.style.opacity = historyIndex >= historyStack.length - 1 ? '0.45' : '1';
+      }
+    }
+
+    function undoAction() {
+      if (historyIndex <= 0) {
+        showToast('No hay más acciones para deshacer');
+        return;
+      }
+      isApplyingHistory = true;
+      historyIndex--;
+      try {
+        const state = JSON.parse(historyStack[historyIndex]);
+        applyFullState(state);
+        scheduleLiveA4Fit();
+        showToast('Deshecho (Ctrl + Z)');
+      } catch (e) { }
+      finally {
+        isApplyingHistory = false;
+        updateUndoRedoButtons();
+      }
+    }
+
+    function redoAction() {
+      if (historyIndex >= historyStack.length - 1) {
+        showToast('No hay más acciones para rehacer');
+        return;
+      }
+      isApplyingHistory = true;
+      historyIndex++;
+      try {
+        const state = JSON.parse(historyStack[historyIndex]);
+        applyFullState(state);
+        scheduleLiveA4Fit();
+        showToast('Rehecho (Ctrl + Y)');
+      } catch (e) { }
+      finally {
+        isApplyingHistory = false;
+        updateUndoRedoButtons();
+      }
+    }
+
     function getSelectedXYBlocks() {
       return Array.from(document.querySelectorAll('.a4-page .xy-selected'));
     }
@@ -8234,12 +8329,13 @@
       }
     }
 
-    function autoSave() {
+    function autoSave(immediateHistory = false) {
       scheduleLiveA4Fit();
       try {
         const state = captureFullState();
         localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(state));
       } catch (e) { }
+      pushHistoryState(immediateHistory);
     }
 
     function loadSaved() {
@@ -8956,8 +9052,24 @@
       }
     });
 
-    // Atajos de teclado (Ctrl + P para PDF, Ctrl + S para abrir Presets, Flechas en modo X/Y, Alt + ↑/↓ para desplazar elementos, Escape para salir)
+    // Atajos de teclado (Ctrl+Z Deshacer, Ctrl+Y Rehacer, Ctrl+P PDF, Ctrl+S Presets, Flechas X/Y, Alt+↑/↓ Nudge, Esc)
     window.addEventListener('keydown', (e) => {
+      // 1. Control + Z (Deshacer) y Control + Y / Shift + Control + Z (Rehacer)
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z') {
+        if (e.shiftKey) {
+          e.preventDefault();
+          redoAction();
+        } else {
+          e.preventDefault();
+          undoAction();
+        }
+        return;
+      } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'y') {
+        e.preventDefault();
+        redoAction();
+        return;
+      }
+
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
         e.preventDefault();
         exportPDF();
@@ -8996,6 +9108,7 @@
       updateQR(currentPortfolioUrl);
       fitPagesToA4(false);
       syncPresetsWithServer();
+      pushHistoryState(true);
     });
 
     setTimeout(() => {
@@ -9005,6 +9118,9 @@
       recalcQuickGrandTotal();
       updateQR(currentPortfolioUrl);
       fitPagesToA4(false);
+      if (historyStack.length === 0) {
+        pushHistoryState(true);
+      }
     }, 150);
   </script>
 
