@@ -777,16 +777,16 @@
 
     .add-item-trigger {
       font-family: var(--font-sans);
-      font-size: 7.2pt;
-      letter-spacing: 0.15em;
+      font-size: 6.4pt;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--text-muted);
       background: none;
-      border: 1px dashed var(--line-subtle);
-      border-radius: 4px;
-      padding: 3.5px 8px;
+      border: 0.5px dashed var(--line-subtle);
+      border-radius: 3px;
+      padding: 1.5px 6px;
       cursor: pointer;
-      margin-top: 2.5mm;
+      margin-top: 1.2mm;
       text-align: center;
       transition: all 0.2s;
     }
@@ -799,16 +799,16 @@
 
     .add-section-item-trigger {
       font-family: var(--font-sans);
-      font-size: 6.8pt;
-      letter-spacing: 0.14em;
+      font-size: 6.2pt;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--text-muted);
       background: none;
-      border: 1px dashed var(--line-subtle);
-      border-radius: 4px;
-      padding: 3px 10px;
+      border: 0.5px dashed var(--line-subtle);
+      border-radius: 3px;
+      padding: 1.5px 7px;
       cursor: pointer;
-      margin-top: 2.5mm;
+      margin-top: 1mm;
       text-align: center;
       transition: all 0.2s;
     }
@@ -2242,6 +2242,161 @@
       font-weight: 500;
     }
 
+    /* ═══════════════════════════════════════════════════════════════
+       ORNAMENTOS EDITORIALES & GEOMETRÍA TRIBAL SUTIL
+       ═══════════════════════════════════════════════════════════════ */
+    :root {
+      --tribal-svg-bordeaux: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M 1 22 L 1 1 L 22 1' fill='none' stroke='%236E2B26' stroke-width='0.9' opacity='0.52'/%3E%3Cpath d='M 4.5 14 L 4.5 4.5 L 14 4.5' fill='none' stroke='%231C1A17' stroke-width='0.55' opacity='0.35'/%3E%3Cpolygon points='4.5,1.8 6.8,4.5 4.5,7.2 2.2,4.5' fill='%236E2B26' opacity='0.65'/%3E%3Ccircle cx='10.5' cy='4.5' r='0.9' fill='%236E2B26' opacity='0.5'/%3E%3Ccircle cx='4.5' cy='10.5' r='0.9' fill='%236E2B26' opacity='0.5'/%3E%3C/svg%3E");
+      --tribal-svg-mono: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M 1 22 L 1 1 L 22 1' fill='none' stroke='%23222222' stroke-width='0.9' opacity='0.45'/%3E%3Cpath d='M 4.5 14 L 4.5 4.5 L 14 4.5' fill='none' stroke='%23111111' stroke-width='0.55' opacity='0.3'/%3E%3Cpolygon points='4.5,1.8 6.8,4.5 4.5,7.2 2.2,4.5' fill='%23222222' opacity='0.55'/%3E%3Ccircle cx='10.5' cy='4.5' r='0.9' fill='%23222222' opacity='0.45'/%3E%3Ccircle cx='4.5' cy='10.5' r='0.9' fill='%23222222' opacity='0.45'/%3E%3C/svg%3E");
+      --tribal-corner-svg: var(--tribal-svg-bordeaux);
+    }
+
+    body.theme-white {
+      --tribal-corner-svg: var(--tribal-svg-mono);
+    }
+
+    body.ornaments-off .editorial-frame::before,
+    body.ornaments-off .editorial-frame::after,
+    body.ornaments-off .rule-line::after,
+    body.ornaments-off .total-divider::after,
+    body.ornaments-off .brand-name::before,
+    body.ornaments-off .sig-line::after,
+    body.ornaments-off .page-footer-editorial::before {
+      display: none !important;
+      content: none !important;
+    }
+
+    /* 1. Esquineros geométricos-tribales en las 4 esquinas interiores del marco A4 */
+    .editorial-frame::before,
+    .editorial-frame::after {
+      content: "";
+      position: absolute;
+      left: 2.2mm;
+      right: 2.2mm;
+      height: 8.5mm;
+      pointer-events: none;
+      z-index: 2;
+      background-image: var(--tribal-corner-svg), var(--tribal-corner-svg);
+      background-repeat: no-repeat, no-repeat;
+      background-size: 7.5mm 7.5mm, 7.5mm 7.5mm;
+    }
+
+    .editorial-frame::before {
+      top: 2.2mm;
+      background-position: left top, right top;
+      /* Para reflejar la esquina superior derecha usamos un filtro sutil con un SVG simétrico de doble esquina */
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M 1 22 L 1 1 L 22 1' fill='none' stroke='%236E2B26' stroke-width='0.85' opacity='0.5'/%3E%3Cpath d='M 4.5 14 L 4.5 4.5 L 14 4.5' fill='none' stroke='%231C1A17' stroke-width='0.5' opacity='0.32'/%3E%3Cpolygon points='4.5,2 6.6,4.5 4.5,7 2.4,4.5' fill='%236E2B26' opacity='0.6'/%3E%3Ccircle cx='10.5' cy='4.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3Ccircle cx='4.5' cy='10.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M 35 22 L 35 1 L 14 1' fill='none' stroke='%236E2B26' stroke-width='0.85' opacity='0.5'/%3E%3Cpath d='M 31.5 14 L 31.5 4.5 L 22 4.5' fill='none' stroke='%231C1A17' stroke-width='0.5' opacity='0.32'/%3E%3Cpolygon points='31.5,2 33.6,4.5 31.5,7 29.4,4.5' fill='%236E2B26' opacity='0.6'/%3E%3Ccircle cx='25.5' cy='4.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3Ccircle cx='31.5' cy='10.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3C/svg%3E");
+    }
+
+    .editorial-frame::after {
+      bottom: 2.2mm;
+      background-position: left bottom, right bottom;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M 1 14 L 1 35 L 22 35' fill='none' stroke='%236E2B26' stroke-width='0.85' opacity='0.5'/%3E%3Cpath d='M 4.5 22 L 4.5 31.5 L 14 31.5' fill='none' stroke='%231C1A17' stroke-width='0.5' opacity='0.32'/%3E%3Cpolygon points='4.5,29 6.6,31.5 4.5,34 2.4,31.5' fill='%236E2B26' opacity='0.6'/%3E%3Ccircle cx='10.5' cy='31.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3Ccircle cx='4.5' cy='25.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Cpath d='M 35 14 L 35 35 L 14 35' fill='none' stroke='%236E2B26' stroke-width='0.85' opacity='0.5'/%3E%3Cpath d='M 31.5 22 L 31.5 31.5 L 22 31.5' fill='none' stroke='%231C1A17' stroke-width='0.5' opacity='0.32'/%3E%3Cpolygon points='31.5,29 33.6,31.5 31.5,34 29.4,31.5' fill='%236E2B26' opacity='0.6'/%3E%3Ccircle cx='25.5' cy='31.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3Ccircle cx='31.5' cy='25.5' r='0.85' fill='%236E2B26' opacity='0.45'/%3E%3C/svg%3E");
+    }
+
+    body.theme-white .editorial-frame::before,
+    body.theme-white .editorial-frame::after {
+      filter: grayscale(1);
+    }
+
+    /* 2. Emblema tribal discreto junto al nombre de estudio */
+    .brand-name::before {
+      content: "❖";
+      color: var(--accent-bordeaux);
+      font-size: 6.8pt;
+      margin-right: 5px;
+      opacity: 0.8;
+      display: inline-block;
+      vertical-align: 0.5px;
+    }
+
+    /* 3. Divisor horizontal con talismán geométrico central (· ◇ ·) */
+    .rule-line {
+      position: relative;
+      overflow: visible;
+    }
+
+    .rule-line::after {
+      content: "· ◇ ·";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -52%);
+      background-color: var(--page-bg);
+      padding: 0 7px;
+      font-family: var(--font-sans);
+      font-size: 6.5pt;
+      letter-spacing: 0.22em;
+      color: var(--accent-bordeaux);
+      line-height: 1;
+      opacity: 0.78;
+      pointer-events: none;
+    }
+
+    /* 4. Detalle sutil en el filete de totales de cada columna */
+    .total-divider {
+      position: relative;
+      overflow: visible;
+    }
+
+    .total-divider::after {
+      content: "◇";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -52%);
+      background-color: var(--page-bg);
+      padding: 0 4px;
+      font-size: 5.5pt;
+      color: var(--accent-bordeaux);
+      line-height: 1;
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    /* 5. Remate tribal minimalista en centro de líneas de firma */
+    .sig-line {
+      position: relative;
+      overflow: visible;
+    }
+
+    .sig-line::after {
+      content: "❖";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: var(--page-bg);
+      padding: 0 5px;
+      font-size: 5.5pt;
+      color: var(--line-subtle);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* 6. Colofón tribal centrado en el pie de página editorial */
+    .page-footer-editorial {
+      position: relative;
+    }
+
+    .page-footer-editorial::before {
+      content: "— ❖ —";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -20%);
+      font-family: var(--font-serif);
+      font-size: 6.5pt;
+      letter-spacing: 0.2em;
+      color: var(--accent-bordeaux);
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
     /* Niveles automáticos de compactación para encaje perfecto en 1 hoja A4 al imprimir */
     .a4-page.print-fit-1 {
       padding: 7.5mm !important;
@@ -2557,9 +2712,17 @@
     </div>
 
     <div class="panel-group">
+      <span class="panel-label">Ornamentos:</span>
+      <select class="ui-select" id="ornamentsSelector" onchange="changeOrnaments(this.value)" title="Activar o desactivar los detalles tribales y geométricos sutiles en la hoja A4">
+        <option value="on">❖ Sutiles Activos</option>
+        <option value="off">Minimalista (Sin ornamentos)</option>
+      </select>
+    </div>
+
+    <div class="panel-group">
       <span class="panel-label">Espaciado:</span>
       <select class="ui-select" id="spacingSelector" onchange="changeSpacing(this.value)">
-        <option value="normal">Normal (A4 Estándar)</option>
+        <option value="normal">Normal (Auto-Ajuste A4)</option>
         <option value="spacing-compact">Compacto (Más ítems por hoja)</option>
         <option value="spacing-relaxed">Holgado (Editorial aireado)</option>
       </select>
@@ -2742,9 +2905,8 @@
 
   <!-- Indicador visual informativo -->
   <div class="editor-hint no-print">
-    <span class="editor-hint-badge">WYSIWYG Activo</span>
-    <span>Hacé clic sobre cualquier texto, ítem, subtexto o monto para editar. Los cálculos se actualizan
-      automáticamente.</span>
+    <span class="editor-hint-badge">Lienzo A4 Real (210 × 297 mm)</span>
+    <span>Vista previa 1:1 durante la edición: todo lo que armás se auto-ajusta en vivo dentro de la hoja A4 exacta.</span>
   </div>
 
   <!-- ═══════════════════════════════════════════════════════════════
@@ -4743,6 +4905,7 @@
         }
       }
       syncQuickModuleChips();
+      scheduleLiveA4Fit();
       autoSave();
     }
 
@@ -4752,6 +4915,7 @@
       el.classList.toggle('is-hidden');
       const isHidden = el.classList.contains('is-hidden');
       syncQuickModuleChips();
+      scheduleLiveA4Fit();
       showToast(isHidden ? 'Módulo ocultado de la hoja A4' : 'Módulo activado en la hoja A4');
       autoSave();
     }
@@ -6178,6 +6342,7 @@
     function applyBodyClasses() {
       const themeName = document.getElementById('themeSelector')?.value || 'original';
       const spacingName = document.getElementById('spacingSelector')?.value || currentSpacing || 'normal';
+      const ornamentsVal = document.getElementById('ornamentsSelector')?.value || 'on';
       document.body.className = '';
       if (themeName && themeName !== 'original') {
         document.body.classList.add(themeName);
@@ -6185,10 +6350,20 @@
       if (spacingName && spacingName !== 'normal') {
         document.body.classList.add(spacingName);
       }
+      if (ornamentsVal === 'off') {
+        document.body.classList.add('ornaments-off');
+      }
+      scheduleLiveA4Fit();
     }
 
     function changeTheme(themeName) {
       applyBodyClasses();
+      autoSave();
+    }
+
+    function changeOrnaments(val) {
+      applyBodyClasses();
+      showToast(val === 'off' ? 'Modo minimalista (sin ornamentos)' : 'Ornamentos tribales sutiles activados');
       autoSave();
     }
 
@@ -6498,9 +6673,10 @@
         }
       });
 
-      // 4. Sincronizar links de portfolio y estado de los chips de módulos rápidos
+      // 4. Sincronizar links de portfolio, estado de chips y encuadre A4 en vivo
       syncPortfolioLinks(currentPortfolioUrl);
       syncQuickModuleChips();
+      scheduleLiveA4Fit();
     }
 
     // ═══════════════════════════════════════════════════════════════
@@ -6537,6 +6713,7 @@
         docType: document.getElementById('docTypeSelector')?.value || 'analipsis',
         currency: currentCurrency || 'ARS',
         spacing: document.getElementById('spacingSelector')?.value || currentSpacing || 'normal',
+        ornaments: document.getElementById('ornamentsSelector')?.value || 'on',
         portfolioUrl: getTargetURL(),
         analipsisHTML: document.getElementById('doc-analipsis')?.innerHTML || '',
         quickHTML: document.getElementById('doc-quick')?.innerHTML || '',
@@ -6571,6 +6748,10 @@
         if (data.theme) {
           const thSel = document.getElementById('themeSelector');
           if (thSel) thSel.value = data.theme;
+        }
+        if (data.ornaments) {
+          const ornSel = document.getElementById('ornamentsSelector');
+          if (ornSel) ornSel.value = data.ornaments;
         }
         applyBodyClasses();
 
@@ -6607,6 +6788,7 @@
     }
 
     function autoSave() {
+      scheduleLiveA4Fit();
       try {
         const state = captureFullState();
         localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(state));
@@ -7002,23 +7184,48 @@
       showToast('Copia HTML descargada');
     }
 
-    // Motor de auto-encuadre pre-impresión A4: garantiza que cada hoja .a4-page entre íntegra en 297mm con su borde editorial completo
-    function preparePagesForPrint() {
-      try {
-        cleanupAfterPrint();
-        document.body.classList.add('is-measuring-print');
+    // Motor de encuadre A4 en tiempo real (WYSIWYG durante la edición) y pre-impresión
+    let liveA4FitTimer = null;
+    function scheduleLiveA4Fit() {
+      if (liveA4FitTimer) clearTimeout(liveA4FitTimer);
+      liveA4FitTimer = setTimeout(() => {
+        fitPagesToA4(false);
+      }, 35);
+    }
 
-        const activeDoc = document.querySelector('#doc-analipsis:not([style*="display: none"]), #doc-quick:not([style*="display: none"])');
+    function resetPageFit(page) {
+      if (!page) return;
+      page.classList.remove('print-fit-1', 'print-fit-2');
+      const frame = page.querySelector('.editorial-frame');
+      if (frame) {
+        Array.from(frame.children).forEach(ch => {
+          if (ch.dataset.printZoomed === '1') {
+            ch.style.removeProperty('zoom');
+            delete ch.dataset.printZoomed;
+          }
+        });
+      }
+    }
+
+    function fitPagesToA4(isPrintMode = false) {
+      try {
+        if (isPrintMode) {
+          document.body.classList.add('is-measuring-print');
+        }
+
+        const activeDoc = document.querySelector('#doc-analipsis:not(.is-doc-hidden), #doc-quick:not(.is-doc-hidden)');
         const pages = activeDoc
           ? Array.from(activeDoc.querySelectorAll('.a4-page'))
           : Array.from(document.querySelectorAll('.a4-page'));
 
         pages.forEach(page => {
           if (page.offsetParent === null) return;
+          resetPageFit(page);
+
           const frame = page.querySelector('.editorial-frame');
           if (!frame) return;
 
-          // Nivel 1: Compactación tipográfica y de paddings suave
+          // Nivel 1: Compactación tipográfica y de paddings suave en la hoja A4
           if (frame.scrollHeight > frame.clientHeight + 1) {
             page.classList.add('print-fit-1');
           }
@@ -7028,20 +7235,20 @@
             page.classList.add('print-fit-2');
           }
 
-          // Nivel 3: Si el usuario activó todos los módulos simultáneamente, escalamos proporcionalmente los hijos internos sin encoger el recuadro .editorial-frame
+          // Nivel 3: Si el usuario activó todos los módulos o muchos ítems simultáneamente, escalamos proporcionalmente los hijos internos manteniendo intacto el lienzo A4 (210x297mm) y su marco perimetral
           if (frame.scrollHeight > frame.clientHeight + 1) {
             const children = Array.from(frame.children);
             const availableH = frame.clientHeight;
             const currentH = frame.scrollHeight;
-            let ratio = Math.max(0.68, Math.min(0.98, (availableH / currentH) * 0.985));
+            let ratio = Math.max(0.65, Math.min(0.985, (availableH / currentH) * 0.985));
             children.forEach(ch => {
               ch.dataset.printZoomed = '1';
               ch.style.zoom = ratio.toFixed(3);
             });
 
-            // Segunda pasada fina por si tras el primer zoom todavía sobra algún píxel
+            // Segunda pasada fina por si tras el primer ajuste todavía sobra algún píxel
             if (frame.scrollHeight > frame.clientHeight + 1) {
-              ratio = Math.max(0.62, ratio * (frame.clientHeight / frame.scrollHeight) * 0.985);
+              ratio = Math.max(0.60, ratio * (frame.clientHeight / frame.scrollHeight) * 0.985);
               children.forEach(ch => {
                 ch.style.zoom = ratio.toFixed(3);
               });
@@ -7049,25 +7256,26 @@
           }
         });
       } catch (err) {
-        console.error('Error en auto-ajuste de impresión:', err);
+        console.error('Error en auto-ajuste A4:', err);
       } finally {
-        document.body.classList.remove('is-measuring-print');
+        if (isPrintMode) {
+          document.body.classList.remove('is-measuring-print');
+        }
       }
+    }
+
+    function preparePagesForPrint() {
+      fitPagesToA4(true);
     }
 
     function cleanupAfterPrint() {
       document.body.classList.remove('is-measuring-print');
-      document.querySelectorAll('.a4-page.print-fit-1, .a4-page.print-fit-2').forEach(page => {
-        page.classList.remove('print-fit-1', 'print-fit-2');
-      });
-      document.querySelectorAll('[data-print-zoomed="1"]').forEach(el => {
-        el.style.removeProperty('zoom');
-        delete el.dataset.printZoomed;
-      });
+      fitPagesToA4(false);
     }
 
     window.addEventListener('beforeprint', preparePagesForPrint);
     window.addEventListener('afterprint', cleanupAfterPrint);
+    window.addEventListener('resize', scheduleLiveA4Fit);
 
     function exportPDF() {
       const originalTitle = document.title;
@@ -7156,6 +7364,7 @@
       recalcAllQuickColumns();
       recalcQuickGrandTotal();
       updateQR(currentPortfolioUrl);
+      fitPagesToA4(false);
       syncPresetsWithServer();
     });
 
@@ -7165,6 +7374,7 @@
       recalcAllQuickColumns();
       recalcQuickGrandTotal();
       updateQR(currentPortfolioUrl);
+      fitPagesToA4(false);
     }, 150);
   </script>
 
