@@ -630,12 +630,12 @@
       padding-top: 1.5mm;
     }
 
-    /* 3. ENTREGABLES CONCRETOS */
+    /* 3. ENTREGABLES CONCRETOS (LIMPIO, SIN CAJA PERIMETRAL) */
     .deliverables-box {
-      border: 0.5px solid var(--line-subtle);
-      padding: 4mm 5mm;
-      margin: 3.5mm 0 4mm;
-      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      padding: 1mm 0;
+      margin: 2.5mm 0 3mm;
+      background: transparent;
     }
 
     .deliverables-list {
@@ -1751,24 +1751,21 @@
       gap: 4px;
     }
 
-    /* 1. Matriz de Entregables con Ficha de Formato en Presupuesto Rápido */
+    /* 1. Matriz de Entregables con Ficha de Formato en Presupuesto Rápido (Diseño editorial limpio, sin cajas) */
     .quick-deliverables-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.8mm 5mm;
+      gap: 2.2mm 6mm;
     }
 
     .quick-deliverable-card {
       position: relative;
       display: flex;
       flex-direction: column;
-      gap: 0.6mm;
-      padding: 1.4mm 2mm;
-      background-color: var(--box-bg);
-      border-left: 1.5px solid var(--accent-bordeaux);
-      border-top: 0.5px solid var(--line-subtle);
-      border-right: 0.5px solid var(--line-subtle);
-      border-bottom: 0.5px solid var(--line-subtle);
+      gap: 0.5mm;
+      padding: 0.4mm 0;
+      background-color: transparent;
+      border: none;
     }
 
     .q-deliv-top {
@@ -1777,6 +1774,8 @@
       align-items: baseline;
       gap: 2mm;
       flex-wrap: wrap;
+      border-bottom: 0.5px dotted var(--line-subtle);
+      padding-bottom: 0.4mm;
     }
 
     .q-deliv-title {
@@ -1785,7 +1784,7 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-main);
+      color: var(--accent-bordeaux);
     }
 
     .q-deliv-badge {
@@ -1794,17 +1793,16 @@
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--accent-bordeaux);
-      background: rgba(110, 43, 38, 0.07);
-      border: 0.5px solid var(--line-subtle);
-      padding: 0.3mm 1.4mm;
-      border-radius: 2px;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      padding: 0;
       white-space: nowrap;
     }
 
     body.theme-white .q-deliv-badge {
-      background: rgba(0, 0, 0, 0.04);
-      color: var(--text-main);
+      background: transparent;
+      color: var(--text-muted);
     }
 
     .q-deliv-desc {
@@ -2240,8 +2238,8 @@
       padding: 2.5mm 3mm;
     }
     body.spacing-compact .deliverables-box {
-      padding: 2.5mm 3.5mm;
-      margin: 2mm 0;
+      padding: 0.5mm 0;
+      margin: 1.5mm 0;
     }
     body.spacing-compact .conditions-grid,
     body.spacing-compact .quick-conditions-grid {
@@ -2799,7 +2797,7 @@
       font-size: 18pt !important;
     }
     .a4-page.print-fit-2 .quick-deliverable-card {
-      padding: 0.9mm 1.5mm !important;
+      padding: 0.2mm 0 !important;
     }
     .a4-page.print-fit-2 .quick-timeline-step {
       padding: 0.8mm 1.4mm !important;
