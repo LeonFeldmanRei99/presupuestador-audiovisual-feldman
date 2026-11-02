@@ -2040,10 +2040,24 @@
     .quick-exclusions-bar > .item-tools,
     .scope-clause-warning > .item-tools,
     .subtotal-row > .item-tools,
-    .deliverables-box > .item-tools {
+    .deliverables-box > .item-tools,
+    .title-block > .item-tools,
+    .header-top > .item-tools,
+    .grand-total-section > .item-tools,
+    .signature-grid > .item-tools,
+    .quick-signature-grid > .item-tools,
+    .footer-portfolio-row > .item-tools {
       position: absolute;
       top: -6px;
       right: 0;
+    }
+
+    .title-block,
+    .header-top,
+    .signature-grid,
+    .quick-signature-grid,
+    .footer-portfolio-row {
+      position: relative;
     }
 
     .item-entry:hover > .item-tools,
@@ -2064,6 +2078,12 @@
     .scope-clause-warning:hover > .item-tools,
     .subtotal-row:hover > .item-tools,
     .deliverables-box:hover > .item-tools,
+    .title-block:hover > .item-tools,
+    .header-top:hover > .item-tools,
+    .grand-total-section:hover > .item-tools,
+    .signature-grid:hover > .item-tools,
+    .quick-signature-grid:hover > .item-tools,
+    .footer-portfolio-row:hover > .item-tools,
     .item-tools:focus-within {
       opacity: 1;
       pointer-events: auto;
@@ -2569,6 +2589,129 @@
       pointer-events: none;
     }
 
+    /* ═══════════════════════════════════════════════════════════════
+       BARRA FLOTANTE DE TIPOGRAFÍA Y FORMATO AL EDITAR CUALQUIER TEXTO
+       ═══════════════════════════════════════════════════════════════ */
+    .text-scale-popover {
+      position: fixed;
+      z-index: 3500;
+      background: rgba(20, 20, 20, 0.96);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(212, 184, 122, 0.45);
+      border-radius: 20px;
+      padding: 3px 8px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+      color: #F0F0F0;
+      font-family: var(--font-sans);
+      font-size: 11px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(4px);
+      transition: opacity 0.14s ease, transform 0.14s ease;
+    }
+
+    .text-scale-popover.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .tsp-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #EFEFEF;
+      border-radius: 12px;
+      padding: 2px 7px;
+      font-size: 10.5px;
+      font-weight: 600;
+      cursor: pointer;
+      line-height: 1.2;
+      transition: all 0.14s ease;
+      font-family: var(--font-sans);
+    }
+
+    .tsp-btn:hover {
+      background: #6E2B26;
+      border-color: #D4B87A;
+      color: #FFF;
+    }
+
+    .tsp-val {
+      font-size: 10px;
+      color: #D4B87A;
+      min-width: 34px;
+      text-align: center;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    .tsp-sep {
+      width: 1px;
+      height: 13px;
+      background: rgba(255, 255, 255, 0.18);
+      margin: 0 2px;
+    }
+
+    /* Slider compacto de escala en el panel superior */
+    .ui-range-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      padding: 3px 8px;
+    }
+
+    .ui-range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 58px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .ui-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #D4B87A;
+      cursor: pointer;
+      border: 1px solid #1A1A1A;
+    }
+
+    .ui-scale-mini-btn {
+      background: none;
+      border: none;
+      color: #DDD;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 0 3px;
+      line-height: 1;
+    }
+
+    .ui-scale-mini-btn:hover {
+      color: #D4B87A;
+    }
+
+    .ui-scale-readout {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #D4B87A;
+      min-width: 32px;
+      text-align: center;
+      cursor: pointer;
+    }
+
     /* Niveles automáticos de compactación para encaje perfecto en 1 hoja A4 al imprimir */
     .a4-page.print-fit-1 {
       padding: 7.5mm !important;
@@ -2666,6 +2809,7 @@
     body.is-measuring-print .column-reorder-tools,
     body.is-measuring-print .quick-sec-actions,
     body.is-measuring-print .app-toast,
+    body.is-measuring-print .text-scale-popover,
     body.is-measuring-print .no-print,
     body.is-measuring-print .is-doc-hidden,
     body.is-measuring-print .is-empty-box {
@@ -2727,6 +2871,7 @@
       .column-reorder-tools,
       .quick-sec-actions,
       .app-toast,
+      .text-scale-popover,
       .no-print,
       .is-doc-hidden,
       .is-empty-box {
@@ -2902,6 +3047,16 @@
         <option value="dark">Grafito Clásico</option>
         <option value="none">Sin Líneas Divisorias</option>
       </select>
+    </div>
+
+    <div class="panel-group">
+      <span class="panel-label">Escala:</span>
+      <div class="ui-range-wrap" title="Escalar tipografías y todos los bloques proporcionalmente (clic en el porcentaje para volver a 100%)">
+        <button type="button" class="ui-scale-mini-btn" onclick="stepGlobalScale(-5)" title="Achicar todo (-5%)">−</button>
+        <input type="range" class="ui-range" id="globalScaleRange" min="70" max="135" step="1" value="100" oninput="changeGlobalScale(this.value)">
+        <button type="button" class="ui-scale-mini-btn" onclick="stepGlobalScale(5)" title="Agrandar todo (+5%)">+</button>
+        <span class="ui-scale-readout" id="globalScaleLabel" onclick="changeGlobalScale(100)" title="Clic para restablecer al 100%">100%</span>
+      </div>
     </div>
 
     <div class="panel-group">
@@ -4207,6 +4362,18 @@
     </div>
   </main>
 
+  <!-- Barra flotante de escalado tipográfico y formato rápido al hacer clic en cualquier texto -->
+  <div class="text-scale-popover no-print" id="textScalePopover" onmousedown="event.preventDefault()">
+    <button type="button" class="tsp-btn" onclick="scaleActiveEditable(-1)" title="Achicar tipografía de este texto (A-)">A−</button>
+    <span class="tsp-val" id="tspSizeVal" onclick="resetActiveEditableScale()" title="Clic para restaurar tamaño original" style="cursor:pointer;">10pt</span>
+    <button type="button" class="tsp-btn" onclick="scaleActiveEditable(1)" title="Agrandar tipografía de este texto (A+)">A+</button>
+    <span class="tsp-sep"></span>
+    <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('bold')" title="Alternar Negrita"><b>B</b></button>
+    <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('italic')" title="Alternar Cursiva"><i>I</i></button>
+    <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('bordeaux')" title="Alternar Color Acento Burdeos / Principal">❖</button>
+    <button type="button" class="tsp-btn" onclick="resetActiveEditableScale()" title="Restaurar estilo original de este texto">↺</button>
+  </div>
+
   <!-- ══════════ LÓGICA DE CÁLCULO, FORMATO Y EXPORTACIÓN ══════════ -->
   <script>
     const DEFAULT_PORTFOLIO_URL = 'https://leonfeldmanreino.myportfolio.com';
@@ -4214,7 +4381,9 @@
     const DRAFT_STORAGE_KEY = 'leon_presupuesto_editorial_v10';
     let currentCurrency = 'ARS';
     let currentSpacing = 'normal';
+    let currentGlobalScale = 100;
     let currentPortfolioUrl = DEFAULT_PORTFOLIO_URL;
+    let activeEditableEl = null;
 
     function changeCurrency(curr) {
       currentCurrency = curr;
@@ -6579,6 +6748,114 @@
       autoSave();
     }
 
+    function changeGlobalScale(val) {
+      let num = parseInt(val, 10);
+      if (isNaN(num)) num = 100;
+      num = Math.max(70, Math.min(135, num));
+      currentGlobalScale = num;
+      const rangeEl = document.getElementById('globalScaleRange');
+      const labelEl = document.getElementById('globalScaleLabel');
+      if (rangeEl) rangeEl.value = String(num);
+      if (labelEl) labelEl.textContent = num + '%';
+      scheduleLiveA4Fit();
+      autoSave();
+    }
+
+    function stepGlobalScale(delta) {
+      changeGlobalScale((currentGlobalScale || 100) + delta);
+    }
+
+    // Escalado individual de cualquier texto editable (A- / A+ / Negrita / Cursiva / Color)
+    function updateTextPopoverPosition(el) {
+      const pop = document.getElementById('textScalePopover');
+      if (!pop || !el) return;
+      const rect = el.getBoundingClientRect();
+      const computedPx = parseFloat(window.getComputedStyle(el).fontSize) || 13.33;
+      const pt = (computedPx * 0.75).toFixed(1).replace(/\.0$/, '');
+      const valEl = document.getElementById('tspSizeVal');
+      if (valEl) valEl.textContent = pt + 'pt';
+
+      let top = rect.top - 34;
+      if (top < 64) top = rect.bottom + 6;
+      let left = Math.max(12, Math.min(window.innerWidth - 260, rect.left));
+      pop.style.top = top + 'px';
+      pop.style.left = left + 'px';
+      pop.classList.add('visible');
+    }
+
+    function hideTextPopover() {
+      const pop = document.getElementById('textScalePopover');
+      if (pop) pop.classList.remove('visible');
+    }
+
+    function scaleActiveEditable(dir) {
+      if (!activeEditableEl) return;
+      const computedPx = parseFloat(window.getComputedStyle(activeEditableEl).fontSize) || 13.33;
+      let currentPt = computedPx * 0.75;
+      const step = currentPt >= 16 ? 1.5 : 0.6;
+      let nextPt = Math.max(5.0, Math.min(48.0, currentPt + dir * step));
+      activeEditableEl.style.fontSize = nextPt.toFixed(1) + 'pt';
+      updateTextPopoverPosition(activeEditableEl);
+      scheduleLiveA4Fit();
+      autoSave();
+    }
+
+    function toggleActiveEditableStyle(type) {
+      if (!activeEditableEl) return;
+      const cs = window.getComputedStyle(activeEditableEl);
+      if (type === 'bold') {
+        const isBold = parseInt(cs.fontWeight, 10) >= 600 || cs.fontWeight === 'bold';
+        activeEditableEl.style.fontWeight = isBold ? '400' : '600';
+      } else if (type === 'italic') {
+        const isItalic = cs.fontStyle === 'italic';
+        activeEditableEl.style.fontStyle = isItalic ? 'normal' : 'italic';
+      } else if (type === 'bordeaux') {
+        const activeFlag = activeEditableEl.dataset.customAccent === '1';
+        if (activeFlag) {
+          activeEditableEl.style.removeProperty('color');
+          delete activeEditableEl.dataset.customAccent;
+        } else {
+          activeEditableEl.style.color = 'var(--accent-bordeaux)';
+          activeEditableEl.dataset.customAccent = '1';
+        }
+      }
+      scheduleLiveA4Fit();
+      autoSave();
+    }
+
+    function resetActiveEditableScale() {
+      if (!activeEditableEl) return;
+      activeEditableEl.style.removeProperty('font-size');
+      activeEditableEl.style.removeProperty('font-weight');
+      activeEditableEl.style.removeProperty('font-style');
+      activeEditableEl.style.removeProperty('color');
+      delete activeEditableEl.dataset.customAccent;
+      updateTextPopoverPosition(activeEditableEl);
+      scheduleLiveA4Fit();
+      autoSave();
+      showToast('Estilo original de texto restaurado');
+    }
+
+    // Escalado individual de cualquier bloque, tarjeta, columna o sección (🔍− / 🔍+)
+    function scaleBlockElement(btn, delta) {
+      const target = btn.closest('.proposal-section-block, .quick-module-section, .quick-conditions-section, .option-column, ' + REORDERABLE_SELECTORS);
+      if (!target) return;
+      let curr = parseFloat(target.dataset.userZoom || '1');
+      if (isNaN(curr) || curr <= 0) curr = 1;
+      let next = Math.round(Math.max(0.60, Math.min(1.50, curr + delta)) * 100) / 100;
+      if (Math.abs(next - 1) < 0.02) {
+        target.style.removeProperty('zoom');
+        delete target.dataset.userZoom;
+        showToast('Escala del bloque: 100%');
+      } else {
+        target.dataset.userZoom = String(next);
+        target.style.zoom = String(next);
+        showToast('Escala del bloque: ' + Math.round(next * 100) + '%');
+      }
+      scheduleLiveA4Fit();
+      autoSave();
+    }
+
     // Detección de montos no numéricos / descriptivos (ej: "incluido", "a convenir", "bonificado", "s/c", etc.)
     function isTextualAmount(text) {
       if (!text) return true;
@@ -6706,7 +6983,7 @@
     // ═══════════════════════════════════════════════════════════════
     // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN, DRAG & DROP Y CAJAS ELIMINABLES
     // ═══════════════════════════════════════════════════════════════
-    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .quick-exclusions-bar, .scope-clause-warning, .subtotal-row, .deliverables-box';
+    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .quick-exclusions-bar, .scope-clause-warning, .subtotal-row, .deliverables-box, .title-block, .header-top, .grand-total-section, .signature-grid, .quick-signature-grid, .footer-portfolio-row';
     const BOX_COLLAPSE_SELECTORS = '.jornada-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-exclusions-bar, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .condition-block, .quick-condition-card, .deliverable-line, .scope-clause-warning';
     let draggedElement = null;
 
@@ -6776,8 +7053,12 @@
       const parent = item.parentNode;
 
       // Si es un módulo único con ID de toggle en Presupuesto Rápido, lo ocultamos limpiamente y sincronizamos el chip
-      if (item.id === 'quickSummaryBlock' || item.id === 'quickExclusionsBlock') {
+      if (item.id === 'quickSummaryBlock' || item.id === 'quickExclusionsBlock' || item.id === 'quickSignatureGrid' || item.id === 'grandTotalSection' || item.id === 'footerPortfolioRow') {
         item.classList.add('is-hidden');
+        if (item.id === 'grandTotalSection') {
+          const gtSel = document.getElementById('grandTotalSelector');
+          if (gtSel) gtSel.value = 'hide';
+        }
         syncQuickModuleChips();
         autoSave();
         showToast('Bloque ocultado');
@@ -6840,7 +7121,7 @@
 
     function upgradeDOMControls() {
       ensureQuickModulesExist();
-      // 1. Inyectar barra de herramientas fluida (.item-tools) en cada ítem, jornada, entregable y condición
+      // 1. Inyectar barra de herramientas fluida (.item-tools) con controles de escala (A- / A+) en cada ítem, tarjeta y bloque
       const items = document.querySelectorAll(REORDERABLE_SELECTORS);
       items.forEach(el => {
         el.classList.add('has-fluid-tools');
@@ -6851,12 +7132,35 @@
           tools.setAttribute('contenteditable', 'false');
           tools.innerHTML = `
             <span class="drag-handle" title="Arrastrar para reordenar">⠿</span>
+            <button type="button" class="btn-sec-tool" onclick="scaleBlockElement(this, -0.06)" title="Achicar este bloque / tarjeta (-6%)">−</button>
+            <button type="button" class="btn-sec-tool" onclick="scaleBlockElement(this, 0.06)" title="Agrandar este bloque / tarjeta (+6%)">+</button>
             <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'up')" title="Subir">▲</button>
             <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'down')" title="Bajar">▼</button>
             <button type="button" class="btn-sec-tool" onclick="duplicateGenericItem(this)" title="Duplicar">⧉</button>
             <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteGenericItem(this)" title="Eliminar">✕</button>
           `;
           el.appendChild(tools);
+        } else if (!tools.querySelector('[onclick*="scaleBlockElement"]')) {
+          const minusBtn = document.createElement('button');
+          minusBtn.type = 'button';
+          minusBtn.className = 'btn-sec-tool';
+          minusBtn.title = 'Achicar este bloque / tarjeta (-6%)';
+          minusBtn.textContent = '−';
+          minusBtn.setAttribute('onclick', 'scaleBlockElement(this, -0.06)');
+          const plusBtn = document.createElement('button');
+          plusBtn.type = 'button';
+          plusBtn.className = 'btn-sec-tool';
+          plusBtn.title = 'Agrandar este bloque / tarjeta (+6%)';
+          plusBtn.textContent = '+';
+          plusBtn.setAttribute('onclick', 'scaleBlockElement(this, 0.06)');
+          const upBtn = tools.querySelector('[onclick*="moveGenericItem"]');
+          if (upBtn) {
+            tools.insertBefore(minusBtn, upBtn);
+            tools.insertBefore(plusBtn, upBtn);
+          } else {
+            tools.appendChild(minusBtn);
+            tools.appendChild(plusBtn);
+          }
         }
 
         // Activar Drag & Drop cuando se toma desde el drag-handle
@@ -6918,8 +7222,24 @@
         }
       });
 
-      // 2. Asegurar botón de duplicar en encabezados de secciones de 2 páginas
+      // 2. Asegurar botones de escalar (− / +) y duplicar en encabezados de secciones de 2 páginas
       document.querySelectorAll('#doc-analipsis .section-reorder-tools').forEach(toolBar => {
+        if (!toolBar.querySelector('[onclick*="scaleBlockElement"]')) {
+          const minusBtn = document.createElement('button');
+          minusBtn.type = 'button';
+          minusBtn.className = 'btn-sec-tool';
+          minusBtn.title = 'Achicar sección (-6%)';
+          minusBtn.textContent = '−';
+          minusBtn.setAttribute('onclick', 'scaleBlockElement(this, -0.06)');
+          const plusBtn = document.createElement('button');
+          plusBtn.type = 'button';
+          plusBtn.className = 'btn-sec-tool';
+          plusBtn.title = 'Agrandar sección (+6%)';
+          plusBtn.textContent = '+';
+          plusBtn.setAttribute('onclick', 'scaleBlockElement(this, 0.06)');
+          toolBar.insertBefore(plusBtn, toolBar.firstChild);
+          toolBar.insertBefore(minusBtn, toolBar.firstChild);
+        }
         if (!toolBar.querySelector('[onclick*="duplicateSectionBlock"]')) {
           const dupBtn = document.createElement('button');
           dupBtn.type = 'button';
@@ -6936,25 +7256,68 @@
         }
       });
 
-      // 3. Asegurar botón de duplicar y referencias dinámicas en columnas de Presupuesto Rápido
+      // 3. Asegurar botones de escalar (− / +), duplicar y referencias dinámicas en columnas y módulos de Presupuesto Rápido
       document.querySelectorAll('#doc-quick .option-column').forEach(col => {
         const addBtn = col.querySelector('.add-item-trigger');
         if (addBtn) {
           addBtn.setAttribute('onclick', 'addNewItem(this)');
         }
         const toolBar = col.querySelector('.column-reorder-tools');
-        if (toolBar && !toolBar.querySelector('[onclick*="duplicateQuickColumn"]')) {
-          const dupBtn = document.createElement('button');
-          dupBtn.type = 'button';
-          dupBtn.className = 'btn-sec-tool';
-          dupBtn.title = 'Duplicar columna';
-          dupBtn.textContent = '⧉';
-          dupBtn.setAttribute('onclick', 'duplicateQuickColumn(this)');
-          const delBtn = toolBar.querySelector('.btn-sec-del');
-          if (delBtn) {
-            toolBar.insertBefore(dupBtn, delBtn);
+        if (toolBar) {
+          if (!toolBar.querySelector('[onclick*="scaleBlockElement"]')) {
+            const minusBtn = document.createElement('button');
+            minusBtn.type = 'button';
+            minusBtn.className = 'btn-sec-tool';
+            minusBtn.title = 'Achicar columna (-6%)';
+            minusBtn.textContent = '−';
+            minusBtn.setAttribute('onclick', 'scaleBlockElement(this, -0.06)');
+            const plusBtn = document.createElement('button');
+            plusBtn.type = 'button';
+            plusBtn.className = 'btn-sec-tool';
+            plusBtn.title = 'Agrandar columna (+6%)';
+            plusBtn.textContent = '+';
+            plusBtn.setAttribute('onclick', 'scaleBlockElement(this, 0.06)');
+            toolBar.insertBefore(plusBtn, toolBar.firstChild);
+            toolBar.insertBefore(minusBtn, toolBar.firstChild);
+          }
+          if (!toolBar.querySelector('[onclick*="duplicateQuickColumn"]')) {
+            const dupBtn = document.createElement('button');
+            dupBtn.type = 'button';
+            dupBtn.className = 'btn-sec-tool';
+            dupBtn.title = 'Duplicar columna';
+            dupBtn.textContent = '⧉';
+            dupBtn.setAttribute('onclick', 'duplicateQuickColumn(this)');
+            const delBtn = toolBar.querySelector('.btn-sec-del');
+            if (delBtn) {
+              toolBar.insertBefore(dupBtn, delBtn);
+            } else {
+              toolBar.appendChild(dupBtn);
+            }
+          }
+        }
+      });
+
+      document.querySelectorAll('#doc-quick .quick-sec-actions').forEach(secBar => {
+        if (!secBar.querySelector('[onclick*="scaleBlockElement"]')) {
+          const minusBtn = document.createElement('button');
+          minusBtn.type = 'button';
+          minusBtn.className = 'btn-sec-tool';
+          minusBtn.title = 'Achicar este módulo (-6%)';
+          minusBtn.textContent = '−';
+          minusBtn.setAttribute('onclick', 'scaleBlockElement(this, -0.06)');
+          const plusBtn = document.createElement('button');
+          plusBtn.type = 'button';
+          plusBtn.className = 'btn-sec-tool';
+          plusBtn.title = 'Agrandar este módulo (+6%)';
+          plusBtn.textContent = '+';
+          plusBtn.setAttribute('onclick', 'scaleBlockElement(this, 0.06)');
+          const upBtn = secBar.querySelector('[onclick*="moveQuickModuleSection"]');
+          if (upBtn) {
+            secBar.insertBefore(minusBtn, upBtn);
+            secBar.insertBefore(plusBtn, upBtn);
           } else {
-            toolBar.appendChild(dupBtn);
+            secBar.appendChild(minusBtn);
+            secBar.appendChild(plusBtn);
           }
         }
       });
@@ -7013,6 +7376,7 @@
         docType: document.getElementById('docTypeSelector')?.value || 'analipsis',
         currency: currentCurrency || 'ARS',
         spacing: document.getElementById('spacingSelector')?.value || currentSpacing || 'normal',
+        globalScale: currentGlobalScale || 100,
         ornaments: document.getElementById('ornamentsSelector')?.value || 'on',
         dividers: document.getElementById('dividersSelector')?.value || 'subtle',
         portfolioUrl: getTargetURL(),
@@ -7045,6 +7409,13 @@
           currentSpacing = data.spacing;
           const spSel = document.getElementById('spacingSelector');
           if (spSel) spSel.value = data.spacing;
+        }
+        if (data.globalScale !== undefined) {
+          currentGlobalScale = parseInt(data.globalScale, 10) || 100;
+          const rangeEl = document.getElementById('globalScaleRange');
+          const labelEl = document.getElementById('globalScaleLabel');
+          if (rangeEl) rangeEl.value = String(currentGlobalScale);
+          if (labelEl) labelEl.textContent = currentGlobalScale + '%';
         }
         if (data.theme) {
           const thSel = document.getElementById('themeSelector');
@@ -7504,7 +7875,9 @@
       const frame = page.querySelector('.editorial-frame');
       if (frame) {
         Array.from(frame.children).forEach(ch => {
-          if (ch.dataset.printZoomed === '1') {
+          if (ch.dataset.userZoom) {
+            ch.style.zoom = ch.dataset.userZoom;
+          } else if (ch.dataset.printZoomed === '1') {
             ch.style.removeProperty('zoom');
             delete ch.dataset.printZoomed;
           }
@@ -7523,6 +7896,8 @@
           ? Array.from(activeDoc.querySelectorAll('.a4-page'))
           : Array.from(document.querySelectorAll('.a4-page'));
 
+        const userGlobalRatio = Math.max(0.70, Math.min(1.35, (currentGlobalScale || 100) / 100));
+
         pages.forEach(page => {
           if (page.offsetParent === null) return;
           resetPageFit(page);
@@ -7530,7 +7905,18 @@
           const frame = page.querySelector('.editorial-frame');
           if (!frame) return;
 
-          // Nivel 1: Compactación tipográfica y de paddings suave en la hoja A4
+          const children = Array.from(frame.children);
+
+          // Aplicar primero la escala general elegida por el usuario (si es distinta de 100%) combinada con el zoom individual de cada bloque
+          if (Math.abs(userGlobalRatio - 1) > 0.005) {
+            children.forEach(ch => {
+              const uZoom = parseFloat(ch.dataset.userZoom || '1') || 1;
+              ch.dataset.printZoomed = '1';
+              ch.style.zoom = (uZoom * userGlobalRatio).toFixed(3);
+            });
+          }
+
+          // Nivel 1: Compactación tipográfica y de paddings suave en la hoja A4 si supera el alto disponible
           if (frame.scrollHeight > frame.clientHeight + 1) {
             page.classList.add('print-fit-1');
           }
@@ -7540,22 +7926,23 @@
             page.classList.add('print-fit-2');
           }
 
-          // Nivel 3: Si el usuario activó todos los módulos o muchos ítems simultáneamente, escalamos proporcionalmente los hijos internos manteniendo intacto el lienzo A4 (210x297mm) y su marco perimetral
+          // Nivel 3: Si el contenido sigue superando el alto de la hoja A4 (210x297mm), escalamos proporcionalmente respetando las proporciones relativas de cada bloque
           if (frame.scrollHeight > frame.clientHeight + 1) {
-            const children = Array.from(frame.children);
             const availableH = frame.clientHeight;
             const currentH = frame.scrollHeight;
-            let ratio = Math.max(0.65, Math.min(0.985, (availableH / currentH) * 0.985));
+            let fitRatio = Math.max(0.60, Math.min(0.985, (availableH / currentH) * 0.985));
             children.forEach(ch => {
+              const uZoom = parseFloat(ch.dataset.userZoom || '1') || 1;
               ch.dataset.printZoomed = '1';
-              ch.style.zoom = ratio.toFixed(3);
+              ch.style.zoom = (uZoom * userGlobalRatio * fitRatio).toFixed(3);
             });
 
             // Segunda pasada fina por si tras el primer ajuste todavía sobra algún píxel
             if (frame.scrollHeight > frame.clientHeight + 1) {
-              ratio = Math.max(0.60, ratio * (frame.clientHeight / frame.scrollHeight) * 0.985);
+              fitRatio = Math.max(0.55, fitRatio * (frame.clientHeight / frame.scrollHeight) * 0.985);
               children.forEach(ch => {
-                ch.style.zoom = ratio.toFixed(3);
+                const uZoom = parseFloat(ch.dataset.userZoom || '1') || 1;
+                ch.style.zoom = (uZoom * userGlobalRatio * fitRatio).toFixed(3);
               });
             }
           }
@@ -7617,7 +8004,26 @@
       }, 800);
     }
 
-    // Recálculo en vivo al editar montos, detección de recuadros vacíos y guardado automático continuo
+    // Recálculo en vivo al editar montos, barra flotante de tipografía, detección de recuadros vacíos y guardado automático continuo
+    document.addEventListener('focusin', (e) => {
+      if (e.target && e.target.isContentEditable && e.target.closest('.a4-page')) {
+        activeEditableEl = e.target;
+        updateTextPopoverPosition(e.target);
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      if (activeEditableEl && document.activeElement === activeEditableEl) {
+        updateTextPopoverPosition(activeEditableEl);
+      }
+    }, { passive: true });
+
+    document.addEventListener('mousedown', (e) => {
+      if (!e.target.closest('#textScalePopover') && !(e.target.isContentEditable && e.target.closest('.a4-page'))) {
+        hideTextPopover();
+      }
+    });
+
     document.addEventListener('input', (e) => {
       if (e.target.isContentEditable) {
         if (e.target.classList.contains('item-amount')) {
