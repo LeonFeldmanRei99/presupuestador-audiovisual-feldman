@@ -2035,6 +2035,9 @@
     .quick-payment-item > .item-tools,
     .quick-meta-item > .item-tools,
     .meta-item > .item-tools,
+    .meta-box-grid > .item-tools,
+    .quick-meta-grid > .item-tools,
+    .body-content > .item-tools,
     .project-summary-block > .item-tools,
     .quick-summary-block > .item-tools,
     .quick-exclusions-bar > .item-tools,
@@ -2052,8 +2055,19 @@
       right: 0;
     }
 
+    .meta-box-grid > .item-tools,
+    .quick-meta-grid > .item-tools,
+    .body-content > .item-tools {
+      top: -12px;
+      left: 0;
+      right: auto;
+    }
+
     .title-block,
     .header-top,
+    .meta-box-grid,
+    .quick-meta-grid,
+    .body-content,
     .signature-grid,
     .quick-signature-grid,
     .footer-portfolio-row {
@@ -2072,6 +2086,9 @@
     .quick-payment-item:hover > .item-tools,
     .quick-meta-item:hover > .item-tools,
     .meta-item:hover > .item-tools,
+    .meta-box-grid:hover > .item-tools,
+    .quick-meta-grid:hover > .item-tools,
+    .body-content:hover > .item-tools,
     .project-summary-block:hover > .item-tools,
     .quick-summary-block:hover > .item-tools,
     .quick-exclusions-bar:hover > .item-tools,
@@ -4362,16 +4379,21 @@
     </div>
   </main>
 
-  <!-- Barra flotante de escalado tipográfico y formato rápido al hacer clic en cualquier texto -->
+  <!-- Barra flotante de escalado tipográfico, desplazamiento vertical y formato rápido al hacer clic en cualquier texto -->
   <div class="text-scale-popover no-print" id="textScalePopover" onmousedown="event.preventDefault()">
     <button type="button" class="tsp-btn" onclick="scaleActiveEditable(-1)" title="Achicar tipografía de este texto (A-)">A−</button>
     <span class="tsp-val" id="tspSizeVal" onclick="resetActiveEditableScale()" title="Clic para restaurar tamaño original" style="cursor:pointer;">10pt</span>
     <button type="button" class="tsp-btn" onclick="scaleActiveEditable(1)" title="Agrandar tipografía de este texto (A+)">A+</button>
     <span class="tsp-sep"></span>
+    <button type="button" class="tsp-btn" onclick="nudgeActiveEditable(-3)" title="Desplazar hacia arriba (-3px) · Alt+↑">↑</button>
+    <button type="button" class="tsp-btn" onclick="nudgeActiveEditable(3)" title="Desplazar hacia abajo (+3px) · Alt+↓">↓</button>
+    <button type="button" class="tsp-btn" onclick="moveActiveEditableParentBlock('up')" title="Subir orden de este bloque / sección (▲)">▲</button>
+    <button type="button" class="tsp-btn" onclick="moveActiveEditableParentBlock('down')" title="Bajar orden de este bloque / sección (▼)">▼</button>
+    <span class="tsp-sep"></span>
     <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('bold')" title="Alternar Negrita"><b>B</b></button>
     <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('italic')" title="Alternar Cursiva"><i>I</i></button>
     <button type="button" class="tsp-btn" onclick="toggleActiveEditableStyle('bordeaux')" title="Alternar Color Acento Burdeos / Principal">❖</button>
-    <button type="button" class="tsp-btn" onclick="resetActiveEditableScale()" title="Restaurar estilo original de este texto">↺</button>
+    <button type="button" class="tsp-btn" onclick="resetActiveEditableScale()" title="Restaurar tamaño y posición original de este texto">↺</button>
   </div>
 
   <!-- ══════════ LÓGICA DE CÁLCULO, FORMATO Y EXPORTACIÓN ══════════ -->
@@ -5279,12 +5301,46 @@
       if (!sec || !sec.parentNode) return;
       const parent = sec.parentNode;
       if (direction === 'up') {
-        const prev = sec.previousElementSibling;
-        if (prev) parent.insertBefore(sec, prev);
+        let prev = sec.previousElementSibling;
+        while (prev && (prev.classList.contains('is-hidden') || prev.classList.contains('no-print'))) {
+          prev = prev.previousElementSibling;
+        }
+        if (prev) {
+          parent.insertBefore(sec, prev);
+          showToast('Módulo desplazado hacia arriba ▲');
+        } else if (parent.id === 'quickModulesContainer' && parent.parentNode) {
+          // Si ya es el primer módulo dentro de #quickModulesContainer, permitir subir todo el contenedor de módulos por encima del bloque anterior
+          const frame = parent.parentNode;
+          let framePrev = parent.previousElementSibling;
+          while (framePrev && (framePrev.classList.contains('is-hidden') || framePrev.classList.contains('no-print') || framePrev.tagName === 'HR')) {
+            framePrev = framePrev.previousElementSibling;
+          }
+          if (framePrev) {
+            frame.insertBefore(parent, framePrev);
+            showToast('Sección de módulos desplazada hacia arriba ▲');
+          }
+        }
       } else {
-        const next = sec.nextElementSibling;
-        if (next) parent.insertBefore(next, sec);
+        let next = sec.nextElementSibling;
+        while (next && (next.classList.contains('is-hidden') || next.classList.contains('no-print'))) {
+          next = next.nextElementSibling;
+        }
+        if (next) {
+          parent.insertBefore(next, sec);
+          showToast('Módulo desplazado hacia abajo ▼');
+        } else if (parent.id === 'quickModulesContainer' && parent.parentNode) {
+          const frame = parent.parentNode;
+          let frameNext = parent.nextElementSibling;
+          while (frameNext && (frameNext.classList.contains('is-hidden') || frameNext.classList.contains('no-print') || frameNext.tagName === 'HR')) {
+            frameNext = frameNext.nextElementSibling;
+          }
+          if (frameNext && !frameNext.classList.contains('page-footer-editorial')) {
+            frame.insertBefore(frameNext, parent);
+            showToast('Sección de módulos desplazada hacia abajo ▼');
+          }
+        }
       }
+      scheduleLiveA4Fit();
       autoSave();
     }
 
@@ -5962,33 +6018,99 @@
       });
     }
 
+    function normalizeSectionRules(container) {
+      if (!container) return;
+      // Limpiar líneas HR duplicadas o sueltas al principio/final y reconstruir un separador limpio entre secciones consecutivas
+      const existingHrs = Array.from(container.querySelectorAll(':scope > hr.rule-line'));
+      const anyHidden = existingHrs.length > 0 && existingHrs.every(h => h.classList.contains('is-hidden'));
+      existingHrs.forEach(h => h.remove());
+
+      const blocks = Array.from(container.querySelectorAll(':scope > .proposal-section-block'));
+      blocks.forEach((b, idx) => {
+        if (idx < blocks.length - 1) {
+          const hr = document.createElement('hr');
+          hr.className = 'rule-line' + (anyHidden ? ' is-hidden' : '');
+          hr.style.margin = '2mm 0';
+          container.insertBefore(hr, b.nextSibling);
+        }
+      });
+      upgradeDOMControls();
+    }
+
     function moveSectionUp(btn) {
       const block = btn.closest('.proposal-section-block');
-      if (!block) return;
+      if (!block || !block.parentNode) return;
+      const parent = block.parentNode;
 
-      const prev = block.previousElementSibling;
+      let prev = block.previousElementSibling;
+      while (prev && !prev.classList.contains('proposal-section-block')) {
+        prev = prev.previousElementSibling;
+      }
+
       if (prev && prev.classList.contains('proposal-section-block')) {
-        block.parentNode.insertBefore(block, prev);
-      } else if (block.parentNode && block.parentNode.id === 'page2Sections') {
+        parent.insertBefore(block, prev);
+        normalizeSectionRules(parent);
+        showToast('Sección desplazada hacia arriba ▲');
+      } else if (parent.id === 'page2Sections') {
         const p1 = document.getElementById('page1Sections');
-        if (p1) p1.appendChild(block);
+        if (p1) {
+          p1.appendChild(block);
+          normalizeSectionRules(parent);
+          normalizeSectionRules(p1);
+          showToast('Sección trasladada a la Página 1 ▲');
+        }
+      } else if (parent.id === 'page1Sections' && parent.parentNode) {
+        // Si es la primera sección de la Página 1 y el usuario sigue subiéndola, permitir intercambiar #page1Sections con el bloque superior del frame
+        const frame = parent.parentNode;
+        let framePrev = parent.previousElementSibling;
+        while (framePrev && (framePrev.tagName === 'HR' || framePrev.classList.contains('is-hidden') || framePrev.classList.contains('no-print'))) {
+          framePrev = framePrev.previousElementSibling;
+        }
+        if (framePrev) {
+          frame.insertBefore(parent, framePrev);
+          showToast('Secciones desplazadas hacia arriba ▲');
+        }
       }
       renumberAllSections();
+      scheduleLiveA4Fit();
       autoSave();
     }
 
     function moveSectionDown(btn) {
       const block = btn.closest('.proposal-section-block');
-      if (!block) return;
+      if (!block || !block.parentNode) return;
+      const parent = block.parentNode;
 
-      const next = block.nextElementSibling;
+      let next = block.nextElementSibling;
+      while (next && !next.classList.contains('proposal-section-block')) {
+        next = next.nextElementSibling;
+      }
+
       if (next && next.classList.contains('proposal-section-block')) {
-        block.parentNode.insertBefore(next, block);
-      } else if (block.parentNode && block.parentNode.id === 'page1Sections') {
+        parent.insertBefore(next, block);
+        normalizeSectionRules(parent);
+        showToast('Sección desplazada hacia abajo ▼');
+      } else if (parent.id === 'page1Sections') {
         const p2 = document.getElementById('page2Sections');
-        if (p2) p2.insertBefore(block, p2.firstChild);
+        if (p2) {
+          p2.insertBefore(block, p2.firstChild);
+          normalizeSectionRules(parent);
+          normalizeSectionRules(p2);
+          showToast('Sección trasladada a la Página 2 ▼');
+        }
+      } else if (parent.id === 'page2Sections' && parent.parentNode) {
+        const frame = parent.parentNode;
+        let frameNext = parent.nextElementSibling;
+        while (frameNext && (frameNext.tagName === 'HR' || frameNext.classList.contains('is-hidden') || frameNext.classList.contains('no-print'))) {
+          frameNext = frameNext.nextElementSibling;
+        }
+        if (frameNext && !frameNext.classList.contains('page-footer-editorial')) {
+          frame.insertBefore(frameNext, parent);
+          showToast('Secciones desplazadas hacia abajo ▼');
+        }
       }
       renumberAllSections();
+      scheduleLiveA4Fit();
       autoSave();
     }
 
@@ -6829,11 +6951,81 @@
       activeEditableEl.style.removeProperty('font-weight');
       activeEditableEl.style.removeProperty('font-style');
       activeEditableEl.style.removeProperty('color');
+      activeEditableEl.style.removeProperty('transform');
       delete activeEditableEl.dataset.customAccent;
+      delete activeEditableEl.dataset.nudgeY;
       updateTextPopoverPosition(activeEditableEl);
       scheduleLiveA4Fit();
       autoSave();
-      showToast('Estilo original de texto restaurado');
+      showToast('Estilo y posición original restaurados');
+    }
+
+    // Desplazamiento vertical fino (↑ / ↓) para cualquier texto editable activo
+    function nudgeActiveEditable(deltaPx) {
+      if (!activeEditableEl) return;
+      let curr = parseFloat(activeEditableEl.dataset.nudgeY || '0');
+      if (isNaN(curr)) curr = 0;
+      let next = Math.round(Math.max(-80, Math.min(80, curr + deltaPx)));
+      if (Math.abs(next) < 1) {
+        activeEditableEl.style.removeProperty('transform');
+        delete activeEditableEl.dataset.nudgeY;
+        showToast('Posición vertical: 0px (original)');
+      } else {
+        activeEditableEl.dataset.nudgeY = String(next);
+        // Asegurar que elementos inline puedan recibir translateY sin alterar su flujo de línea
+        const disp = window.getComputedStyle(activeEditableEl).display;
+        if (disp === 'inline') {
+          activeEditableEl.style.display = 'inline-block';
+        }
+        activeEditableEl.style.transform = `translateY(${next}px)`;
+        showToast(`Desplazamiento vertical: ${next > 0 ? '+' : ''}${next}px`);
+      }
+      updateTextPopoverPosition(activeEditableEl);
+      scheduleLiveA4Fit();
+      autoSave();
+    }
+
+    // Subir o bajar el bloque contenedor desde el popover flotante de texto (▲ / ▼)
+    function moveActiveEditableParentBlock(direction) {
+      if (!activeEditableEl) return;
+      const item = activeEditableEl.closest(REORDERABLE_SELECTORS);
+      if (item) {
+        moveGenericItem(item, direction);
+        setTimeout(() => updateTextPopoverPosition(activeEditableEl), 30);
+        return;
+      }
+      const quickSec = activeEditableEl.closest('.quick-module-section');
+      if (quickSec) {
+        moveQuickModuleSection(quickSec, direction);
+        setTimeout(() => updateTextPopoverPosition(activeEditableEl), 30);
+        return;
+      }
+      const propSec = activeEditableEl.closest('.proposal-section-block');
+      if (propSec) {
+        if (direction === 'up') moveSectionUp(propSec);
+        else moveSectionDown(propSec);
+        setTimeout(() => updateTextPopoverPosition(activeEditableEl), 30);
+      }
+    }
+
+    // Desplazamiento vertical fino (↑ / ↓) para cualquier bloque, tarjeta, columna o sección
+    function nudgeBlockElement(btn, deltaPx) {
+      const target = btn.closest('.proposal-section-block, .quick-module-section, .quick-conditions-section, .option-column, ' + REORDERABLE_SELECTORS);
+      if (!target) return;
+      let curr = parseFloat(target.dataset.nudgeY || '0');
+      if (isNaN(curr)) curr = 0;
+      let next = Math.round(Math.max(-90, Math.min(90, curr + deltaPx)));
+      if (Math.abs(next) < 1) {
+        target.style.removeProperty('transform');
+        delete target.dataset.nudgeY;
+        showToast('Posición vertical del bloque: 0px (original)');
+      } else {
+        target.dataset.nudgeY = String(next);
+        target.style.transform = `translateY(${next}px)`;
+        showToast(`Posición vertical del bloque: ${next > 0 ? '+' : ''}${next}px`);
+      }
+      scheduleLiveA4Fit();
+      autoSave();
     }
 
     // Escalado individual de cualquier bloque, tarjeta, columna o sección (🔍− / 🔍+)
@@ -6983,7 +7175,7 @@
     // ═══════════════════════════════════════════════════════════════
     // MOTOR FLUIDO DE REORDENAMIENTO, DUPLICACIÓN, DRAG & DROP Y CAJAS ELIMINABLES
     // ═══════════════════════════════════════════════════════════════
-    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .quick-exclusions-bar, .scope-clause-warning, .subtotal-row, .deliverables-box, .title-block, .header-top, .grand-total-section, .signature-grid, .quick-signature-grid, .footer-portfolio-row';
+    const REORDERABLE_SELECTORS = '.item-entry, .jornada-card, .deliverable-line, .condition-block, .quick-condition-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-addon-item, .quick-payment-item, .quick-meta-item, .meta-item, .meta-box-grid, .quick-meta-grid, .body-content, .project-summary-block, .quick-summary-block, .quick-exclusions-bar, .scope-clause-warning, .subtotal-row, .deliverables-box, .title-block, .header-top, .grand-total-section, .signature-grid, .quick-signature-grid, .footer-portfolio-row';
     const BOX_COLLAPSE_SELECTORS = '.jornada-card, .quick-deliverable-card, .quick-crew-card, .quick-timeline-step, .quick-exclusions-bar, .quick-payment-item, .quick-meta-item, .meta-item, .project-summary-block, .quick-summary-block, .condition-block, .quick-condition-card, .deliverable-line, .scope-clause-warning';
     let draggedElement = null;
 
@@ -7018,19 +7210,57 @@
       });
     }
 
-    function moveGenericItem(btn, direction) {
-      const item = btn.closest(REORDERABLE_SELECTORS);
+    function moveGenericItem(btnOrEl, direction) {
+      const item = (btnOrEl && btnOrEl.matches && btnOrEl.matches(REORDERABLE_SELECTORS))
+        ? btnOrEl
+        : (btnOrEl && btnOrEl.closest ? btnOrEl.closest(REORDERABLE_SELECTORS) : null);
       if (!item || !item.parentNode) return;
       const parent = item.parentNode;
 
       if (direction === 'up') {
-        const prev = item.previousElementSibling;
-        if (prev) parent.insertBefore(item, prev);
+        let prev = item.previousElementSibling;
+        // Saltar elementos ocultos, barras no-print y líneas divisorias <hr> para que el desplazamiento visual sea inmediato en 1 clic
+        while (prev && (prev.classList.contains('is-hidden') || prev.classList.contains('no-print') || prev.tagName === 'HR')) {
+          prev = prev.previousElementSibling;
+        }
+        if (prev) {
+          parent.insertBefore(item, prev);
+          showToast('Elemento desplazado hacia arriba ▲');
+        } else if (parent.classList.contains('editorial-frame')) {
+          // Si está al inicio de la Página 2 de Analipsis, permitir subirlo al final de la Página 1 (antes del pie de página)
+          const page = parent.closest('.a4-page');
+          if (page && page.id === 'analipsis-page-2') {
+            const p1Frame = document.querySelector('#analipsis-page-1 .editorial-frame');
+            const p1Footer = p1Frame ? p1Frame.querySelector('.page-footer-editorial') : null;
+            if (p1Frame) {
+              p1Frame.insertBefore(item, p1Footer || null);
+              showToast('Bloque trasladado a la Página 1 ▲');
+            }
+          }
+        }
       } else {
-        const next = item.nextElementSibling;
-        if (next) parent.insertBefore(next, item);
+        let next = item.nextElementSibling;
+        while (next && (next.classList.contains('is-hidden') || next.classList.contains('no-print') || next.tagName === 'HR')) {
+          next = next.nextElementSibling;
+        }
+        if (next && !next.classList.contains('page-footer-editorial')) {
+          parent.insertBefore(next, item);
+          showToast('Elemento desplazado hacia abajo ▼');
+        } else if (parent.classList.contains('editorial-frame')) {
+          // Si está al final de la Página 1 de Analipsis, permitir bajarlo al comienzo de la Página 2
+          const page = parent.closest('.a4-page');
+          if (page && page.id === 'analipsis-page-1') {
+            const p2Frame = document.querySelector('#analipsis-page-2 .editorial-frame');
+            if (p2Frame) {
+              const firstContent = p2Frame.querySelector('.page-sections-container') || p2Frame.firstElementChild;
+              p2Frame.insertBefore(item, firstContent);
+              showToast('Bloque trasladado a la Página 2 ▼');
+            }
+          }
+        }
       }
       recalcAfterItemChange(parent);
+      scheduleLiveA4Fit();
       autoSave();
     }
 
@@ -7121,7 +7351,7 @@
 
     function upgradeDOMControls() {
       ensureQuickModulesExist();
-      // 1. Inyectar barra de herramientas fluida (.item-tools) con controles de escala (A- / A+) en cada ítem, tarjeta y bloque
+      // 1. Inyectar barra de herramientas fluida (.item-tools) con controles de escala (− / +), desplazamiento fino (↑ / ↓) y orden (▲ / ▼) en cada ítem, tarjeta y bloque
       const items = document.querySelectorAll(REORDERABLE_SELECTORS);
       items.forEach(el => {
         el.classList.add('has-fluid-tools');
@@ -7134,32 +7364,58 @@
             <span class="drag-handle" title="Arrastrar para reordenar">⠿</span>
             <button type="button" class="btn-sec-tool" onclick="scaleBlockElement(this, -0.06)" title="Achicar este bloque / tarjeta (-6%)">−</button>
             <button type="button" class="btn-sec-tool" onclick="scaleBlockElement(this, 0.06)" title="Agrandar este bloque / tarjeta (+6%)">+</button>
-            <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'up')" title="Subir">▲</button>
-            <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'down')" title="Bajar">▼</button>
+            <button type="button" class="btn-sec-tool" onclick="nudgeBlockElement(this, -4)" title="Desplazar visualmente hacia arriba (-4px)">↑</button>
+            <button type="button" class="btn-sec-tool" onclick="nudgeBlockElement(this, 4)" title="Desplazar visualmente hacia abajo (+4px)">↓</button>
+            <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'up')" title="Subir orden (intercambiar arriba)">▲</button>
+            <button type="button" class="btn-sec-tool" onclick="moveGenericItem(this, 'down')" title="Bajar orden (intercambiar abajo)">▼</button>
             <button type="button" class="btn-sec-tool" onclick="duplicateGenericItem(this)" title="Duplicar">⧉</button>
             <button type="button" class="btn-sec-tool btn-sec-del" onclick="deleteGenericItem(this)" title="Eliminar">✕</button>
           `;
           el.appendChild(tools);
-        } else if (!tools.querySelector('[onclick*="scaleBlockElement"]')) {
-          const minusBtn = document.createElement('button');
-          minusBtn.type = 'button';
-          minusBtn.className = 'btn-sec-tool';
-          minusBtn.title = 'Achicar este bloque / tarjeta (-6%)';
-          minusBtn.textContent = '−';
-          minusBtn.setAttribute('onclick', 'scaleBlockElement(this, -0.06)');
-          const plusBtn = document.createElement('button');
-          plusBtn.type = 'button';
-          plusBtn.className = 'btn-sec-tool';
-          plusBtn.title = 'Agrandar este bloque / tarjeta (+6%)';
-          plusBtn.textContent = '+';
-          plusBtn.setAttribute('onclick', 'scaleBlockElement(this, 0.06)');
-          const upBtn = tools.querySelector('[onclick*="moveGenericItem"]');
-          if (upBtn) {
-            tools.insertBefore(minusBtn, upBtn);
-            tools.insertBefore(plusBtn, upBtn);
-          } else {
-            tools.appendChild(minusBtn);
-            tools.appendChild(plusBtn);
+        } else {
+          if (!tools.querySelector('[onclick*="scaleBlockElement"]')) {
+            const minusBtn = document.createElement('button');
+            minusBtn.type = 'button';
+            minusBtn.className = 'btn-sec-tool';
+            minusBtn.title = 'Achicar este bloque / tarjeta (-6%)';
+            minusBtn.textContent = '−';
+            minusBtn.setAttribute('onclick', 'scaleBlockElement(this, -0.06)');
+            const plusBtn = document.createElement('button');
+            plusBtn.type = 'button';
+            plusBtn.className = 'btn-sec-tool';
+            plusBtn.title = 'Agrandar este bloque / tarjeta (+6%)';
+            plusBtn.textContent = '+';
+            plusBtn.setAttribute('onclick', 'scaleBlockElement(this, 0.06)');
+            const upBtn = tools.querySelector('[onclick*="moveGenericItem"]');
+            if (upBtn) {
+              tools.insertBefore(minusBtn, upBtn);
+              tools.insertBefore(plusBtn, upBtn);
+            } else {
+              tools.appendChild(minusBtn);
+              tools.appendChild(plusBtn);
+            }
+          }
+          if (!tools.querySelector('[onclick*="nudgeBlockElement"]')) {
+            const nUpBtn = document.createElement('button');
+            nUpBtn.type = 'button';
+            nUpBtn.className = 'btn-sec-tool';
+            nUpBtn.title = 'Desplazar visualmente hacia arriba (-4px)';
+            nUpBtn.textContent = '↑';
+            nUpBtn.setAttribute('onclick', 'nudgeBlockElement(this, -4)');
+            const nDownBtn = document.createElement('button');
+            nDownBtn.type = 'button';
+            nDownBtn.className = 'btn-sec-tool';
+            nDownBtn.title = 'Desplazar visualmente hacia abajo (+4px)';
+            nDownBtn.textContent = '↓';
+            nDownBtn.setAttribute('onclick', 'nudgeBlockElement(this, 4)');
+            const upBtn = tools.querySelector('[onclick*="moveGenericItem"]');
+            if (upBtn) {
+              tools.insertBefore(nUpBtn, upBtn);
+              tools.insertBefore(nDownBtn, upBtn);
+            } else {
+              tools.appendChild(nUpBtn);
+              tools.appendChild(nDownBtn);
+            }
           }
         }
 
@@ -7222,7 +7478,7 @@
         }
       });
 
-      // 2. Asegurar botones de escalar (− / +) y duplicar en encabezados de secciones de 2 páginas
+      // 2. Asegurar botones de escalar (− / +), desplazar fino (↑ / ↓) y duplicar en encabezados de secciones de 2 páginas
       document.querySelectorAll('#doc-analipsis .section-reorder-tools').forEach(toolBar => {
         if (!toolBar.querySelector('[onclick*="scaleBlockElement"]')) {
           const minusBtn = document.createElement('button');
@@ -7240,6 +7496,28 @@
           toolBar.insertBefore(plusBtn, toolBar.firstChild);
           toolBar.insertBefore(minusBtn, toolBar.firstChild);
         }
+        if (!toolBar.querySelector('[onclick*="nudgeBlockElement"]')) {
+          const nUpBtn = document.createElement('button');
+          nUpBtn.type = 'button';
+          nUpBtn.className = 'btn-sec-tool';
+          nUpBtn.title = 'Desplazar sección hacia arriba (-4px)';
+          nUpBtn.textContent = '↑';
+          nUpBtn.setAttribute('onclick', 'nudgeBlockElement(this, -4)');
+          const nDownBtn = document.createElement('button');
+          nDownBtn.type = 'button';
+          nDownBtn.className = 'btn-sec-tool';
+          nDownBtn.title = 'Desplazar sección hacia abajo (+4px)';
+          nDownBtn.textContent = '↓';
+          nDownBtn.setAttribute('onclick', 'nudgeBlockElement(this, 4)');
+          const upBtn = toolBar.querySelector('[onclick*="moveSectionUp"]');
+          if (upBtn) {
+            toolBar.insertBefore(nUpBtn, upBtn);
+            toolBar.insertBefore(nDownBtn, upBtn);
+          } else {
+            toolBar.appendChild(nUpBtn);
+            toolBar.appendChild(nDownBtn);
+          }
+        }
         if (!toolBar.querySelector('[onclick*="duplicateSectionBlock"]')) {
           const dupBtn = document.createElement('button');
           dupBtn.type = 'button';
@@ -7256,7 +7534,7 @@
         }
       });
 
-      // 3. Asegurar botones de escalar (− / +), duplicar y referencias dinámicas en columnas y módulos de Presupuesto Rápido
+      // 3. Asegurar botones de escalar (− / +), desplazar fino (↑ / ↓), duplicar y referencias dinámicas en columnas y módulos de Presupuesto Rápido
       document.querySelectorAll('#doc-quick .option-column').forEach(col => {
         const addBtn = col.querySelector('.add-item-trigger');
         if (addBtn) {
@@ -7279,6 +7557,28 @@
             plusBtn.setAttribute('onclick', 'scaleBlockElement(this, 0.06)');
             toolBar.insertBefore(plusBtn, toolBar.firstChild);
             toolBar.insertBefore(minusBtn, toolBar.firstChild);
+          }
+          if (!toolBar.querySelector('[onclick*="nudgeBlockElement"]')) {
+            const nUpBtn = document.createElement('button');
+            nUpBtn.type = 'button';
+            nUpBtn.className = 'btn-sec-tool';
+            nUpBtn.title = 'Desplazar columna hacia arriba (-4px)';
+            nUpBtn.textContent = '↑';
+            nUpBtn.setAttribute('onclick', 'nudgeBlockElement(this, -4)');
+            const nDownBtn = document.createElement('button');
+            nDownBtn.type = 'button';
+            nDownBtn.className = 'btn-sec-tool';
+            nDownBtn.title = 'Desplazar columna hacia abajo (+4px)';
+            nDownBtn.textContent = '↓';
+            nDownBtn.setAttribute('onclick', 'nudgeBlockElement(this, 4)');
+            const leftBtn = toolBar.querySelector('[onclick*="moveColumnLeft"]');
+            if (leftBtn) {
+              toolBar.insertBefore(nUpBtn, leftBtn);
+              toolBar.insertBefore(nDownBtn, leftBtn);
+            } else {
+              toolBar.appendChild(nUpBtn);
+              toolBar.appendChild(nDownBtn);
+            }
           }
           if (!toolBar.querySelector('[onclick*="duplicateQuickColumn"]')) {
             const dupBtn = document.createElement('button');
@@ -7318,6 +7618,28 @@
           } else {
             secBar.appendChild(minusBtn);
             secBar.appendChild(plusBtn);
+          }
+        }
+        if (!secBar.querySelector('[onclick*="nudgeBlockElement"]')) {
+          const nUpBtn = document.createElement('button');
+          nUpBtn.type = 'button';
+          nUpBtn.className = 'btn-sec-tool';
+          nUpBtn.title = 'Desplazar este módulo hacia arriba (-4px)';
+          nUpBtn.textContent = '↑';
+          nUpBtn.setAttribute('onclick', 'nudgeBlockElement(this, -4)');
+          const nDownBtn = document.createElement('button');
+          nDownBtn.type = 'button';
+          nDownBtn.className = 'btn-sec-tool';
+          nDownBtn.title = 'Desplazar este módulo hacia abajo (+4px)';
+          nDownBtn.textContent = '↓';
+          nDownBtn.setAttribute('onclick', 'nudgeBlockElement(this, 4)');
+          const upBtn = secBar.querySelector('[onclick*="moveQuickModuleSection"]');
+          if (upBtn) {
+            secBar.insertBefore(nUpBtn, upBtn);
+            secBar.insertBefore(nDownBtn, upBtn);
+          } else {
+            secBar.appendChild(nUpBtn);
+            secBar.appendChild(nDownBtn);
           }
         }
       });
@@ -8060,7 +8382,7 @@
       }
     });
 
-    // Atajos de teclado (Ctrl + P para PDF, Ctrl + S para abrir Presets)
+    // Atajos de teclado (Ctrl + P para PDF, Ctrl + S para abrir Presets, Alt + ↑/↓ para desplazar elementos, Alt + Shift + ↑/↓ para reordenar bloques)
     window.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p') {
         e.preventDefault();
@@ -8068,6 +8390,14 @@
       } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') {
         e.preventDefault();
         openPresetsModal();
+      } else if (e.altKey && (e.key === 'ArrowUp' || e.key === 'ArrowDown') && activeEditableEl) {
+        e.preventDefault();
+        const isUp = e.key === 'ArrowUp';
+        if (e.shiftKey) {
+          moveActiveEditableParentBlock(isUp ? 'up' : 'down');
+        } else {
+          nudgeActiveEditable(isUp ? -3 : 3);
+        }
       }
     });
 
